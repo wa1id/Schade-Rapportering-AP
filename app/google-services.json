@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "22702391687",
+    "firebase_url": "https://schade-rapportering-ap.firebaseio.com",
+    "project_id": "schade-rapportering-ap",
+    "storage_bucket": "schade-rapportering-ap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22702391687:android:de38c481087a8172",
+        "android_client_info": {
+          "package_name": "ap.edu.schademeldingap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22702391687-lujq3ir4cf4o4vp9sverjb08fshfe4ik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ap.edu.schademeldingap",
+            "certificate_hash": "8998b69b9301fb5aa4163aed3c2f3bc6c9cc158b"
+          }
+        },
+        {
+          "client_id": "22702391687-21n4vhl2parhs6ogl98q905a07c0ecjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAap5NgdONsW4xgmNT-rxEEQnW-iE8Njr4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22702391687-21n4vhl2parhs6ogl98q905a07c0ecjd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
