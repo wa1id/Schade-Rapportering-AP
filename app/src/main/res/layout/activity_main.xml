@@ -55,8 +55,8 @@
 
     <Button
         android:id="@+id/buttonNietGeregistreerd"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="205dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editWachtwoord"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.935" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -88,7 +88,7 @@
 
     <Button
         android:id="@+id/buttonWachtwoordVergeten"
-        android:layout_width="wrap_content"
+        android:layout_width="205dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -99,6 +99,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editWachtwoord"
-        app:layout_constraintVertical_bias="0.545" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonAanmelden"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Aanmelden"
+        app:layout_constraintBottom_toTopOf="@+id/buttonWachtwoordVergeten"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editWachtwoord" />
 
 </android.support.constraint.ConstraintLayout>
