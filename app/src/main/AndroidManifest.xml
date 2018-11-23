@@ -19,8 +19,11 @@
         <activity
             android:name=".RegistreerActivity"
             android:exported="true" />
-        <activity android:name=".NieuweMeldingActivity" android:exported="true"></activity>
-        <activity android:name=".WachtwoordVergetenActivity"></activity>
+        <activity
+            android:name=".NieuweMeldingActivity"
+            android:exported="true" />
+        <activity android:name=".WachtwoordVergetenActivity" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>
