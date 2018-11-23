@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Schade Melding AP</string>
+    <string name="registreer">Registreer</string>
+    <string name="email">Email</string>
+    <string name="password">Wachtwoord</string>
+    <string name="passwordRepeat">Wachtwoord herhalen</string>
+    <string name="Name">Naam</string>
+    <string name="checkReparateur">Ik ben reparateur</string>
 </resources>
