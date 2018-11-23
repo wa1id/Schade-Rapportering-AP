@@ -2,8 +2,23 @@
     <string name="app_name">Schade Melding AP</string>
     <string name="registreer">Registreer</string>
     <string name="email">Email</string>
-    <string name="password">Wachtwoord</string>
-    <string name="passwordRepeat">Wachtwoord herhalen</string>
-    <string name="Name">Naam</string>
+    <string name="wachtwoord">Wachtwoord</string>
+    <string name="naam">Naam</string>
     <string name="checkReparateur">Ik ben reparateur</string>
+    <string name="schadeMelden">Schade melden</string>
+    <string name="lokaalPlaats">Lokaal/Plaats:</string>
+    <string name="categorie">Categorie:</string>
+    <string name="beschrijving">Beschrijving schade:</string>
+    <string name="beschrijf_hier_de_schade">Beschrijf hier de schade</string>
+    <string-array name="categorien">
+        <item>Deur</item>
+        <item>Verlichting</item>
+        <item>Raam</item>
+        <item>Stopcontact</item>
+        <item>Verwarming</item>
+        <item>Verluchting</item>
+        <item>Meubilair</item>
+        <item>Sanitair</item>
+        <item>Andere</item>
+    </string-array>
 </resources>
