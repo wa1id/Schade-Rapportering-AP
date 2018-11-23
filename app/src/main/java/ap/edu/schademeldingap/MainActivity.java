@@ -24,16 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        sendData = findViewById(R.id.sendData);
-
-        sendData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myRef.setValue("Hello world");
-                
-
-            }
-        });
 
     }
 }
