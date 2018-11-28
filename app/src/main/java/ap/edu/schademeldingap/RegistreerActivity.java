@@ -138,7 +138,6 @@ public class RegistreerActivity extends AppCompatActivity {
                             break;
 
                     }
-                    updateUI(null);
                 }
                 progressBar.setVisibility(View.INVISIBLE);
             }
@@ -173,9 +172,5 @@ public class RegistreerActivity extends AppCompatActivity {
         }
 
         return valid;
-    }
-
-    private void updateUI(FirebaseUser user) { //todo: wordt opgeroepen wanneer er user doorverwezen moet worden naar de juiste activity na inloggen (home)
-        progressBar.setVisibility(View.INVISIBLE);
     }
 }
