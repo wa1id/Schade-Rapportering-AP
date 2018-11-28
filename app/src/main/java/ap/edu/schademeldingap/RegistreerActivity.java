@@ -1,7 +1,11 @@
 package ap.edu.schademeldingap;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -81,45 +85,59 @@ public class RegistreerActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                        Log.d(TAG, "createUserWithEmail:success");
+                    Log.d(TAG, "createUserWithEmail:success");
 
-                        FirebaseUser user  = mAuth.getCurrentUser();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                        //Extra user informatie die opgeslagen moet worden
-                        DatabaseReference myRefUser = myRef.child(user.getUid());
-                        myRefUser.child("naam").setValue(editName.getText().toString());
-                        myRefUser.child("reparateur").setValue(checkReparateur.isChecked());
+                    //Extra user informatie die opgeslagen moet worden
+                    DatabaseReference myRefUser = myRef.child(user.getUid());
+                    myRefUser.child("naam").setValue(editName.getText().toString());
+                    myRefUser.child("reparateur").setValue(checkReparateur.isChecked());
 
-                        updateUI(user);
+                    //Popup geslaagd tonen en naar andere activity gaan
+                    AlertDialog.Builder builder;
+
+                    builder = new AlertDialog.Builder(RegistreerActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+
+                    builder.setTitle("Geslaagd!")
+                                .setMessage("Uw account werd succesvol gecreëerd. U kan nu inloggen.")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(RegistreerActivity.this, MainActivity.class));
+                                    finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .show();
                 } else {
 
-                        String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                    String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
 
-                        switch (errorCode) {
-                            case "ERROR_INVALID_EMAIL":
-                                Toast.makeText(RegistreerActivity.this, "The email address is badly formatted.", Toast.LENGTH_LONG).show();
-                                editEmail.setError(getString(R.string.error_invalid_email));
-                                editEmail.requestFocus();
-                                break;
+                    switch (errorCode) {
+                        case "ERROR_INVALID_EMAIL":
+                            Toast.makeText(RegistreerActivity.this, "The email address is badly formatted.", Toast.LENGTH_LONG).show();
+                            editEmail.setError(getString(R.string.error_invalid_email));
+                            editEmail.requestFocus();
+                            break;
 
-                            case "ERROR_WRONG_PASSWORD":
-                                Toast.makeText(RegistreerActivity.this, "The password is invalid or the user does not have a password.", Toast.LENGTH_LONG).show();
-                                editPassword.setError("Wachtwoord ongeldig.");
-                                editPassword.requestFocus();
-                                editPassword.setText("");
-                                break;
+                        case "ERROR_WRONG_PASSWORD":
+                            Toast.makeText(RegistreerActivity.this, "The password is invalid or the user does not have a password.", Toast.LENGTH_LONG).show();
+                            editPassword.setError("Wachtwoord ongeldig.");
+                            editPassword.requestFocus();
+                            editPassword.setText("");
+                            break;
 
-                            case "ERROR_EMAIL_ALREADY_IN_USE":
-                                editEmail.setError(getString(R.string.error_user_exists));
-                                editEmail.requestFocus();
-                                break;
+                        case "ERROR_EMAIL_ALREADY_IN_USE":
+                            editEmail.setError(getString(R.string.error_user_exists));
+                            editEmail.requestFocus();
+                            break;
 
-                            case "ERROR_WEAK_PASSWORD":
-                                editPassword.setError(getString(R.string.error_weak_password));
-                                editPassword.requestFocus();
-                                break;
+                        case "ERROR_WEAK_PASSWORD":
+                            editPassword.setError(getString(R.string.error_weak_password));
+                            editPassword.requestFocus();
+                            break;
 
-                        }
+                    }
                     updateUI(null);
                 }
                 progressBar.setVisibility(View.INVISIBLE);
