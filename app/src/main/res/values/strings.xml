@@ -21,6 +21,7 @@
         <item>Sanitair</item>
         <item>Andere</item>
     </string-array>
+
     <string-array name="verdieping">
         <item>-1</item>
         <item>0</item>
@@ -230,4 +231,9 @@
         <item>04.T01</item>
         <item>04.T02</item>
     </string-array>
+
+    <string name="error_weak_password">Moet minimaal 6 tekens bevatten.</string>
+    <string name="error_invalid_email">Email is ongeldig.</string>
+    <string name="error_user_exists">Email is al in gebruik.</string>
+
 </resources>
