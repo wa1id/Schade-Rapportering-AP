@@ -1,9 +1,7 @@
 package ap.edu.schademeldingap;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -93,7 +88,7 @@ public class RegistreerActivity extends AppCompatActivity {
                     builder = new AlertDialog.Builder(RegistreerActivity.this, android.R.style.Theme_Material_Dialog_Alert);
 
                     builder.setTitle("Geslaagd!")
-                                .setMessage("Uw account werd succesvol gecreëerd. U kan nu inloggen.")
+                            .setMessage("Uw account werd succesvol gecreëerd. U kan nu inloggen.")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     startActivity(new Intent(RegistreerActivity.this, MainActivity.class));
