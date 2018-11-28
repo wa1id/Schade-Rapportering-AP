@@ -3,6 +3,7 @@ package ap.edu.schademeldingap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,7 +31,7 @@ public class RegistreerActivity extends AppCompatActivity {
     private static final String TAG = "registratie";
 
     private Button buttonRegistreer;
-    private EditText editUsername;
+    private EditText editEmail;
     private EditText editPassword;
     private EditText editName;
     private CheckBox checkReparateur;
@@ -39,7 +44,7 @@ public class RegistreerActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         buttonRegistreer = findViewById(R.id.buttonRegister);
-        editUsername = findViewById(R.id.editEmail);
+        editEmail = findViewById(R.id.editEmail);
         editPassword = findViewById(R.id.editPassword);
         editName = findViewById(R.id.editName);
         checkReparateur = findViewById(R.id.checkReparateur);
@@ -47,7 +52,7 @@ public class RegistreerActivity extends AppCompatActivity {
         buttonRegistreer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(editUsername.getText().toString(), editPassword.getText().toString());
+                createAccount(editEmail.getText().toString(), editPassword.getText().toString());
             }
         });
     }
@@ -61,7 +66,7 @@ public class RegistreerActivity extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
-        if (!validateForm()) { //todo: form valideren, bv. email is required
+        if (!validateForm()) {
             return;
         }
 
@@ -69,19 +74,45 @@ public class RegistreerActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Log.d(TAG, "createUserWithEmail:success");
+                        Log.d(TAG, "createUserWithEmail:success");
 
-                    FirebaseUser user  = mAuth.getCurrentUser();
+                        FirebaseUser user  = mAuth.getCurrentUser();
 
-                    //Extra user informatie die opgeslagen moet worden
-                    DatabaseReference myRefUser = myRef.child(user.getUid());
-                    myRefUser.child("naam").setValue(editName.getText().toString());
-                    myRefUser.child("reparateur").setValue(checkReparateur.isChecked());
+                        //Extra user informatie die opgeslagen moet worden
+                        DatabaseReference myRefUser = myRef.child(user.getUid());
+                        myRefUser.child("naam").setValue(editName.getText().toString());
+                        myRefUser.child("reparateur").setValue(checkReparateur.isChecked());
 
-                    updateUI(user);
+                        updateUI(user);
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(RegistreerActivity.this, "Registratie mislukt", Toast.LENGTH_SHORT).show();
+
+                        String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+
+                        switch (errorCode) {
+                            case "ERROR_INVALID_EMAIL":
+                                Toast.makeText(RegistreerActivity.this, "The email address is badly formatted.", Toast.LENGTH_LONG).show();
+                                editEmail.setError(getString(R.string.error_invalid_email));
+                                editEmail.requestFocus();
+                                break;
+
+                            case "ERROR_WRONG_PASSWORD":
+                                Toast.makeText(RegistreerActivity.this, "The password is invalid or the user does not have a password.", Toast.LENGTH_LONG).show();
+                                editPassword.setError("Wachtwoord ongeldig.");
+                                editPassword.requestFocus();
+                                editPassword.setText("");
+                                break;
+
+                            case "ERROR_EMAIL_ALREADY_IN_USE":
+                                editEmail.setError(getString(R.string.error_user_exists));
+                                editEmail.requestFocus();
+                                break;
+
+                            case "ERROR_WEAK_PASSWORD":
+                                editPassword.setError(getString(R.string.error_weak_password));
+                                editPassword.requestFocus();
+                                break;
+
+                        }
                     updateUI(null);
                 }
             }
@@ -89,8 +120,33 @@ public class RegistreerActivity extends AppCompatActivity {
     }
 
     private boolean validateForm() {
+        boolean valid = true;
 
-        return true;
+        String email = editEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            editEmail.setError("Verplicht.");
+            valid = false;
+        } else {
+            editEmail.setError(null);
+        }
+
+        String pass = editPassword.getText().toString();
+        if (TextUtils.isEmpty(pass)) {
+            editPassword.setError("Verplicht.");
+            valid = false;
+        } else {
+            editPassword.setError(null);
+        }
+
+        String name = editName.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            editName.setError("Verplicht.");
+            valid = false;
+        } else {
+            editName.setError(null);
+        }
+
+        return valid;
     }
 
     private void updateUI(FirebaseUser user) { //todo: wordt opgeroepen wanneer er user doorverwezen moet worden naar de juiste activity na inloggen (home)
