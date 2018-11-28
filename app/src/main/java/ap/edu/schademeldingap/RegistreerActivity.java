@@ -87,8 +87,8 @@ public class RegistreerActivity extends AppCompatActivity {
 
                     builder = new AlertDialog.Builder(RegistreerActivity.this, android.R.style.Theme_Material_Dialog_Alert);
 
-                    builder.setTitle("Geslaagd!")
-                            .setMessage("Uw account werd succesvol gecreëerd. U kan nu inloggen.")
+                    builder.setTitle(getString(R.string.geslaagd))
+                            .setMessage(getString(R.string.registreer_succes))
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     startActivity(new Intent(RegistreerActivity.this, MainActivity.class));
@@ -103,25 +103,25 @@ public class RegistreerActivity extends AppCompatActivity {
 
                     switch (errorCode) {
                         case "ERROR_INVALID_EMAIL":
-                            Toast.makeText(RegistreerActivity.this, "The email address is badly formatted.", Toast.LENGTH_LONG).show();
-                            editEmail.setError(getString(R.string.error_invalid_email));
+                            Toast.makeText(RegistreerActivity.this, getString(R.string.error_ongeldig_email), Toast.LENGTH_LONG).show();
+                            editEmail.setError(getString(R.string.error_ongeldig_email));
                             editEmail.requestFocus();
                             break;
 
                         case "ERROR_WRONG_PASSWORD":
-                            Toast.makeText(RegistreerActivity.this, "The password is invalid or the user does not have a password.", Toast.LENGTH_LONG).show();
-                            editPassword.setError("Wachtwoord ongeldig.");
+                            Toast.makeText(RegistreerActivity.this, getString(R.string.wachtwoord_ongeldig), Toast.LENGTH_LONG).show();
+                            editPassword.setError(getString(R.string.wachtwoord_ongeldig));
                             editPassword.requestFocus();
                             editPassword.setText("");
                             break;
 
                         case "ERROR_EMAIL_ALREADY_IN_USE":
-                            editEmail.setError(getString(R.string.error_user_exists));
+                            editEmail.setError(getString(R.string.error_email_bestaat));
                             editEmail.requestFocus();
                             break;
 
                         case "ERROR_WEAK_PASSWORD":
-                            editPassword.setError(getString(R.string.error_weak_password));
+                            editPassword.setError(getString(R.string.error_zwak_wachtwoord));
                             editPassword.requestFocus();
                             break;
 
@@ -135,9 +135,10 @@ public class RegistreerActivity extends AppCompatActivity {
     private boolean validateForm() {
         boolean valid = true;
 
+        //checken op lege editText's
         String email = editEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            editEmail.setError("Verplicht.");
+            editEmail.setError(getString(R.string.verplicht));
             valid = false;
         } else {
             editEmail.setError(null);
@@ -145,7 +146,7 @@ public class RegistreerActivity extends AppCompatActivity {
 
         String pass = editPassword.getText().toString();
         if (TextUtils.isEmpty(pass)) {
-            editPassword.setError("Verplicht.");
+            editPassword.setError(getString(R.string.verplicht));
             valid = false;
         } else {
             editPassword.setError(null);
@@ -153,7 +154,7 @@ public class RegistreerActivity extends AppCompatActivity {
 
         String name = editName.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            editName.setError("Verplicht.");
+            editName.setError(getString(R.string.verplicht));
             valid = false;
         } else {
             editName.setError(null);

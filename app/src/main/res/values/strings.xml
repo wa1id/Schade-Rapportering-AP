@@ -4,9 +4,9 @@
     <string name="email">Email</string>
     <string name="wachtwoord">Wachtwoord</string>
     <string name="naam">Naam</string>
-    <string name="checkReparateur">Ik ben reparateur</string>
-    <string name="schadeMelden">Schade melden</string>
-    <string name="lokaalPlaats">Lokaal/Plaats:</string>
+    <string name="check_reparateur">Ik ben reparateur</string>
+    <string name="schade_melden">Schade melden</string>
+    <string name="lokaal_plaats">Lokaal/Plaats:</string>
     <string name="categorie">Categorie:</string>
     <string name="beschrijving">Beschrijving schade:</string>
     <string name="beschrijf_hier_de_schade">Beschrijf hier de schade</string>
@@ -232,8 +232,29 @@
         <item>04.T02</item>
     </string-array>
 
-    <string name="error_weak_password">Moet minimaal 6 tekens bevatten.</string>
-    <string name="error_invalid_email">Email is ongeldig.</string>
-    <string name="error_user_exists">Email is al in gebruik.</string>
+    <string name="error_zwak_wachtwoord">Moet minimaal 6 tekens bevatten.</string>
+    <string name="error_ongeldig_email">Email is ongeldig.</string>
+    <string name="error_email_bestaat">Email is al in gebruik.</string>
+    <string name="wachtwoord_ongeldig">Wachtwoord ongeldig.</string>
+    <string name="geslaagd">Geslaagd!</string>
+    <string name="registreer_succes">Uw account werd succesvol gecreëerd.</string>
+    <string name="login_error">Authenticatie mislukt.</string>
+    <string name="melding_succes">Uw melding is succesvol verzonden.</string>
+    <string name="verplicht">Verplicht.</string>
+    <string name="schade_zoeken">Schade zoeken</string>
+    <string name="uitloggen">Uitloggen</string>
+    <string name="inloggen">Inloggen</string>
+    <string name="niet_geregistreerd">Niet geregistreerd?</string>
+    <string name="wachtwoord_vergeten">Wachtwoord vergeten</string>
+    <string name="foto">foto</string>
+    <string name="aanmelden">Aanmelden</string>
+    <string name="verdieping">Verdieping</string>
+    <string name="beschrijf_schade">Beschrijf hier de schade</string>
+    <string name="foto_uploaden">Foto uploaden</string>
+    <string name="lokaal">Lokaal</string>
+    <string name="vrije_invoer">Vrije invoer</string>
+    <string name="beschrijf_hier_de_locatie">Beschrijf hier de locatie</string>
+    <string name="wachtwoord_herstellen">Wachtwoord Herstellen</string>
+    <string name="sturen">Sturen</string>
 
 </resources>

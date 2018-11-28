@@ -124,8 +124,8 @@ public class NieuweMeldingActivity extends AppCompatActivity {
 
                 builder = new AlertDialog.Builder(NieuweMeldingActivity.this, android.R.style.Theme_Material_Dialog_Alert);
 
-                builder.setTitle("Geslaagd!")
-                        .setMessage("Uw melding werd succesvol gecreëerd.")
+                builder.setTitle(getString(R.string.geslaagd))
+                        .setMessage(getString(R.string.melding_succes))
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivity(new Intent(NieuweMeldingActivity.this, HomeActivity.class));
@@ -145,7 +145,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
 
         String beschrijving = beschrijvingSchade.getText().toString();
         if (TextUtils.isEmpty(beschrijving)) {
-            beschrijvingSchade.setError("Verplicht.");
+            beschrijvingSchade.setError(getString(R.string.verplicht));
             valid = false;
         } else {
             beschrijvingSchade.setError(null);

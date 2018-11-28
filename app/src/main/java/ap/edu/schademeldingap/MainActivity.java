@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authenticatie mislukt.",
+                            Toast.makeText(MainActivity.this, getString(R.string.login_error),
                                     Toast.LENGTH_SHORT).show();
                         }
 
                         if (!task.isSuccessful()) {
-                            Toast.makeText(MainActivity.this, "Authenticatie mislukt.",
+                            Toast.makeText(MainActivity.this, getString(R.string.login_error),
                                     Toast.LENGTH_SHORT).show();
                         }
                         //todo: hide progressBar
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean validateForm() {
+    private boolean validateForm() { //todo: check op empty edittext
         boolean valid = true;
         return valid;
     }
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Controleer of er al een user is ingelogd en verander UI
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null) {
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
             finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
