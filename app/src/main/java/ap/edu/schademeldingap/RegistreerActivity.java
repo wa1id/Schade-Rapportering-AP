@@ -1,5 +1,6 @@
 package ap.edu.schademeldingap;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +37,7 @@ public class RegistreerActivity extends AppCompatActivity {
     private EditText editPassword;
     private EditText editName;
     private CheckBox checkReparateur;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class RegistreerActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         editName = findViewById(R.id.editName);
         checkReparateur = findViewById(R.id.checkReparateur);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         buttonRegistreer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +74,8 @@ public class RegistreerActivity extends AppCompatActivity {
         if (!validateForm()) {
             return;
         }
+
+        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -115,6 +122,7 @@ public class RegistreerActivity extends AppCompatActivity {
                         }
                     updateUI(null);
                 }
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -150,6 +158,6 @@ public class RegistreerActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) { //todo: wordt opgeroepen wanneer er user doorverwezen moet worden naar de juiste activity na inloggen (home)
-
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }
