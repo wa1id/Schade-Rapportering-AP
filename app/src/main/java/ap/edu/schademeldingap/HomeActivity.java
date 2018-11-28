@@ -13,6 +13,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private Button buttonSignOut;
+    private Button buttonSchadeMelden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         buttonSignOut = findViewById(R.id.buttonSignOut);
+        buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
 
         //Tijdelijke sign out knop, moet ergens anders gezet worden
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +32,13 @@ public class HomeActivity extends AppCompatActivity {
                 mAuth.signOut();
                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
                 finish();
+            }
+        });
+
+        buttonSchadeMelden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), NieuweMeldingActivity.class));
             }
         });
     }
