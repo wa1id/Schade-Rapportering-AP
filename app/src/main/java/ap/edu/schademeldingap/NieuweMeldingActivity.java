@@ -19,9 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class NieuweMeldingActivity extends AppCompatActivity {
 
+    //database connectie
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference().child("meldingen");
 
+    //variabelen
     private Button buttonMeldenSchade;
     private EditText vrijeInvoer;
     private EditText beschrijvingSchade;
@@ -31,10 +33,10 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_melding);
 
+        //variabelen linken aan de UI
         buttonMeldenSchade = findViewById(R.id.buttonMeldenSchade);
         vrijeInvoer = findViewById(R.id.editVrijeInvoer);
         beschrijvingSchade = findViewById(R.id.editBeschrijving);
-
         final Spinner spinnerCategorie = findViewById(R.id.spinnerCategorie);
         final Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
         final Spinner spinnerLokaal = findViewById(R.id.spinnerLokaal);
@@ -58,28 +60,37 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         adapterLokaalVerdiep3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterLokaalVerdiep4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-
+        //inhoud tonen van de spinners
         spinnerCategorie.setAdapter(adapterCategorie);
         spinnerVerdieping.setAdapter(adapterVerdieping);
 
+        //condities in verband met de verdieping en de lokaalnummer
         spinnerVerdieping.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                if(selectedItem.equals("-1"))
-                {
-                   spinnerLokaal.setAdapter(adapterLokaalVerdiepMin1);
-                }else if(selectedItem.equals("0")){
-                    spinnerLokaal.setAdapter(adapterLokaalVerdiepGelijkvloer);
-                }else if(selectedItem.equals("1")){
-                    spinnerLokaal.setAdapter(adapterLokaalVerdiep1);
-                }else if(selectedItem.equals("2")){
-                    spinnerLokaal.setAdapter(adapterLokaalVerdiep2);
-                }else if(selectedItem.equals("3")){
-                    spinnerLokaal.setAdapter(adapterLokaalVerdiep3);
-                }else{
-                    spinnerLokaal.setAdapter(adapterLokaalVerdiep4);
+
+                switch (selectedItem){
+                    case "-1":
+                        spinnerLokaal.setAdapter(adapterLokaalVerdiepMin1);
+                        break;
+                    case "0":
+                        spinnerLokaal.setAdapter(adapterLokaalVerdiepGelijkvloer);
+                        break;
+                    case "1":
+                        spinnerLokaal.setAdapter(adapterLokaalVerdiep1);
+                        break;
+                    case "2":
+                        spinnerLokaal.setAdapter(adapterLokaalVerdiep2);
+                        break;
+                    case "3":
+                        spinnerLokaal.setAdapter(adapterLokaalVerdiep3);
+                        break;
+                    case "4":
+                        spinnerLokaal.setAdapter(adapterLokaalVerdiep4);
+                        break;
                 }
+
             }
 
             @Override
