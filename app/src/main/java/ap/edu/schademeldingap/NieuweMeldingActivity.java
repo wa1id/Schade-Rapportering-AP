@@ -3,8 +3,10 @@ package ap.edu.schademeldingap;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +38,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
     private Button buttonFoto;
     private EditText vrijeInvoer;
     private EditText beschrijvingSchade;
+    private ImageView imageThumbnail;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -53,6 +57,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         buttonFoto = findViewById(R.id.buttonFoto);
         vrijeInvoer = findViewById(R.id.editVrijeInvoer);
         beschrijvingSchade = findViewById(R.id.editBeschrijving);
+        imageThumbnail = findViewById(R.id.imageThumbnail);
         final Spinner spinnerCategorie = findViewById(R.id.spinnerCategorie);
         final Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
         final Spinner spinnerLokaal = findViewById(R.id.spinnerLokaal);
@@ -160,6 +165,17 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("cam", "inside onActivityResult()");
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Log.d("cam", "inside requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK");
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageThumbnail.setImageBitmap(imageBitmap);
+        }
+    }
 
     private boolean validateForm() {
         boolean valid = true;

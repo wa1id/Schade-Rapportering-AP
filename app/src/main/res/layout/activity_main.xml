@@ -35,7 +35,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageThumbnail" />
 
     <EditText
         android:id="@+id/editWachtwoord"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonWachtwoordVergeten" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageThumbnail"
         android:layout_width="368dp"
         android:layout_height="184dp"
         android:layout_marginStart="8dp"
