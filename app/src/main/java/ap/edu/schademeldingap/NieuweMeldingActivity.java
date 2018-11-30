@@ -151,8 +151,8 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                 myMelding.child("categorie").setValue(spinnerCategorie.getSelectedItem().toString());
                 myMelding.child("beschrijving schade").setValue(beschrijvingSchade.getText().toString());
                 myMelding.child("gerepareerd").setValue(false);
-                uploadFotoToFirebase(imageThumbnail);
-                myMelding.child("foto").setValue(storageRef.getDownloadUrl());
+                uploadFotoToFirebase(imageThumbnail, myMelding.getKey());
+                //myMelding.child("foto").setValue(storageRef.getDownloadUrl());
 
                 //Popup geslaagd tonen en naar andere activity gaan
                 AlertDialog.Builder builder;
@@ -204,7 +204,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadFotoToFirebase(ImageView image) {
+    private void uploadFotoToFirebase(ImageView image, String name) {
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
@@ -212,7 +212,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = storageRef.child("test").putBytes(data);
+        UploadTask uploadTask = storageRef.child("images/" + name).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
