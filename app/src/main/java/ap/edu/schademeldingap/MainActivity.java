@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonRegistreren;
     private EditText editEmail;
     private EditText editWachtwoord;
+    private ProgressBar progressLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRegistreren = findViewById(R.id.buttonNietGeregistreerd);
         editEmail = findViewById(R.id.editEmail);
         editWachtwoord = findViewById(R.id.editWachtwoord);
+        progressLogin = findViewById(R.id.progressLogin);
 
         buttonAanmelden.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        //todo: show progressDialog
+        showLoginProgress();
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, getString(R.string.login_error),
                                     Toast.LENGTH_SHORT).show();
                         }
-                        //todo: hide progressBar
+                        hideLoginProgress();
                     }
                 });
     }
@@ -91,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
     private boolean validateForm() { //todo: check op empty edittext
         boolean valid = true;
         return valid;
+    }
+
+    private void showLoginProgress() {
+        progressLogin.setVisibility(View.VISIBLE);
+        editEmail.setVisibility(View.INVISIBLE);
+        editWachtwoord.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideLoginProgress() {
+        progressLogin.setVisibility(View.INVISIBLE);
+        editEmail.setVisibility(View.INVISIBLE);
+        editWachtwoord.setVisibility(View.INVISIBLE);
     }
 
     @Override
