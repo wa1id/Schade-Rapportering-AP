@@ -14,16 +14,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class NieuweMeldingActivity extends AppCompatActivity {
 
-    //database connectie
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference().child("meldingen");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference().child("meldingen");
+    private FirebaseAuth mAuth;
 
-    //variabelen
     private Button buttonMeldenSchade;
     private EditText vrijeInvoer;
     private EditText beschrijvingSchade;
@@ -32,6 +32,8 @@ public class NieuweMeldingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_melding);
+
+        mAuth = FirebaseAuth.getInstance();
 
         //variabelen linken aan de UI
         buttonMeldenSchade = findViewById(R.id.buttonMeldenSchade);
@@ -110,14 +112,13 @@ public class NieuweMeldingActivity extends AppCompatActivity {
 
 
                 DatabaseReference myMelding = myRef.push();
-                myMelding.child("campus").setValue("ELL");
+                myMelding.child("user").setValue(mAuth.getCurrentUser().getUid());
                 myMelding.child("lokaal").setValue(spinnerLokaal.getSelectedItem().toString());
                 myMelding.child("lokaal vrij invoer").setValue(vrijeInvoer.getText().toString());
+                myMelding.child("campus").setValue("ELL");
                 myMelding.child("categorie").setValue(spinnerCategorie.getSelectedItem().toString());
                 myMelding.child("beschrijving schade").setValue(beschrijvingSchade.getText().toString());
                 myMelding.child("gerepareerd").setValue(false);
-
-
 
                 //Popup geslaagd tonen en naar andere activity gaan
                 AlertDialog.Builder builder;

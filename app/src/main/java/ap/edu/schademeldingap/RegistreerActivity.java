@@ -27,8 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistreerActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference().child("users");
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference().child("users");
     private static final String TAG = "registratie";
 
     private Button buttonRegistreer;
