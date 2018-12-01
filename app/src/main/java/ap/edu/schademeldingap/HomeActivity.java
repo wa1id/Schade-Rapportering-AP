@@ -14,6 +14,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button buttonSignOut;
     private Button buttonSchadeMelden;
+    private Button buttonSchadeZoeken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
 
         buttonSignOut = findViewById(R.id.buttonSignOut);
         buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
+        buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
 
         //Tijdelijke sign out knop, moet ergens anders gezet worden
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
@@ -40,5 +42,12 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(v.getContext(), NieuweMeldingActivity.class));
             }
         });
+
+       buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(HomeActivity.this, LijstHuidigeSchades.class));
+           }
+       });
     }
 }
