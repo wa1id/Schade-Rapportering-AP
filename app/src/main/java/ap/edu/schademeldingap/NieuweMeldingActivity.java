@@ -1,32 +1,54 @@
 package ap.edu.schademeldingap;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 public class NieuweMeldingActivity extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference().child("meldingen");
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
     private FirebaseAuth mAuth;
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Button buttonMeldenSchade;
+    private Button buttonFoto;
     private EditText vrijeInvoer;
     private EditText beschrijvingSchade;
+    private ImageView imageThumbnail;
+
     private Spinner spinnerCat;
     private Spinner spinnerVerdieping;
     private Spinner spinnerLokaal;
@@ -43,12 +65,19 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_melding);
 
+        //Permissions
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 2);
+        }
+      
         mAuth = FirebaseAuth.getInstance();
 
         //variabelen linken aan de UI
         buttonMeldenSchade = findViewById(R.id.buttonMeldenSchade);
+        buttonFoto = findViewById(R.id.buttonFoto);
         vrijeInvoer = findViewById(R.id.editVrijeInvoer);
         beschrijvingSchade = findViewById(R.id.editBeschrijving);
+        imageThumbnail = findViewById(R.id.imageThumbnail);
         spinnerCat = findViewById(R.id.spinnerCategorie);
         spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
         spinnerLokaal = findViewById(R.id.spinnerLokaal);
@@ -90,6 +119,14 @@ public class NieuweMeldingActivity extends AppCompatActivity {
             }
         });
 
+        //Button listerens
+        buttonFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });
+      
         buttonMeldenSchade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +143,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                 myMelding.child("categorie").setValue(spinnerCat.getSelectedItem().toString());
                 myMelding.child("beschrijving schade").setValue(beschrijvingSchade.getText().toString());
                 myMelding.child("gerepareerd").setValue(false);
+                uploadFotoToFirebase(imageThumbnail, myMelding.getKey());
 
                 //Popup geslaagd tonen en naar andere activity gaan
                 AlertDialog.Builder builder;
@@ -124,8 +162,16 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageThumbnail.setImageBitmap(imageBitmap);
+        }
     }
 
     private void setAdapters() {
@@ -153,7 +199,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         spinnerCat.setAdapter(adapterCategorie);
         spinnerVerdieping.setAdapter(adapterVerdieping);
     }
-
+  
     private boolean validateForm() {
         boolean valid = true;
 
@@ -165,6 +211,36 @@ public class NieuweMeldingActivity extends AppCompatActivity {
             beschrijvingSchade.setError(null);
         }
         return valid;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    private void uploadFotoToFirebase(ImageView image, String name) {
+        image.setDrawingCacheEnabled(true);
+        image.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = storageRef.child("images/" + name).putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e("upload", "Failed to upload image");
+                Toast.makeText(NieuweMeldingActivity.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("upload", "Success upload");
+            }
+        });
     }
 
 }
