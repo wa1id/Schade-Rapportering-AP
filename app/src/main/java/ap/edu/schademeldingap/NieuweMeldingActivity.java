@@ -27,6 +27,16 @@ public class NieuweMeldingActivity extends AppCompatActivity {
     private Button buttonMeldenSchade;
     private EditText vrijeInvoer;
     private EditText beschrijvingSchade;
+    private Spinner spinnerCat;
+    private Spinner spinnerVerdieping;
+    private Spinner spinnerLokaal;
+
+    private ArrayAdapter<CharSequence> adapterLokaalVerdiepMin1;
+    private ArrayAdapter<CharSequence> adapterLokaalVerdiepGelijkvloer;
+    private ArrayAdapter<CharSequence> adapterLokaalVerdiep1;
+    private ArrayAdapter<CharSequence> adapterLokaalVerdiep2;
+    private ArrayAdapter<CharSequence> adapterLokaalVerdiep3;
+    private ArrayAdapter<CharSequence> adapterLokaalVerdiep4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,40 +49,19 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         buttonMeldenSchade = findViewById(R.id.buttonMeldenSchade);
         vrijeInvoer = findViewById(R.id.editVrijeInvoer);
         beschrijvingSchade = findViewById(R.id.editBeschrijving);
-        final Spinner spinnerCategorie = findViewById(R.id.spinnerCategorie);
-        final Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
-        final Spinner spinnerLokaal = findViewById(R.id.spinnerLokaal);
+        spinnerCat = findViewById(R.id.spinnerCategorie);
+        spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
+        spinnerLokaal = findViewById(R.id.spinnerLokaal);
 
-        ArrayAdapter<CharSequence> adapterCategorie = ArrayAdapter.createFromResource(this, R.array.categorien, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> adapterVerdieping = ArrayAdapter.createFromResource(this,R.array.verdieping, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<CharSequence> adapterLokaalVerdiepMin1 = ArrayAdapter.createFromResource(this,R.array.lokaalVerdiepMin1, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<CharSequence> adapterLokaalVerdiepGelijkvloer = ArrayAdapter.createFromResource(this,R.array.lokaalVerdiepGelijkVloer, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<CharSequence> adapterLokaalVerdiep1 = ArrayAdapter.createFromResource(this,R.array.lokaalVerdiep1, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<CharSequence> adapterLokaalVerdiep2 = ArrayAdapter.createFromResource(this,R.array.lokaalVerdiep2, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<CharSequence> adapterLokaalVerdiep3 = ArrayAdapter.createFromResource(this,R.array.lokaalVerdiep3, android.R.layout.simple_spinner_item);
-        final ArrayAdapter<CharSequence> adapterLokaalVerdiep4 = ArrayAdapter.createFromResource(this,R.array.lokaalVerdiep4, android.R.layout.simple_spinner_item);
+        setAdapters();
 
-
-        adapterCategorie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterVerdieping.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLokaalVerdiepMin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLokaalVerdiepGelijkvloer.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLokaalVerdiep1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLokaalVerdiep2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLokaalVerdiep3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterLokaalVerdiep4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        //inhoud tonen van de spinners
-        spinnerCategorie.setAdapter(adapterCategorie);
-        spinnerVerdieping.setAdapter(adapterVerdieping);
-
-        //condities in verband met de verdieping en de lokaalnummer
+        //De juiste lokalen tonen bij desbetreffende verdiepingen
         spinnerVerdieping.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
-                switch (selectedItem){
+                switch (selectedItem) {
                     case "-1":
                         spinnerLokaal.setAdapter(adapterLokaalVerdiepMin1);
                         break;
@@ -101,8 +90,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
             }
         });
 
-
-             buttonMeldenSchade.setOnClickListener(new View.OnClickListener() {
+        buttonMeldenSchade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -110,13 +98,12 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                     return;
                 }
 
-
                 DatabaseReference myMelding = myRef.push();
                 myMelding.child("user").setValue(mAuth.getCurrentUser().getUid());
                 myMelding.child("lokaal").setValue(spinnerLokaal.getSelectedItem().toString());
                 myMelding.child("lokaal vrij invoer").setValue(vrijeInvoer.getText().toString());
                 myMelding.child("campus").setValue("ELL");
-                myMelding.child("categorie").setValue(spinnerCategorie.getSelectedItem().toString());
+                myMelding.child("categorie").setValue(spinnerCat.getSelectedItem().toString());
                 myMelding.child("beschrijving schade").setValue(beschrijvingSchade.getText().toString());
                 myMelding.child("gerepareerd").setValue(false);
 
@@ -135,12 +122,38 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                         })
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .show();
-
             }
         });
 
 
     }
+
+    private void setAdapters() {
+        ArrayAdapter<CharSequence> adapterCategorie = ArrayAdapter.createFromResource(this, R.array.categorien, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapterVerdieping = ArrayAdapter.createFromResource(this, R.array.verdieping, android.R.layout.simple_spinner_item);
+
+        adapterLokaalVerdiepMin1 = ArrayAdapter.createFromResource(this, R.array.lokaalVerdiepMin1, android.R.layout.simple_spinner_item);
+        adapterLokaalVerdiepGelijkvloer = ArrayAdapter.createFromResource(this, R.array.lokaalVerdiepGelijkVloer, android.R.layout.simple_spinner_item);
+        adapterLokaalVerdiep1 = ArrayAdapter.createFromResource(this, R.array.lokaalVerdiep1, android.R.layout.simple_spinner_item);
+        adapterLokaalVerdiep2 = ArrayAdapter.createFromResource(this, R.array.lokaalVerdiep2, android.R.layout.simple_spinner_item);
+        adapterLokaalVerdiep3 = ArrayAdapter.createFromResource(this, R.array.lokaalVerdiep3, android.R.layout.simple_spinner_item);
+        adapterLokaalVerdiep4 = ArrayAdapter.createFromResource(this, R.array.lokaalVerdiep4, android.R.layout.simple_spinner_item);
+
+
+        adapterCategorie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterVerdieping.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterLokaalVerdiepMin1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterLokaalVerdiepGelijkvloer.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterLokaalVerdiep1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterLokaalVerdiep2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterLokaalVerdiep3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterLokaalVerdiep4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //inhoud tonen van de spinners
+        spinnerCat.setAdapter(adapterCategorie);
+        spinnerVerdieping.setAdapter(adapterVerdieping);
+    }
+
     private boolean validateForm() {
         boolean valid = true;
 
