@@ -4,16 +4,13 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,26 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 
 public class NieuweMeldingActivity extends AppCompatActivity {
 
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference().child("meldingen");
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef = storage.getReference();
     private FirebaseAuth mAuth;
+    private Melding melding;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Button buttonMeldenSchade;
@@ -135,15 +119,14 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                     return;
                 }
 
-                DatabaseReference myMelding = myRef.push();
-                myMelding.child("user").setValue(mAuth.getCurrentUser().getUid());
-                myMelding.child("lokaal").setValue(spinnerLokaal.getSelectedItem().toString());
-                myMelding.child("lokaal vrij invoer").setValue(vrijeInvoer.getText().toString());
-                myMelding.child("campus").setValue("ELL");
-                myMelding.child("categorie").setValue(spinnerCat.getSelectedItem().toString());
-                myMelding.child("beschrijving schade").setValue(beschrijvingSchade.getText().toString());
-                myMelding.child("gerepareerd").setValue(false);
-                uploadFotoToFirebase(imageThumbnail, myMelding.getKey());
+                melding = new Melding(mAuth.getCurrentUser().getUid(),
+                                        spinnerLokaal.getSelectedItem().toString(),
+                                        vrijeInvoer.getText().toString(),
+                                        spinnerCat.getSelectedItem().toString(),
+                                        beschrijvingSchade.getText().toString(),
+                                        imageThumbnail);
+
+                melding.nieuweMelding(melding);
 
                 //Popup geslaagd tonen en naar andere activity gaan
                 AlertDialog.Builder builder;
@@ -219,28 +202,4 @@ public class NieuweMeldingActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
-
-    private void uploadFotoToFirebase(ImageView image, String name) {
-        image.setDrawingCacheEnabled(true);
-        image.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = storageRef.child("images/" + name).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e("upload", "Failed to upload image");
-                Toast.makeText(NieuweMeldingActivity.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("upload", "Success upload");
-            }
-        });
-    }
-
 }
