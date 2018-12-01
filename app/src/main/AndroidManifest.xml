@@ -26,6 +26,7 @@
             android:exported="true" />
         <activity android:name=".WachtwoordVergetenActivity" />
         <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".LijstHuidigeSchades"></activity>
     </application>
 
 </manifest>
