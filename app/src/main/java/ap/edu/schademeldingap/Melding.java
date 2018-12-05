@@ -33,6 +33,7 @@ public class Melding {
     private String beschrijvingSchade;
     private Date datum;
     private String modifiedDate;
+    private DatabaseReference meldingId;
     private boolean gerepareerd;
     private ImageView image;
 
@@ -56,20 +57,19 @@ public class Melding {
         this.modifiedDate = new SimpleDateFormat("dd/MM/yyyy").format(datum);
         this.gerepareerd = false;
         this.image = image;
+        this.meldingId = myRef.push();
     }
 
     public void nieuweMelding(Melding m) {
-        DatabaseReference nieuweMelding = myRef.push();
-
-        nieuweMelding.child("user").setValue(m.user);
-        nieuweMelding.child("lokaal").setValue(m.lokaal);
-        nieuweMelding.child("lokaal vrije invoor").setValue(m.vrijeInvoerLokaal);
-        nieuweMelding.child("campus").setValue(campus);
-        nieuweMelding.child("categorie").setValue(categorie);
-        nieuweMelding.child("beschrijving schade").setValue(m.beschrijvingSchade);
-        nieuweMelding.child("datum").setValue(modifiedDate);
-        nieuweMelding.child("gerepareerd").setValue(gerepareerd);
-        uploadFotoToFirebase(m.image, nieuweMelding.getKey());
+        meldingId.child("user").setValue(m.user);
+        meldingId.child("lokaal").setValue(m.lokaal);
+        meldingId.child("lokaal vrije invoor").setValue(m.vrijeInvoerLokaal);
+        meldingId.child("campus").setValue(campus);
+        meldingId.child("categorie").setValue(categorie);
+        meldingId.child("beschrijving schade").setValue(m.beschrijvingSchade);
+        meldingId.child("datum").setValue(modifiedDate);
+        meldingId.child("gerepareerd").setValue(gerepareerd);
+        uploadFotoToFirebase(m.image, meldingId.getKey());
     }
 
     private void uploadFotoToFirebase(ImageView image, String name) {
@@ -108,5 +108,13 @@ public class Melding {
 
     public void setLokaal(String lokaal) {
         this.lokaal = lokaal;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getMeldingId() {
+        return meldingId.getKey();
     }
 }

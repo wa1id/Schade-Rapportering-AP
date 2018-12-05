@@ -1,11 +1,14 @@
 package ap.edu.schademeldingap;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LijstHuidigeSchades extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -24,6 +29,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
     private ListView listView;
     private ArrayList<String> alleMeldingen;
+    private ArrayList<String> alleIds;
     private ArrayAdapter<String> adapter;
     private Melding melding;
 
@@ -35,21 +41,20 @@ public class LijstHuidigeSchades extends AppCompatActivity {
         melding = new Melding();
         listView = findViewById(R.id.listView);
         alleMeldingen = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
+        alleIds = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen); //todo: Data uit map halen ipv arraylist
         listView.setAdapter(adapter);
-
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 melding = dataSnapshot.getValue(Melding.class);
-                alleMeldingen.add(melding.getLokaal() + "---" + melding.getCategorie());
+                alleMeldingen.add(melding.getLokaal() + " --- " + melding.getCategorie());
+                alleIds.add(dataSnapshot.getKey());
 
-                Log.d("lokaalcategorie", "onChildAdded: "+ melding.getLokaal() +"---"+melding.getCategorie());
+                Log.d("lokaalcategorie", "onChildAdded: "+ melding.getLokaal() +" --- "+melding.getCategorie());
                 adapter.notifyDataSetChanged();
-
-
             }
 
             @Override
@@ -73,7 +78,12 @@ public class LijstHuidigeSchades extends AppCompatActivity {
             }
         });
 
-
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailIntent = new Intent(LijstHuidigeSchades.this, DetailActivity.class);
+                Log.d("list", alleIds.get(position));
+            }
+        });
     }
 }
