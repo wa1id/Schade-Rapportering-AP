@@ -262,5 +262,6 @@
     <string name="gerepareerd">Gerepareerd:</string>
     <string name="foto_downloaden_mislukt">Foto downloaden mislukt.</string>
     <string name="data_ophalen_mislukt">Data ophalen mislukt.</string>
+    <string name="foto_laden">Foto laden...</string>
 
 </resources>

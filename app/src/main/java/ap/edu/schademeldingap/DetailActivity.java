@@ -35,7 +35,6 @@ public class DetailActivity extends AppCompatActivity {
     private TextView textBeschrijving;
     private TextView textGerepareerd;
     private ImageView imageView;
-    private ProgressBar mProgressFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class DetailActivity extends AppCompatActivity {
         textBeschrijving = findViewById(R.id.textBeschrijving2);
         textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
-        mProgressFoto = findViewById(R.id.progressFoto);
 
         meldingRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -97,18 +95,23 @@ public class DetailActivity extends AppCompatActivity {
     private void displayImage(final ImageView image) {
         StorageReference imageRef = storageRef.child("images/" + id);
 
+        final ProgressBar progressFoto = findViewById(R.id.progressFoto);
+        final TextView textFotoLaden = findViewById(R.id.textFotoLaden);
+
         final long ONE_MEGABYTE = 1024 * 1024;
         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 image.setImageBitmap(bitmap);
-                mProgressFoto.setVisibility(View.GONE);
+                progressFoto.setVisibility(View.GONE);
+                textFotoLaden.setVisibility(View.GONE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DetailActivity.this, getString(R.string.foto_downloaden_mislukt), Toast.LENGTH_SHORT).show();
+                textFotoLaden.setText(R.string.foto_downloaden_mislukt);
+                progressFoto.setVisibility(View.GONE);
             }
         });
     }
