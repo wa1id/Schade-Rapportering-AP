@@ -122,6 +122,6 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonAanmelden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageSchade" />
 
 </android.support.constraint.ConstraintLayout>
