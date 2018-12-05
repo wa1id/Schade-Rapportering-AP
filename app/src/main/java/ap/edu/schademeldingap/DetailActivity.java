@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
                     textGerepareerd.setText("Gerepareerd: Ja");
                 }
 
-
+                checkEmptyLabels();
             }
 
             @Override
@@ -68,5 +69,18 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     *  Kijkt of er lege labels zijn en verbergd ze in de UI
+     */
+    private void checkEmptyLabels() {
+        if (textLokaalExtra.getText().length() == 0) {
+            textLokaalExtra.setVisibility(View.GONE);
+        }
+
+        if (textBeschrijving.getText().length() == 0) {
+            textBeschrijving.setVisibility(View.GONE);
+        }
     }
 }
