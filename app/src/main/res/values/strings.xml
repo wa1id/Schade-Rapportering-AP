@@ -258,5 +258,7 @@
     <string name="sturen">Sturen</string>
     <string name="welkom">Welkom</string>
     <string name="huidige_schades">Huidige Schades</string>
+    <string name="datum">Datum:</string>
+    <string name="gerepareerd">Gerepareerd:</string>
 
 </resources>
