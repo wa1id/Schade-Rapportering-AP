@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView textBeschrijving;
     private TextView textGerepareerd;
     private ImageView imageView;
+    private ProgressBar mProgressFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         textBeschrijving = findViewById(R.id.textBeschrijving2);
         textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
+        mProgressFoto = findViewById(R.id.progressFoto);
 
         meldingRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -100,6 +103,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onSuccess(byte[] bytes) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 image.setImageBitmap(bitmap);
+                mProgressFoto.setVisibility(View.GONE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
