@@ -50,11 +50,12 @@ public class DetailActivity extends AppCompatActivity {
         meldingRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textLokaal.setText("Lokaal" + dataSnapshot.child("lokaal").getValue().toString());
+                textLokaal.setText("Lokaal: " + dataSnapshot.child("lokaal").getValue().toString());
                 textLokaalExtra.setText(dataSnapshot.child("lokaal vrije invoor").getValue().toString());
-                textCategorie.setText("Categorie" + dataSnapshot.child("categorie").getValue().toString());
-                textDatum.setText("Datum" + dataSnapshot.child("datum").getValue().toString());
+                textCategorie.setText("Categorie: " + dataSnapshot.child("categorie").getValue().toString());
+                textDatum.setText("Datum: " + dataSnapshot.child("datum").getValue().toString());
                 textBeschrijving.setText(dataSnapshot.child("beschrijving schade").getValue().toString());
+
                 if (dataSnapshot.child("gerepareerd").getValue().toString().equals(false)) {
                     textGerepareerd.setText("Gerepareerd: Nee");
                 } else {
