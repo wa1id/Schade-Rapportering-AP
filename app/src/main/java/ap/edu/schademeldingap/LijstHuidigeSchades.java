@@ -76,7 +76,8 @@ public class LijstHuidigeSchades extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailIntent = new Intent(LijstHuidigeSchades.this, DetailActivity.class);
-                Log.d("list", alleIds.get(position));
+                detailIntent.putExtra("id", alleIds.get(position));
+                startActivity(detailIntent);
             }
         });
     }
