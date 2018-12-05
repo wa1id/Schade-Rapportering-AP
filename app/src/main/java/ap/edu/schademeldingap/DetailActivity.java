@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 public class DetailActivity extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference meldingRef = database.getReference().child("meldingen");
+    private DatabaseReference meldingRef = database.getReference().child(getString(R.string.key_meldingen));
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
     private String id;
@@ -53,16 +53,16 @@ public class DetailActivity extends AppCompatActivity {
         meldingRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textLokaal.setText("Lokaal: " + dataSnapshot.child("lokaal").getValue().toString());
-                textLokaalExtra.setText(dataSnapshot.child("lokaal vrije invoor").getValue().toString());
-                textCategorie.setText("Categorie: " + dataSnapshot.child("categorie").getValue().toString());
-                textDatum.setText("Datum: " + dataSnapshot.child("datum").getValue().toString());
-                textBeschrijving.setText(dataSnapshot.child("beschrijving schade").getValue().toString());
+                textLokaal.setText(getString(R.string.lokaal_dubbelpunt) + dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString());
+                textLokaalExtra.setText(dataSnapshot.child(getString(R.string.key_lokaal_vrije_invoer)).getValue().toString());
+                textCategorie.setText(getString(R.string.categorie_dubbelpunt) + dataSnapshot.child(getString(R.string.key_categorie)).getValue().toString());
+                textDatum.setText(getString(R.string.datum_dubbelpunt) + dataSnapshot.child(getString(R.string.key_datum)).getValue().toString());
+                textBeschrijving.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
 
-                if (dataSnapshot.child("gerepareerd").getValue().toString().equals(false)) {
-                    textGerepareerd.setText("Gerepareerd: Nee");
+                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().toString().equals(false)) {
+                    textGerepareerd.setText(getString(R.string.gerepareerd_nee));
                 } else {
-                    textGerepareerd.setText("Gerepareerd: Ja");
+                    textGerepareerd.setText(getString(R.string.gerepareerd_ja));
                 }
 
                 checkEmptyLabels();
