@@ -15,6 +15,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Melding {
 
@@ -29,6 +31,8 @@ public class Melding {
     private String campus;
     private String categorie;
     private String beschrijvingSchade;
+    private Date datum;
+    private String modifiedDate;
     private boolean gerepareerd;
     private ImageView image;
 
@@ -48,6 +52,8 @@ public class Melding {
         this.campus = "ELL";
         this.categorie = categorie;
         this.beschrijvingSchade = beschrijvingSchade;
+        this.datum = new Date();
+        this.modifiedDate = new SimpleDateFormat("dd/MM/yyyy").format(datum);
         this.gerepareerd = false;
         this.image = image;
     }
@@ -61,6 +67,7 @@ public class Melding {
         nieuweMelding.child("campus").setValue(campus);
         nieuweMelding.child("categorie").setValue(categorie);
         nieuweMelding.child("beschrijving schade").setValue(m.beschrijvingSchade);
+        nieuweMelding.child("datum").setValue(modifiedDate);
         nieuweMelding.child("gerepareerd").setValue(gerepareerd);
         uploadFotoToFirebase(m.image, nieuweMelding.getKey());
     }
