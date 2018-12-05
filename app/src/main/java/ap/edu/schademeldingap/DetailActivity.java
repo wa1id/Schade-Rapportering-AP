@@ -1,13 +1,17 @@
 package ap.edu.schademeldingap;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,8 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.HashMap;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -63,17 +65,18 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
                 checkEmptyLabels();
+                displayImage(imageView);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(DetailActivity.this, getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     /**
-     *  Kijkt of er lege labels zijn en verbergd ze in de UI
+     *  Check for empty labels and hide them
      */
     private void checkEmptyLabels() {
         if (textLokaalExtra.getText().length() == 0) {
@@ -83,5 +86,26 @@ public class DetailActivity extends AppCompatActivity {
         if (textBeschrijving.getText().length() == 0) {
             textBeschrijving.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Displays image in imageView
+     */
+    private void displayImage(final ImageView image) {
+        StorageReference imageRef = storageRef.child("images/" + id);
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(DetailActivity.this, getString(R.string.foto_downloaden_mislukt), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

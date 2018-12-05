@@ -260,5 +260,7 @@
     <string name="huidige_schades">Huidige Schades</string>
     <string name="datum">Datum:</string>
     <string name="gerepareerd">Gerepareerd:</string>
+    <string name="foto_downloaden_mislukt">Foto downloaden mislukt.</string>
+    <string name="data_ophalen_mislukt">Data ophalen mislukt.</string>
 
 </resources>
