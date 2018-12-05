@@ -37,8 +37,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lijstschades);
-
-        melding = new Melding();
+        
         listView = findViewById(R.id.listView);
         alleMeldingen = new ArrayList<>();
         alleIds = new ArrayList<>();
@@ -48,9 +47,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                melding = dataSnapshot.getValue(Melding.class);
-                alleMeldingen.add(melding.getLokaal() + " --- " + melding.getCategorie());
+                alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
                 alleIds.add(dataSnapshot.getKey());
 
                 Log.d("lokaalcategorie", "onChildAdded: "+ melding.getLokaal() +" --- "+melding.getCategorie());

@@ -37,15 +37,6 @@ public class Melding {
     private boolean gerepareerd;
     private ImageView image;
 
-    public Melding(){
-
-    }
-
-    public Melding(String lokaal, String categorie) {
-        this.lokaal = lokaal;
-        this.categorie = categorie;
-    }
-
     public Melding(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade, ImageView image) {
         this.user = user;
         this.lokaal = lokaal;
@@ -112,9 +103,5 @@ public class Melding {
 
     public String getUser() {
         return user;
-    }
-
-    public String getMeldingId() {
-        return meldingId.getKey();
     }
 }
