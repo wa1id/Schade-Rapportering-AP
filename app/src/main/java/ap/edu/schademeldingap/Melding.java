@@ -84,24 +84,4 @@ public class Melding {
             }
         });
     }
-
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
-
-    public String getLokaal() {
-        return lokaal;
-    }
-
-    public void setLokaal(String lokaal) {
-        this.lokaal = lokaal;
-    }
-
-    public String getUser() {
-        return user;
-    }
 }

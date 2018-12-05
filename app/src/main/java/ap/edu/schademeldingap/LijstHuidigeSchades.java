@@ -31,17 +31,16 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     private ArrayList<String> alleMeldingen;
     private ArrayList<String> alleIds;
     private ArrayAdapter<String> adapter;
-    private Melding melding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lijstschades);
-        
+
         listView = findViewById(R.id.listView);
         alleMeldingen = new ArrayList<>();
         alleIds = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen); //todo: Data uit map halen ipv arraylist
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
         listView.setAdapter(adapter);
 
         myRef.addChildEventListener(new ChildEventListener() {
@@ -49,8 +48,6 @@ public class LijstHuidigeSchades extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
                 alleIds.add(dataSnapshot.getKey());
-
-                Log.d("lokaalcategorie", "onChildAdded: "+ melding.getLokaal() +" --- "+melding.getCategorie());
                 adapter.notifyDataSetChanged();
             }
 
