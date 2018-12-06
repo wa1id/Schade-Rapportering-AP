@@ -82,7 +82,7 @@ public class RegistreerActivity extends AppCompatActivity {
                     //Popup geslaagd tonen en naar andere activity gaan
                     AlertDialog.Builder builder;
 
-                    builder = new AlertDialog.Builder(RegistreerActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                    builder = new AlertDialog.Builder(RegistreerActivity.this);
 
                     builder.setTitle(getString(R.string.geslaagd))
                             .setMessage(getString(R.string.registreer_succes))

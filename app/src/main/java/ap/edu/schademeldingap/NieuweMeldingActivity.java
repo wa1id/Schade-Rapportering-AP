@@ -131,7 +131,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                 //Popup geslaagd tonen en naar andere activity gaan
                 AlertDialog.Builder builder;
 
-                builder = new AlertDialog.Builder(NieuweMeldingActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                builder = new AlertDialog.Builder(NieuweMeldingActivity.this);
 
                 builder.setTitle(getString(R.string.geslaagd))
                         .setMessage(getString(R.string.melding_succes))
