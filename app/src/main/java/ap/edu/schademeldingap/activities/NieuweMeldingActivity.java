@@ -132,21 +132,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                 meldingController = new MeldingController();
                 meldingController.nieuweMelding(melding, v.getContext());
 
-                //Popup geslaagd tonen en naar andere activity gaan
-                AlertDialog.Builder builder;
-
-                builder = new AlertDialog.Builder(NieuweMeldingActivity.this);
-
-                builder.setTitle(getString(R.string.geslaagd))
-                        .setMessage(getString(R.string.melding_succes))
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                startActivity(new Intent(NieuweMeldingActivity.this, HomeActivity.class));
-                                finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .show();
+                showAlert();
             }
         });
     }
@@ -159,6 +145,23 @@ public class NieuweMeldingActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageThumbnail.setImageBitmap(imageBitmap);
         }
+    }
+
+    private void showAlert() {
+        AlertDialog.Builder builder;
+
+        builder = new AlertDialog.Builder(NieuweMeldingActivity.this);
+
+        builder.setTitle(getString(R.string.geslaagd))
+                .setMessage(getString(R.string.melding_succes))
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(NieuweMeldingActivity.this, HomeActivity.class));
+                        finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
     }
 
     private void setAdapters() {
