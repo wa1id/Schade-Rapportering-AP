@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class LijstHuidigeSchades extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference().child("meldingen");
+    DatabaseReference myRef = database.getReference();
 
     private ListView listView;
     private ArrayList<String> alleMeldingen;
@@ -43,10 +43,10 @@ public class LijstHuidigeSchades extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
         listView.setAdapter(adapter);
 
-        myRef.addChildEventListener(new ChildEventListener() {
+        myRef.child(getString(R.string.key_meldingen)).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
+                alleMeldingen.add(dataSnapshot.child(getString(R.string.key_lokaal)).getValue() + " --- " + dataSnapshot.child(getString(R.string.key_categorie)).getValue());
                 alleIds.add(dataSnapshot.getKey());
                 adapter.notifyDataSetChanged();
             }

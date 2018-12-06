@@ -10,4 +10,6 @@ public class WachtwoordVergetenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wachtwoordvergeten);
     }
+
+    //TODO: implement forgot password logic
 }

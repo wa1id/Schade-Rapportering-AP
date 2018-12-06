@@ -277,5 +277,9 @@
     <string name="foto_dubbelpunt">Foto:</string>
     <string name="key_meldingen">meldingen</string>
     <string name="path_images">images/</string>
+    <string name="kan_naam_niet_ophalen">Kan naam niet ophalen.</string>
+    <string name="key_naam">naam</string>
+    <string name="key_users">users</string>
+    <string name="key_reparateur">reparateur</string>
 
 </resources>

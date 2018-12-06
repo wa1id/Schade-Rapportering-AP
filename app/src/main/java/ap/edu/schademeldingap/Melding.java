@@ -21,7 +21,7 @@ import java.util.Date;
 public class Melding {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference().child("meldingen");
+    private DatabaseReference myRef = database.getReference();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
 
@@ -33,7 +33,6 @@ public class Melding {
     private String beschrijvingSchade;
     private Date datum;
     private String modifiedDate;
-    private DatabaseReference meldingId;
     private boolean gerepareerd;
     private ImageView image;
 
@@ -48,10 +47,12 @@ public class Melding {
         this.modifiedDate = new SimpleDateFormat("dd/MM/yyyy").format(datum);
         this.gerepareerd = false;
         this.image = image;
-        this.meldingId = myRef.push();
     }
 
+    //TODO: This should be in a controller class, not in the model
     public void nieuweMelding(Melding m) {
+        DatabaseReference meldingId = myRef.child("meldingen").push();
+
         meldingId.child("user").setValue(m.user);
         meldingId.child("lokaal").setValue(m.lokaal);
         meldingId.child("lokaal vrije invoor").setValue(m.vrijeInvoerLokaal);
@@ -63,6 +64,7 @@ public class Melding {
         uploadFotoToFirebase(m.image, meldingId.getKey());
     }
 
+    //TODO: This should be in a controller class, not in the model
     private void uploadFotoToFirebase(ImageView image, String name) {
         image.setDrawingCacheEnabled(true);
         image.buildDrawingCache();

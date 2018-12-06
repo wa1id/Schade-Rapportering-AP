@@ -28,8 +28,7 @@ public class RegistreerActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference().child("users");
-    private static final String TAG = "registratie";
+    private DatabaseReference myRef = database.getReference();
 
     private Button buttonRegistreer;
     private EditText editEmail;
@@ -62,7 +61,6 @@ public class RegistreerActivity extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
         }
@@ -73,14 +71,13 @@ public class RegistreerActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Log.d(TAG, "createUserWithEmail:success");
 
                     FirebaseUser user = mAuth.getCurrentUser();
 
                     //Extra user informatie die opgeslagen moet worden
-                    DatabaseReference myRefUser = myRef.child(user.getUid());
-                    myRefUser.child("naam").setValue(editName.getText().toString());
-                    myRefUser.child("reparateur").setValue(checkReparateur.isChecked());
+                    DatabaseReference myRefUser = myRef.child(getString(R.string.key_users)).child(user.getUid());
+                    myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
+                    myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
 
                     //Popup geslaagd tonen en naar andere activity gaan
                     AlertDialog.Builder builder;

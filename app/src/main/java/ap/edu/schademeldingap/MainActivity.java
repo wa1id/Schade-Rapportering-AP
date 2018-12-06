@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private static final String TAG = "Aanmelden";
 
     private Button buttonAanmelden;
     private Button buttonRegistreren;
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
             return;
         }
@@ -72,12 +70,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithEmail:success");
                             startActivity(new Intent(MainActivity.this, HomeActivity.class));
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, getString(R.string.login_error),
                                     Toast.LENGTH_SHORT).show();
                         }
