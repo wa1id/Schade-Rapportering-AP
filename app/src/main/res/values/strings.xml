@@ -274,7 +274,8 @@
     <string name="key_beschrijving_schade">beschrijving schade</string>
     <string name="datum_dubbelpunt">Datum:</string>
     <string name="key_gerepareerd">gerepareerd</string>
-    <string name="key_meldingen">meldingen</string>
     <string name="foto_dubbelpunt">Foto:</string>
+    <string name="key_meldingen">meldingen</string>
+    <string name="path_images">images/</string>
 
 </resources>

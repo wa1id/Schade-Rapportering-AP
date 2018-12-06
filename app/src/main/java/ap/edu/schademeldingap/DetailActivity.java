@@ -24,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 public class DetailActivity extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference meldingRef = database.getReference().child(getString(R.string.key_meldingen));
+    private DatabaseReference meldingRef = database.getReference();
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
     private String id;
@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
 
-        meldingRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        meldingRef.child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textLokaal.setText(getString(R.string.lokaal_dubbelpunt) + dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString());
@@ -59,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
                 textDatum.setText(getString(R.string.datum_dubbelpunt) + dataSnapshot.child(getString(R.string.key_datum)).getValue().toString());
                 textBeschrijving.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
 
-                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().toString().equals(false)) {
+                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
                     textGerepareerd.setText(getString(R.string.gerepareerd_nee));
                 } else {
                     textGerepareerd.setText(getString(R.string.gerepareerd_ja));
@@ -93,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
      * Displays image in imageView
      */
     private void displayImage(final ImageView image) {
-        StorageReference imageRef = storageRef.child("images/" + id);
+        StorageReference imageRef = storageRef.child(getString(R.string.path_images) + id);
 
         final ProgressBar progressFoto = findViewById(R.id.progressFoto);
         final TextView textFotoLaden = findViewById(R.id.textFotoLaden);
