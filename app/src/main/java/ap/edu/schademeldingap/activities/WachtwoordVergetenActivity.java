@@ -1,7 +1,9 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import ap.edu.schademeldingap.R;
 
 public class WachtwoordVergetenActivity extends AppCompatActivity {
 

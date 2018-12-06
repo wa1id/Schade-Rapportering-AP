@@ -1,4 +1,4 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.activities;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import ap.edu.schademeldingap.models.Melding;
+import ap.edu.schademeldingap.R;
 
 public class NieuweMeldingActivity extends AppCompatActivity {
 
@@ -182,7 +185,7 @@ public class NieuweMeldingActivity extends AppCompatActivity {
         spinnerCat.setAdapter(adapterCategorie);
         spinnerVerdieping.setAdapter(adapterVerdieping);
     }
-  
+
     private boolean validateForm() {
         boolean valid = true;
 

@@ -1,4 +1,4 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,9 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class LijstHuidigeSchades extends AppCompatActivity {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+import ap.edu.schademeldingap.R;
+
+public class HuidigeSchadesActivity extends AbstractActivity {
 
     private ListView listView;
     private ArrayList<String> alleMeldingen;
@@ -67,12 +67,12 @@ public class LijstHuidigeSchades extends AppCompatActivity {
                 //unused
             }
         };
-        myRef.child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
+        getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detailIntent = new Intent(LijstHuidigeSchades.this, DetailActivity.class);
+                Intent detailIntent = new Intent(HuidigeSchadesActivity.this, DetailActivity.class);
                 detailIntent.putExtra("id", alleIds.get(position));
                 startActivity(detailIntent);
             }
@@ -81,7 +81,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        myRef.child(getString(R.string.key_meldingen)).removeEventListener(mListener);
+        getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
 
         super.onStop();
     }

@@ -1,4 +1,4 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.models;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

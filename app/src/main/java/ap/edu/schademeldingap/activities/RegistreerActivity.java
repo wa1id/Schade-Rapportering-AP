@@ -1,4 +1,4 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,11 +23,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegistreerActivity extends AppCompatActivity {
+import ap.edu.schademeldingap.R;
+
+public class RegistreerActivity extends AbstractActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference();
 
     private Button buttonRegistreer;
     private EditText editEmail;
@@ -75,7 +74,7 @@ public class RegistreerActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
 
                     //Extra user informatie die opgeslagen moet worden
-                    DatabaseReference myRefUser = myRef.child(getString(R.string.key_users)).child(user.getUid());
+                    DatabaseReference myRefUser = getDbReference().child(getString(R.string.key_users)).child(user.getUid());
                     myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
                     myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
 

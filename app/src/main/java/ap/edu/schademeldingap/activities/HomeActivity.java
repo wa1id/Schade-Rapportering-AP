@@ -1,4 +1,4 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,11 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class HomeActivity extends AppCompatActivity {
+import ap.edu.schademeldingap.R;
+
+public class HomeActivity extends AbstractActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference refUsers;
 
     private Button buttonSignOut;
     private Button buttonSchadeMelden;
@@ -34,7 +34,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         mAuth = FirebaseAuth.getInstance();
-        refUsers = database.getReference().child(getString(R.string.key_users));
 
         buttonSignOut = findViewById(R.id.buttonSignOut);
         buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
@@ -64,14 +63,14 @@ public class HomeActivity extends AppCompatActivity {
        buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(new Intent(HomeActivity.this, LijstHuidigeSchades.class));
+               startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
            }
        });
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
 
-        refUsers.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());
