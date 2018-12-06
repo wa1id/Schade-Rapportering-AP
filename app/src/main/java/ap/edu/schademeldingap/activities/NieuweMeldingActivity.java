@@ -21,13 +21,14 @@ import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.models.Melding;
 import ap.edu.schademeldingap.R;
 
 public class NieuweMeldingActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Melding melding;
+    private MeldingController meldingController;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Button buttonMeldenSchade;
@@ -122,14 +123,14 @@ public class NieuweMeldingActivity extends AppCompatActivity {
                     return;
                 }
 
-                melding = new Melding(mAuth.getCurrentUser().getUid(),
+                Melding melding = new Melding(mAuth.getCurrentUser().getUid(),
                                         spinnerLokaal.getSelectedItem().toString(),
                                         vrijeInvoer.getText().toString(),
                                         spinnerCat.getSelectedItem().toString(),
                                         beschrijvingSchade.getText().toString(),
                                         imageThumbnail);
-
-                melding.nieuweMelding(melding);
+                meldingController = new MeldingController();
+                meldingController.nieuweMelding(melding, v.getContext());
 
                 //Popup geslaagd tonen en naar andere activity gaan
                 AlertDialog.Builder builder;

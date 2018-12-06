@@ -281,5 +281,6 @@
     <string name="key_naam">naam</string>
     <string name="key_users">users</string>
     <string name="key_reparateur">reparateur</string>
+    <string name="key_campus">campus</string>
 
 </resources>
