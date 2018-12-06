@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                finish();
             }
         });
 
