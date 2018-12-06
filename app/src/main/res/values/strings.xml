@@ -239,7 +239,7 @@
     <string name="geslaagd">Geslaagd!</string>
     <string name="registreer_succes">Uw account werd succesvol gecreëerd.</string>
     <string name="login_error">Authenticatie mislukt.</string>
-    <string name="melding_succes">Uw melding is succesvol verzonden.</string>
+    <string name="melding_succes">Uw melding werd succesvol verzonden.</string>
     <string name="verplicht">Verplicht.</string>
     <string name="schade_zoeken">Schade zoeken</string>
     <string name="uitloggen">Uitloggen</string>

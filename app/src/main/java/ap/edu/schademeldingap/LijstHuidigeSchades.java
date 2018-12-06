@@ -3,10 +3,8 @@ package ap.edu.schademeldingap;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,11 +15,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LijstHuidigeSchades extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -31,6 +26,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     private ArrayList<String> alleMeldingen;
     private ArrayList<String> alleIds;
     private ArrayAdapter<String> adapter;
+    private ChildEventListener mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +39,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
         listView.setAdapter(adapter);
 
-        myRef.child(getString(R.string.key_meldingen)).addChildEventListener(new ChildEventListener() {
+        mListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 alleMeldingen.add(dataSnapshot.child(getString(R.string.key_lokaal)).getValue() + " --- " + dataSnapshot.child(getString(R.string.key_categorie)).getValue());
@@ -53,24 +49,25 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //unused
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                //unused
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //unused
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                //unused
             }
-        });
+        };
+        myRef.child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,5 +77,12 @@ public class LijstHuidigeSchades extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        myRef.child(getString(R.string.key_meldingen)).removeEventListener(mListener);
+
+        super.onStop();
     }
 }
