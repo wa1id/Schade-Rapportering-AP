@@ -1,0 +1,142 @@
+Git
+- Update git ignore, you’re almost there, some files are edited just by opening the project in AS
+    - Avoid merge conflicts
+    - Avoid garbage commits, easier to track changes
+- Positive
+    - Descriptive commit messages
+    - Commits are small
+- Always make sure whatever is on Master works, can compile and contains no unfinished work. That’s what branches are for.
+
+
+Testing
+- Should they do this?
+
+
+Project Structure
+- Use folders to keep things structured
+    - Option 1: Activities, Fragments, Adapters, Managers, Models
+    - Option 2: Combine clusters of functionality
+        - MeldingActivity, MeldingAdapter, MeldingViewHolder, Melding
+    - Option 3: Combine previous 2
+    - Option 4:…
+
+
+Naming Conventions
+- Give your classes a name that makes it easy to see what they are and what they do
+    - eg. “VerdiepingActivity” for an Activity that displays a “Verdieping”
+    - eg. “Verdieping” for a model that contains the data a “Verdieping” has
+    - eg. “VerdiepingAdapter” for an adapter
+- Name your layout files based on what they do, not what they contain
+    - eg. “activity_verdieping” for a layout for your “VerdiepingActivity”
+    - eg. “listitem_something” for a list item, don’t use “cv_something” if the listitem is a cardview
+        - If it changes, you’ll have to change the file name as well
+- Find a naming convention and stick to it. Google has a well written one
+    - most things in xml or resources, use underscores
+        - layout files: activity_something
+        - ids, colors and strings: color_ap_red, label_scan_melding, txt_title
+        - drawables: ic_launcher_bg
+    - most common exception are styles
+        - AppTheme
+    - java fields are camelCase
+        - eg: meldingLokaal, imageView, labelScanMelding
+    - When naming stuff, go from generic to specific
+        - eg. a title and subtitle on your “MeldingActivity”: txt_melding_title, txt_melding_subtitle
+            - It’s a TextView that has something to do with your “melding” activity or fragment or something and it’s a title there.
+- Don’t use generic ids.
+    - txtView as id bad, txtTitle is substantially better
+
+
+Hardcoded stuff
+- all texts and colors should go to resource folders
+    - Makes it easy to reuse on multiple places
+    - Easy to find and update
+    - Easy to compare
+- Use constants instead of hardcoded strings
+    - Prevent copy/paste or spelling mistakes
+    - Auto code completion can be used
+    - Never think about the name of a variable
+    - Easy to change later
+        - bad: .putExtra(“campus”, btn.getText())
+        - better: .putExtra(CampusActivity.CAMPUS, btn.getText())
+- Use styles for views that look exactly the same. All buttons should probably look the same. Same goes for titles.
+    - a button that has a certain fontSize, color, width,…
+        - Define this in a style, apply it to all buttons that should look and act the same.
+
+
+Layout
+- If every view in a layout contains marginLeft and marginRight, maybe move that margin higher up the view
+- Nearly every layout file starts with a ConstraintLayout, almost as if the visual tool was used exclusively
+
+
+Design
+- Landscape, either support it or disable it
+- Does it work on different devices? Small and large screens?
+- All cases/flows handled?
+    - Crashes
+    - Unhandled Cases
+    - Works without internet?
+    - What happens when there is no data to display?
+    - Loading states?
+- Easy to use?
+- Permissions, when to ask?
+    - Before going to a screen that relies on that permission
+
+
+Project Archtitecture
+- Prevent copied code
+    - If the same code appears at multiple places, try to find a way to put it in 1 place and reuse it.
+        - eg. runtime permissions
+        - eg. starting a specific Activity with data
+        - eg. FirebaseDatabase.getInstance()
+- Divide logic, views and models
+    - Object Oriented Design
+    - MVVM or MVP patterns specifically
+    - Class has a single purpose
+        - Model contains data about itself
+            - A model should never contain the database layer
+            - A model should never contain a View -> easy memory leaks
+            - A model should contain as little logic as possible
+        - Activity controls views and lifecycle
+
+
+Class Architecture
+- Don’t make everything a class variable, some things could be a local variable or not even a variable at all
+- Prevent long methods, don’t put everything in onCreate()
+    - Methods of 3 lines are nothing uncommon
+- Empty methods, probably overridden or not implemented yet.
+    - Add a comment why they are empty. Which could be as simple as //unused
+    - Add a //TODO so it’s easy to see they’re missing logic
+- Variables/methods that are only used in a certain class should be private.
+    - public only when necessary
+- Don’t load all your data/resources/variables in onCreate()
+    - Some are only used after clicking on a specific button or selecting an item in an adapter. They hog up memory and some low end devices can’t handle much.
+- Put logic together that belongs together
+    - Maybe add comment between methods
+    - Add whitelines inside method
+
+
+Android Specifics
+- Avoid ListView, use RecyclerView instead
+- Runtime permissions have a very specific flow
+    - Accepted -> nice
+    - Not accepted
+        - Deny/Allow first time
+        - Permanently deny possible from second time on
+    - Permanently denied
+        - Show popup explaining why needed and option to go to settings
+
+
+General Improvements
+- use English, code is in English, classes are in English, libraries are in English
+- Butterknife or DataBinding, look into it if you want
+
+
+Specific Stuff
+- Passing Views around causes memory leaks
+- Don’t let every model have an instance of your database
+- addEventListener, but are they ever removed?
+- LijstHuidigeSchades contains a field “melding”.
+    - It’s created in onCreate but never used anywhere
+    - it’s reassigned a value in onChildAdded and added to a List after which it’s never used again
+- NieuweMeldingenActivity, all adapters and their data are created in onCreate(), this is serious overkill that might use a lot of memory
+- AlertDialog with an old style
