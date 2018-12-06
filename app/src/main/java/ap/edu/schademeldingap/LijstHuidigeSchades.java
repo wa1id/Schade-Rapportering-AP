@@ -2,12 +2,20 @@ package ap.edu.schademeldingap;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +32,11 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
     private ListView listView;
     private ArrayList<String> alleMeldingen;
+    private ArrayList<String> alleIds;
     private ArrayAdapter<String> adapter;
     private Melding melding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +49,33 @@ public class LijstHuidigeSchades extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
         listView.setAdapter(adapter);
 
+        EditText theFilter = findViewById(R.id.searchFilter);
+
+        theFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (LijstHuidigeSchades.this).adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                melding = dataSnapshot.getValue(Melding.class);
-                alleMeldingen.add(melding.getLokaal() + "---" + melding.getCategorie());
-
-                Log.d("lokaalcategorie", "onChildAdded: "+ melding.getLokaal() +"---"+melding.getCategorie());
+                alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
+                alleIds.add(dataSnapshot.getKey());
                 adapter.notifyDataSetChanged();
 
 
@@ -76,4 +105,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
 
     }
+
+
+
 }
