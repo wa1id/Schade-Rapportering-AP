@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -35,8 +37,11 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     private ListView listView;
     private ArrayList<String> alleMeldingen;
     private ArrayList<String> alleIds;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapterAlleMeldingen;
+
     private Spinner spinnerCat;
+
+
 
 
 
@@ -49,15 +54,13 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
         alleIds = new ArrayList<>();
         alleMeldingen = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
-        listView.setAdapter(adapter);
+        adapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
+        listView.setAdapter(adapterAlleMeldingen);
         EditText theFilter = findViewById(R.id.searchFilter);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        ArrayAdapter<CharSequence> adapterCategorie = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
-        adapterCategorie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCat.setAdapter(adapterCategorie);
+
 
 
 
@@ -70,7 +73,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (LijstHuidigeSchades.this).adapter.getFilter().filter(s);
+                (LijstHuidigeSchades.this).adapterAlleMeldingen.getFilter().filter(s);
             }
 
             @Override
@@ -87,7 +90,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
 
                 alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
                 alleIds.add(dataSnapshot.getKey());
-                adapter.notifyDataSetChanged();
+                adapterAlleMeldingen.notifyDataSetChanged();
 
 
             }
