@@ -17,12 +17,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
-import ap.edu.schademeldingap.interfaces.MeldingInterface;
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.models.Melding;
 
-public class MeldingController implements MeldingInterface {
-    @Override
+public class MeldingController {
+
     public void nieuweMelding(Melding m, Context c) { //need context to use getString()
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child(c.getString(R.string.key_meldingen)).push();
@@ -38,7 +37,6 @@ public class MeldingController implements MeldingInterface {
         uploadFotoToFirebase(m.getImage(), ref.getKey(), c);
     }
 
-    @Override
     public void uploadFotoToFirebase(ImageView image, String name, Context c) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
