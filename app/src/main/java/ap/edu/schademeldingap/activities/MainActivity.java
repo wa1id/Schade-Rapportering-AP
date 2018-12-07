@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn(String email, String password) {
+
         if (!validateForm()) {
             return;
         }
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, getString(R.string.login_error),
                                     Toast.LENGTH_SHORT).show();
                         }
-                        hideLoginProgress();
                     }
                 });
     }
@@ -108,14 +108,11 @@ public class MainActivity extends AppCompatActivity {
         return valid;
     }
 
+    /**
+     * Show progressbar and hide EditText's while user is signing in
+     */
     private void showLoginProgress() {
         progressLogin.setVisibility(View.VISIBLE);
-        editEmail.setVisibility(View.INVISIBLE);
-        editWachtwoord.setVisibility(View.INVISIBLE);
-    }
-
-    private void hideLoginProgress() {
-        progressLogin.setVisibility(View.INVISIBLE);
         editEmail.setVisibility(View.INVISIBLE);
         editWachtwoord.setVisibility(View.INVISIBLE);
     }

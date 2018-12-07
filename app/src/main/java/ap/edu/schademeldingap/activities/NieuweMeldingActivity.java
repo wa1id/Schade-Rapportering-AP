@@ -193,13 +193,11 @@ public class NieuweMeldingActivity extends AppCompatActivity {
     private boolean validateForm() {
         boolean valid = true;
 
-        String beschrijving = beschrijvingSchade.getText().toString();
-        if (TextUtils.isEmpty(beschrijving)) {
-            beschrijvingSchade.setError(getString(R.string.verplicht));
+        if (imageThumbnail.getDrawable() == null) {
+
             valid = false;
-        } else {
-            beschrijvingSchade.setError(null);
         }
+
         return valid;
     }
 
