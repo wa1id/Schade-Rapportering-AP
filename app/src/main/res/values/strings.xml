@@ -282,5 +282,6 @@
     <string name="key_users">users</string>
     <string name="key_reparateur">reparateur</string>
     <string name="key_campus">campus</string>
+    <string name="wachtwoord_reset_email_verzonden">Wachtwoord reset email verzonden.</string>
 
 </resources>
