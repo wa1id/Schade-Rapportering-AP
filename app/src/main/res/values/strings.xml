@@ -283,5 +283,7 @@
     <string name="key_reparateur">reparateur</string>
     <string name="key_campus">campus</string>
     <string name="wachtwoord_reset_email_verzonden">Wachtwoord reset email verzonden.</string>
+    <string name="fout">Fout</string>
+    <string name="foto_is_verplicht">Foto is verplicht</string>
 
 </resources>
