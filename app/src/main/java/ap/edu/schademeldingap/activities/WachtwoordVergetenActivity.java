@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import ap.edu.schademeldingap.R;
 
-public class WachtwoordVergetenActivity extends AppCompatActivity {
+public class WachtwoordVergetenActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +36,9 @@ public class WachtwoordVergetenActivity extends AppCompatActivity {
                 auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        AlertDialog.Builder builder;
-
-                        builder = new AlertDialog.Builder(WachtwoordVergetenActivity.this);
-
-                        builder.setTitle(getString(R.string.geslaagd))
-                                .setMessage(getString(R.string.wachtwoord_reset_email_verzonden))
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        startActivity(new Intent(WachtwoordVergetenActivity.this, MainActivity.class));
-                                        finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
-                                    }
-                                })
-                                .setIcon(android.R.drawable.ic_dialog_info)
-                                .show();
+                        showDialogInfoToActivity(WachtwoordVergetenActivity.this, MainActivity.class,
+                                getString(R.string.geslaagd),
+                                getString(R.string.wachtwoord_reset_email_verzonden));
                     }
                 });
             }

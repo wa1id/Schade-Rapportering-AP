@@ -78,21 +78,11 @@ public class RegistreerActivity extends AbstractActivity {
                     myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
                     myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
 
-                    //Popup geslaagd tonen en naar andere activity gaan
-                    AlertDialog.Builder builder;
+                    //Show popup after success
+                    showDialogInfoToActivity(RegistreerActivity.this, MainActivity.class,
+                            getString(R.string.geslaagd),
+                            getString(R.string.registreer_succes));
 
-                    builder = new AlertDialog.Builder(RegistreerActivity.this);
-
-                    builder.setTitle(getString(R.string.geslaagd))
-                            .setMessage(getString(R.string.registreer_succes))
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    startActivity(new Intent(RegistreerActivity.this, MainActivity.class));
-                                    finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .show();
                 } else {
 
                     String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
