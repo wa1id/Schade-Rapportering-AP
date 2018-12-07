@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +36,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     private ArrayList<String> alleMeldingen;
     private ArrayList<String> alleIds;
     private ArrayAdapter<String> adapter;
-    private Melding melding;
+    private Spinner spinnerCat;
 
 
 
@@ -42,14 +44,23 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lijstschades);
-
-        melding = new Melding();
+        spinnerCat = findViewById(R.id.spinnerCategory);
         listView = findViewById(R.id.listView);
+
+        alleIds = new ArrayList<>();
         alleMeldingen = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
         listView.setAdapter(adapter);
-
         EditText theFilter = findViewById(R.id.searchFilter);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        ArrayAdapter<CharSequence> adapterCategorie = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
+        adapterCategorie.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCat.setAdapter(adapterCategorie);
+
+
+
 
         theFilter.addTextChangedListener(new TextWatcher() {
             @Override

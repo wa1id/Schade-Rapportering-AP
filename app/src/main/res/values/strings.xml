@@ -21,6 +21,17 @@
         <item>Sanitair</item>
         <item>Andere</item>
     </string-array>
+    <string-array name="categories">
+        <item>Deur</item>
+        <item>Verlichting</item>
+        <item>Raam</item>
+        <item>Stopcontact</item>
+        <item>Verwarming</item>
+        <item>Verluchting</item>
+        <item>Meubilair</item>
+        <item>Sanitair</item>
+        <item>Andere</item>
+    </string-array>
 
     <string-array name="verdieping">
         <item>-1</item>
