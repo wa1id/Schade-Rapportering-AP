@@ -21,12 +21,13 @@
 
     <Spinner
         android:id="@+id/spinnerVerdieping"
-        android:layout_width="90dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
         android:padding="0dp"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toEndOf="@+id/textVerdieping"
@@ -45,11 +46,11 @@
 
     <Spinner
         android:id="@+id/spinnerLokaal"
-        android:layout_width="90dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:padding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textLokaal"
@@ -82,11 +83,11 @@
 
     <EditText
         android:id="@+id/editBeschrijving"
-        android:layout_width="242dp"
-        android:layout_height="36dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/beschrijf_schade"
         android:importantForAutofill="no"
@@ -158,10 +159,10 @@
 
     <EditText
         android:id="@+id/editVrijeInvoer"
-        android:layout_width="232dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/beschrijf_hier_de_locatie"
         android:importantForAutofill="no"
@@ -175,11 +176,11 @@
 
     <Spinner
         android:id="@+id/spinnerCategorie"
-        android:layout_width="90dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
         android:padding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
