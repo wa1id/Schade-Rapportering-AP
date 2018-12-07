@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private Button buttonAanmelden;
-    private Button buttonRegistreren;
     private EditText editEmail;
     private EditText editWachtwoord;
     private ProgressBar progressLogin;
@@ -35,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        buttonAanmelden = findViewById(R.id.buttonAanmelden);
-        buttonRegistreren = findViewById(R.id.buttonNietGeregistreerd);
+        Button buttonAanmelden = findViewById(R.id.buttonAanmelden);
+        Button buttonRegistreren = findViewById(R.id.buttonNietGeregistreerd);
         editEmail = findViewById(R.id.editEmail);
         editWachtwoord = findViewById(R.id.editWachtwoord);
         progressLogin = findViewById(R.id.progressLogin);
@@ -86,8 +85,26 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean validateForm() { //todo: check op empty edittext
+    private boolean validateForm() {
         boolean valid = true;
+
+        //check for empty email
+        String email = editEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            editEmail.setError(getString(R.string.verplicht));
+            valid = false;
+        } else {
+            editEmail.setError(null);
+        }
+
+        //check for empty password
+        String password = editWachtwoord.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            editWachtwoord.setError(getString(R.string.verplicht));
+            valid = false;
+        } else {
+            editWachtwoord.setError(null);
+        }
         return valid;
     }
 

@@ -25,10 +25,10 @@ public class WachtwoordVergetenActivity extends AppCompatActivity {
 
         final FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        final EditText textEmail = findViewById(R.id.editEmailHerstellen);
+        final EditText editEmail = findViewById(R.id.editEmailHerstellen);
         Button buttonReset = findViewById(R.id.buttonWachtwoordHestellen);
 
-        final String email = textEmail.getText().toString();
+        final String email = editEmail.getText().toString();
 
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
