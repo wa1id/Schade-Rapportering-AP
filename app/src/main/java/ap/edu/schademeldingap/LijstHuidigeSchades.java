@@ -3,21 +3,26 @@ package ap.edu.schademeldingap;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+
+import android.view.WindowManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +35,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     private ListView listView;
     private ArrayList<String> alleMeldingen;
     private ArrayList<String> alleIds;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapterAlleMeldingen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +43,43 @@ public class LijstHuidigeSchades extends AppCompatActivity {
         setContentView(R.layout.activity_lijstschades);
 
         listView = findViewById(R.id.listView);
-        alleMeldingen = new ArrayList<>();
+
         alleIds = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
-        listView.setAdapter(adapter);
+        alleMeldingen = new ArrayList<>();
+        adapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
+        listView.setAdapter(adapterAlleMeldingen);
+        EditText theFilter = findViewById(R.id.searchFilter);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
+
+
+
+
+        theFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (LijstHuidigeSchades.this).adapterAlleMeldingen.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
                 alleIds.add(dataSnapshot.getKey());
-                adapter.notifyDataSetChanged();
+                adapterAlleMeldingen.notifyDataSetChanged();
             }
 
             @Override
@@ -81,4 +112,7 @@ public class LijstHuidigeSchades extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

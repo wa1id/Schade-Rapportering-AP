@@ -21,6 +21,17 @@
         <item>Sanitair</item>
         <item>Andere</item>
     </string-array>
+    <string-array name="categories">
+        <item>Deur</item>
+        <item>Verlichting</item>
+        <item>Raam</item>
+        <item>Stopcontact</item>
+        <item>Verwarming</item>
+        <item>Verluchting</item>
+        <item>Meubilair</item>
+        <item>Sanitair</item>
+        <item>Andere</item>
+    </string-array>
 
     <string-array name="verdieping">
         <item>-1</item>
@@ -258,6 +269,7 @@
     <string name="sturen">Sturen</string>
     <string name="welkom">Welkom</string>
     <string name="huidige_schades">Huidige Schades</string>
+    <string name="search">search</string>
     <string name="datum">Datum:</string>
     <string name="gerepareerd">Gerepareerd:</string>
     <string name="foto_downloaden_mislukt">Foto downloaden mislukt.</string>
