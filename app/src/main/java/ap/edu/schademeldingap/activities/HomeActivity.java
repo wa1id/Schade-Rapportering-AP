@@ -45,7 +45,7 @@ public class HomeActivity extends AbstractActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                startActivity(new Intent(HomeActivity.this, MainActivity.class)); //TODO change to v.getcontext
                 finish();
             }
         });
@@ -60,7 +60,7 @@ public class HomeActivity extends AbstractActivity {
        buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
+               startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class)); //TODO change to v.getcontext
            }
        });
     }
