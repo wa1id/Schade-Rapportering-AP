@@ -1,5 +1,6 @@
 package ap.edu.schademeldingap;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -9,6 +10,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import android.view.WindowManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LijstHuidigeSchades extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -31,17 +37,11 @@ public class LijstHuidigeSchades extends AppCompatActivity {
     private ArrayList<String> alleIds;
     private ArrayAdapter<String> adapterAlleMeldingen;
 
-    private Spinner spinnerCat;
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lijstschades);
-        spinnerCat = findViewById(R.id.spinnerCategory);
+
         listView = findViewById(R.id.listView);
 
         alleIds = new ArrayList<>();
@@ -74,17 +74,12 @@ public class LijstHuidigeSchades extends AppCompatActivity {
             }
         });
 
-
-
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 alleMeldingen.add(dataSnapshot.child("lokaal").getValue() + " --- " + dataSnapshot.child("categorie").getValue());
                 alleIds.add(dataSnapshot.getKey());
                 adapterAlleMeldingen.notifyDataSetChanged();
-
-
             }
 
             @Override
@@ -108,8 +103,14 @@ public class LijstHuidigeSchades extends AppCompatActivity {
             }
         });
 
-
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailIntent = new Intent(LijstHuidigeSchades.this, DetailActivity.class);
+                detailIntent.putExtra("id", alleIds.get(position));
+                startActivity(detailIntent);
+            }
+        });
     }
 
 
