@@ -299,5 +299,6 @@
     <string name="foto_is_verplicht">Foto uploaden is verplicht.</string>
     <string name="lokaal_is_verplicht_in_te_vullen">Lokaal is verplicht in te vullen.</string>
     <string name="zoeken">Zoeken</string>
+    <string name="key_user">user</string>
 
 </resources>

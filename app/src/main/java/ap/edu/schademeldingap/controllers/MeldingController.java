@@ -26,7 +26,7 @@ public class MeldingController {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child(c.getString(R.string.key_meldingen)).push();
 
-        ref.child(c.getString(R.string.key_users)).setValue(m.getUser());
+        ref.child(c.getString(R.string.key_user)).setValue(m.getUser());
         ref.child(c.getString(R.string.key_lokaal)).setValue(m.getLokaal());
         ref.child(c.getString(R.string.key_lokaal_vrije_invoer)).setValue(m.getVrijeInvoerLokaal());
         ref.child(c.getString(R.string.key_campus)).setValue(m.getCampus());
