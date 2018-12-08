@@ -55,7 +55,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
         beschrijvingSchade = findViewById(R.id.editBeschrijving);
         imageThumbnail = findViewById(R.id.imageThumbnail);
         spinnerCat = findViewById(R.id.spinnerCategorie);
-        Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
+        final Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
         spinnerLokaal = findViewById(R.id.spinnerLokaal);
 
         //De juiste lokalen tonen bij desbetreffende verdiepingen
@@ -110,6 +110,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
 
                 String name = getIntent().getStringExtra(getString(R.string.key_naam));
                 Melding melding = new Melding(name,
+                                        spinnerVerdieping.getSelectedItem().toString(),
                                         spinnerLokaal.getSelectedItem().toString(),
                                         vrijeInvoer.getText().toString(),
                                         spinnerCat.getSelectedItem().toString(),

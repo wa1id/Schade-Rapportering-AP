@@ -57,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
                 Melding m = dataSnapshot.getValue(Melding.class);
 
                 textUser.setText(m.getName());
-                textLokaal.setText(m.getLokaal());
+                textLokaal.setText(m.getVerdieping() + "." + m.getLokaal());
                 textLokaalExtra.setText(m.getVrijeInvoerLokaal());
                 textCategorie.setText(m.getCategorie());
                 textDatum.setText(m.getDatum());
