@@ -298,5 +298,6 @@
     <string name="fout">Fout</string>
     <string name="foto_is_verplicht">Foto is verplicht</string>
     <string name="lokaal_is_verplicht_in_te_vullen">Lokaal is verplicht in te vullen.</string>
+    <string name="zoeken">Zoeken</string>
 
 </resources>

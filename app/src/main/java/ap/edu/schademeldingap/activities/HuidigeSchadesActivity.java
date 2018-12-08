@@ -29,7 +29,6 @@ public class HuidigeSchadesActivity extends AbstractActivity {
     private ListView listView;
     private ArrayList<String> alleMeldingen;
     private ArrayList<String> alleIds;
-    private ArrayAdapter<String> adapter;
     private ChildEventListener mListener;
     private ArrayAdapter<String> adapterAlleMeldingen;
 
@@ -48,11 +47,6 @@ public class HuidigeSchadesActivity extends AbstractActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-
-
-
-
-
         theFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -61,7 +55,7 @@ public class HuidigeSchadesActivity extends AbstractActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (LijstHuidigeSchades.this).adapterAlleMeldingen.getFilter().filter(s);
+                (HuidigeSchadesActivity.this).adapterAlleMeldingen.getFilter().filter(s);
             }
 
             @Override
