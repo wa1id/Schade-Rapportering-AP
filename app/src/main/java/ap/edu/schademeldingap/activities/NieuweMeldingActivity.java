@@ -60,7 +60,6 @@ public class NieuweMeldingActivity extends AbstractActivity {
         spinnerCat = findViewById(R.id.spinnerCategorie);
         Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
         spinnerLokaal = findViewById(R.id.spinnerLokaal);
-        final TextView textWelkom = findViewById(R.id.textWelkom);
 
         //De juiste lokalen tonen bij desbetreffende verdiepingen
         spinnerVerdieping.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
