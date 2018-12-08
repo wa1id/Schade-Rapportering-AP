@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
 
 public class HomeActivity extends AbstractActivity {
 
@@ -66,8 +67,8 @@ public class HomeActivity extends AbstractActivity {
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
-
-        getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Database db = new Database();
+        db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());

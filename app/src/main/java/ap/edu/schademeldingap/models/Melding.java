@@ -1,7 +1,5 @@
 package ap.edu.schademeldingap.models;
 
-import android.widget.ImageView;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,22 +13,23 @@ public class Melding {
     private Campus campus;
     private String categorie;
     private String beschrijvingSchade;
-    private Date datum;
-    private String modifiedDate;
+    private String datum;
     private boolean gerepareerd;
-    private ImageView image;
 
-    public Melding(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade, ImageView image) {
+    public Melding() {
+        // Default constructor required for calls to DataSnapshot.getValue(Melding.class)
+    }
+
+    public Melding(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade) {
         this.user = user;
         this.lokaal = lokaal;
         this.vrijeInvoerLokaal = vrijeInvoerLokaal;
         this.campus = Campus.ELL;
         this.categorie = categorie;
         this.beschrijvingSchade = beschrijvingSchade;
-        this.datum = new Date();
-        this.modifiedDate = new SimpleDateFormat("dd/MM/yyyy").format(datum);
+        Date date = new Date();
+        this.datum = new SimpleDateFormat("dd/MM/yyyy").format(date);
         this.gerepareerd = false;
-        this.image = image;
     }
 
     public String getUser() {
@@ -45,10 +44,6 @@ public class Melding {
         return vrijeInvoerLokaal;
     }
 
-    public Campus getCampus() {
-        return campus;
-    }
-
     public String getCategorie() {
         return categorie;
     }
@@ -57,15 +52,11 @@ public class Melding {
         return beschrijvingSchade;
     }
 
-    public String getModifiedDate() {
-        return modifiedDate;
+    public String getDatum() {
+        return datum;
     }
 
     public boolean isGerepareerd() {
         return gerepareerd;
-    }
-
-    public ImageView getImage() {
-        return image;
     }
 }

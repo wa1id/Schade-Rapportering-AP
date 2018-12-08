@@ -8,13 +8,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 import android.view.WindowManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
 
 public class HuidigeSchadesActivity extends AbstractActivity {
 
@@ -31,6 +30,7 @@ public class HuidigeSchadesActivity extends AbstractActivity {
     private ArrayList<String> alleIds;
     private ChildEventListener mListener;
     private ArrayAdapter<String> adapterAlleMeldingen;
+    private Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,8 @@ public class HuidigeSchadesActivity extends AbstractActivity {
                 //unused
             }
         };
-        getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
+        db = new Database();
+        db.getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,7 +107,7 @@ public class HuidigeSchadesActivity extends AbstractActivity {
 
     @Override
     protected void onStop() {
-        getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
+        db.getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
 
         super.onStop();
     }
