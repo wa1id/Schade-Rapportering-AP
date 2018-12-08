@@ -68,10 +68,11 @@ public class RegistreerActivity extends AbstractActivity {
 
                     FirebaseUser user = mAuth.getCurrentUser();
 
+                    //todo user class model controller
                     //Extra user informatie die opgeslagen moet worden
-                    DatabaseReference myRefUser = getDbReference().child(getString(R.string.key_users)).child(user.getUid());
-                    myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
-                    myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
+                    //DatabaseReference myRefUser = getDbReference().child(getString(R.string.key_users)).child(user.getUid());
+                    //myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
+                    //myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
 
                     //Show popup after success
                     showDialogInfoToActivity(RegistreerActivity.this, MainActivity.class,
