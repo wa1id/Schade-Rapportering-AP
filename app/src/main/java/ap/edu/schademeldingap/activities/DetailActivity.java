@@ -54,7 +54,7 @@ public class DetailActivity extends AbstractActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Melding m = dataSnapshot.getValue(Melding.class);
 
-                textUser.setText(m.getUser());
+                textUser.setText(m.getName());
                 textLokaal.setText(m.getLokaal());
                 textLokaalExtra.setText(m.getVrijeInvoerLokaal());
                 textCategorie.setText(m.getCategorie());
