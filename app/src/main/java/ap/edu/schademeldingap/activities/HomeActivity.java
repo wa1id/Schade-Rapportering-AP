@@ -23,7 +23,9 @@ public class HomeActivity extends AbstractActivity {
     private Button buttonSignOut;
     private Button buttonSchadeMelden;
     private Button buttonSchadeZoeken;
+    private Button buttonArchive;
     private TextView textWelkom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class HomeActivity extends AbstractActivity {
         buttonSignOut = findViewById(R.id.buttonSignOut);
         buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
         buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
+        buttonArchive = findViewById(R.id.buttonArchive);
         textWelkom = findViewById(R.id.textWelkom);
 
         //Titel van view veranderen naar naam van huidige user
