@@ -19,6 +19,7 @@ import com.google.firebase.storage.StorageReference;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
 
 public class DetailActivity extends AbstractActivity {
@@ -98,7 +99,8 @@ public class DetailActivity extends AbstractActivity {
      * Displays image in imageView
      */
     private void displayImage(final ImageView image) {
-        StorageReference imageRef = getStorageReference().child(getString(R.string.path_images) + id);
+        Storage storage = new Storage();
+        StorageReference imageRef = storage.getStorageReference().child(getString(R.string.path_images) + id);
 
         final ProgressBar progressFoto = findViewById(R.id.progressFoto);
         final TextView textFotoLaden = findViewById(R.id.textFotoLaden);
