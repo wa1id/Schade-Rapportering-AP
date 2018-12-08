@@ -250,7 +250,7 @@
     <string name="geslaagd">Geslaagd!</string>
     <string name="registreer_succes">Uw account werd succesvol gecreëerd.</string>
     <string name="login_error">Authenticatie mislukt.</string>
-    <string name="melding_succes">Uw melding is succesvol verzonden.</string>
+    <string name="melding_succes">Uw melding werd succesvol verzonden.</string>
     <string name="verplicht">Verplicht.</string>
     <string name="schade_zoeken">Schade zoeken</string>
     <string name="uitloggen">Uitloggen</string>
@@ -289,5 +289,14 @@
     <string name="foto_dubbelpunt">Foto:</string>
     <string name="key_meldingen">meldingen</string>
     <string name="path_images">images/</string>
+    <string name="kan_naam_niet_ophalen">Kan naam niet ophalen.</string>
+    <string name="key_naam">naam</string>
+    <string name="key_users">users</string>
+    <string name="key_reparateur">reparateur</string>
+    <string name="key_campus">campus</string>
+    <string name="wachtwoord_reset_email_verzonden">Wachtwoord reset email verzonden.</string>
+    <string name="fout">Fout</string>
+    <string name="foto_is_verplicht">Foto is verplicht</string>
+    <string name="lokaal_is_verplicht_in_te_vullen">Lokaal is verplicht in te vullen.</string>
 
 </resources>

@@ -1,13 +1,8 @@
-package ap.edu.schademeldingap;
+package ap.edu.schademeldingap.activities;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,14 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class RegistreerActivity extends AppCompatActivity {
+import ap.edu.schademeldingap.R;
+
+public class RegistreerActivity extends AbstractActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference().child("users");
-    private static final String TAG = "registratie";
 
     private Button buttonRegistreer;
     private EditText editEmail;
@@ -62,7 +55,6 @@ public class RegistreerActivity extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
         }
@@ -73,30 +65,19 @@ public class RegistreerActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Log.d(TAG, "createUserWithEmail:success");
 
                     FirebaseUser user = mAuth.getCurrentUser();
 
                     //Extra user informatie die opgeslagen moet worden
-                    DatabaseReference myRefUser = myRef.child(user.getUid());
-                    myRefUser.child("naam").setValue(editName.getText().toString());
-                    myRefUser.child("reparateur").setValue(checkReparateur.isChecked());
+                    DatabaseReference myRefUser = getDbReference().child(getString(R.string.key_users)).child(user.getUid());
+                    myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
+                    myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
 
-                    //Popup geslaagd tonen en naar andere activity gaan
-                    AlertDialog.Builder builder;
+                    //Show popup after success
+                    showDialogInfoToActivity(RegistreerActivity.this, MainActivity.class,
+                            getString(R.string.geslaagd),
+                            getString(R.string.registreer_succes));
 
-                    builder = new AlertDialog.Builder(RegistreerActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-
-                    builder.setTitle(getString(R.string.geslaagd))
-                            .setMessage(getString(R.string.registreer_succes))
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    startActivity(new Intent(RegistreerActivity.this, MainActivity.class));
-                                    finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .show();
                 } else {
 
                     String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();

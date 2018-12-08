@@ -11,23 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RegistreerActivity"
-            android:exported="true" />
-        <activity
-            android:name=".NieuweMeldingActivity"
-            android:exported="true" />
-        <activity android:name=".WachtwoordVergetenActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".LijstHuidigeSchades" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".activities.RegistreerActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.NieuweMeldingActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.WachtwoordVergetenActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.HomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.HuidigeSchadesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.DetailActivity" android:screenOrientation="portrait"/>
     </application>
 
 
