@@ -55,7 +55,7 @@ public class HuidigeSchadesActivity extends AbstractActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (HuidigeSchadesActivity.this).adapterAlleMeldingen.getFilter().filter(s);
+                adapterAlleMeldingen.getFilter().filter(s);
             }
 
             @Override
