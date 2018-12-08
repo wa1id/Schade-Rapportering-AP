@@ -28,7 +28,6 @@ import ap.edu.schademeldingap.R;
 
 public class NieuweMeldingActivity extends AbstractActivity {
 
-    private FirebaseAuth mAuth;
     private MeldingController meldingController;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -48,8 +47,6 @@ public class NieuweMeldingActivity extends AbstractActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, 2);
         }
-      
-        mAuth = FirebaseAuth.getInstance();
 
         //variabelen linken aan de UI
         Button buttonMeldenSchade = findViewById(R.id.buttonMeldenSchade);
