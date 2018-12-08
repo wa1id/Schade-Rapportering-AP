@@ -26,7 +26,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textLokaalExtra;
     private TextView textCategorie;
     private TextView textDatum;
-    private TextView textBeschrijving;
+    private TextView textBeschrijving2;
     private TextView textGerepareerd;
     private ImageView imageView;
 
@@ -40,7 +40,7 @@ public class DetailActivity extends AbstractActivity {
         textLokaalExtra = findViewById(R.id.textLokaalExtra);
         textCategorie = findViewById(R.id.textCategorie);
         textDatum = findViewById(R.id.textDatum);
-        textBeschrijving = findViewById(R.id.textBeschrijving2);
+        textBeschrijving2 = findViewById(R.id.textBeschrijving2);
         textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
 
@@ -51,7 +51,7 @@ public class DetailActivity extends AbstractActivity {
                 textLokaalExtra.setText(dataSnapshot.child(getString(R.string.key_lokaal_vrije_invoer)).getValue().toString());
                 textCategorie.setText(getString(R.string.categorie_dubbelpunt) + dataSnapshot.child(getString(R.string.key_categorie)).getValue().toString());
                 textDatum.setText(getString(R.string.datum_dubbelpunt) + dataSnapshot.child(getString(R.string.key_datum)).getValue().toString());
-                textBeschrijving.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
+                textBeschrijving2.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
 
                 if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
                     textGerepareerd.setText(getString(R.string.gerepareerd_nee));
@@ -74,12 +74,15 @@ public class DetailActivity extends AbstractActivity {
      *  Check for empty labels and hide them
      */
     private void checkEmptyLabels() {
+        TextView textBeschrijving = findViewById(R.id.textBeschrijving);
+
         if (textLokaalExtra.getText().length() == 0) {
             textLokaalExtra.setVisibility(View.GONE);
         }
 
-        if (textBeschrijving.getText().length() == 0) {
+        if (textBeschrijving2.getText().length() == 0) {
             textBeschrijving.setVisibility(View.GONE);
+            textBeschrijving2.setVisibility(View.GONE);
         }
     }
 
