@@ -3,6 +3,7 @@ package ap.edu.schademeldingap.activities;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
@@ -40,6 +42,9 @@ public class HomeActivity extends AbstractActivity {
         buttonArchive = findViewById(R.id.buttonArchive);
         textWelkom = findViewById(R.id.textWelkom);
 
+        //tonen of verbergen van de archive button
+        archiveVisibility();
+
         //Titel van view veranderen naar naam van huidige user
         setNaam(mAuth.getCurrentUser(), textWelkom);
 
@@ -66,6 +71,28 @@ public class HomeActivity extends AbstractActivity {
                startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
            }
        });
+
+
+
+
+
+    }
+
+
+    private void archiveVisibility(){
+        getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("reparateur").getValue().equals(true)){
+                    buttonArchive.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
@@ -82,4 +109,7 @@ public class HomeActivity extends AbstractActivity {
             }
         });
     }
+
+
+
 }
