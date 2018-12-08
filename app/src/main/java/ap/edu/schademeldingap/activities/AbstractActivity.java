@@ -13,13 +13,7 @@ import com.google.firebase.storage.StorageReference;
 
 public abstract class AbstractActivity extends AppCompatActivity {
 
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference dbReference = database.getReference();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
-    public DatabaseReference getDbReference() {
-        return dbReference;
-    }
 
     public StorageReference getStorageReference() {
         return storageReference;
