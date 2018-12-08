@@ -3,6 +3,7 @@ package ap.edu.schademeldingap.activities;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,7 +19,7 @@ import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.models.User;
 
-public class HomeActivity extends AbstractActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 

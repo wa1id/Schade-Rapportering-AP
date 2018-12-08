@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,7 +23,7 @@ import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
 
-public class DetailActivity extends AbstractActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private String id;
     private TextView textLokaal;

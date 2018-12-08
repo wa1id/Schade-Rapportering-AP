@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.data.Database;
 
-public class HuidigeSchadesActivity extends AbstractActivity {
+public class HuidigeSchadesActivity extends AppCompatActivity {
 
     private ListView listView;
     private ArrayList<String> alleMeldingen;
