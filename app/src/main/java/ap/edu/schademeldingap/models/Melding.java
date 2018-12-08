@@ -7,7 +7,7 @@ public class Melding {
 
     private enum Campus {ELL, MEISTRAAT, NOORDERPLAATS}
 
-    private String user;
+    private String name;
     private String lokaal;
     private String vrijeInvoerLokaal;
     private Campus campus;
@@ -20,8 +20,8 @@ public class Melding {
         // Default constructor required for calls to DataSnapshot.getValue(Melding.class)
     }
 
-    public Melding(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade) {
-        this.user = user;
+    public Melding(String name, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade) {
+        this.name = name;
         this.lokaal = lokaal;
         this.vrijeInvoerLokaal = vrijeInvoerLokaal;
         this.campus = Campus.ELL;
@@ -32,8 +32,8 @@ public class Melding {
         this.gerepareerd = false;
     }
 
-    public String getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
     public String getLokaal() {

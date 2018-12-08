@@ -6,10 +6,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -17,9 +22,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.activities.HomeActivity;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
+import ap.edu.schademeldingap.models.User;
 
 public class MeldingController {
 
@@ -61,4 +68,6 @@ public class MeldingController {
             }
         });
     }
+
+
 }

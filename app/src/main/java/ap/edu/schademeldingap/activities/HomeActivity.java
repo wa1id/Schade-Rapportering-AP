@@ -61,7 +61,9 @@ public class HomeActivity extends AbstractActivity {
         buttonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, NieuweMeldingActivity.class));
+                Intent homeToMelden = new Intent(HomeActivity.this, NieuweMeldingActivity.class);
+                homeToMelden.putExtra(getString(R.string.key_naam), textWelkom.getText().toString().substring(7));
+                startActivity(homeToMelden);
             }
         });
 

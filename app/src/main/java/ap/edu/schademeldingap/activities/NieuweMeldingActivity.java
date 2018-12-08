@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -59,6 +60,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
         spinnerCat = findViewById(R.id.spinnerCategorie);
         Spinner spinnerVerdieping = findViewById(R.id.spinnerVerdieping);
         spinnerLokaal = findViewById(R.id.spinnerLokaal);
+        final TextView textWelkom = findViewById(R.id.textWelkom);
 
         //De juiste lokalen tonen bij desbetreffende verdiepingen
         spinnerVerdieping.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,7 +112,8 @@ public class NieuweMeldingActivity extends AbstractActivity {
                     return;
                 }
 
-                Melding melding = new Melding(mAuth.getCurrentUser().getUid(),
+                String name = getIntent().getStringExtra(getString(R.string.key_naam));
+                Melding melding = new Melding(name,
                                         spinnerLokaal.getSelectedItem().toString(),
                                         vrijeInvoer.getText().toString(),
                                         spinnerCat.getSelectedItem().toString(),
