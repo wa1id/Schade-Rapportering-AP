@@ -36,7 +36,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lijstschades);
+        setContentView(R.layout.activity_huidigeschades);
 
         listView = findViewById(R.id.listView);
 
@@ -44,11 +44,11 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         alleMeldingen = new ArrayList<>();
         adapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
         listView.setAdapter(adapterAlleMeldingen);
-        EditText theFilter = findViewById(R.id.searchFilter);
+        EditText editSearch = findViewById(R.id.editSearch);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); //makes sure the listview doesnt move when keyboard pops up.
 
-        theFilter.addTextChangedListener(new TextWatcher() {
+        editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
