@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.models.User;
 
 public class HomeActivity extends AbstractActivity {
 
@@ -71,7 +72,8 @@ public class HomeActivity extends AbstractActivity {
         db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());
+                User user = dataSnapshot.getValue(User.class);
+                textView.setText(textView.getText() + " " + user.getName());
             }
 
             @Override

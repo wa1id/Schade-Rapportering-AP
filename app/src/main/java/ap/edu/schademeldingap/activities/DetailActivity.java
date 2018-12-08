@@ -38,6 +38,7 @@ public class DetailActivity extends AbstractActivity {
         setContentView(R.layout.activity_detail);
 
         id = getIntent().getStringExtra("id");
+        final TextView textUser = findViewById(R.id.textUser);
         textLokaal = findViewById(R.id.textLokaal);
         textLokaalExtra = findViewById(R.id.textLokaalExtra);
         textCategorie = findViewById(R.id.textCategorie);
@@ -53,6 +54,7 @@ public class DetailActivity extends AbstractActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Melding m = dataSnapshot.getValue(Melding.class);
 
+                textUser.setText(m.getUser());
                 textLokaal.setText(m.getLokaal());
                 textLokaalExtra.setText(m.getVrijeInvoerLokaal());
                 textCategorie.setText(m.getCategorie());
