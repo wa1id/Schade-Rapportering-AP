@@ -114,10 +114,9 @@ public class NieuweMeldingActivity extends AbstractActivity {
                                         spinnerLokaal.getSelectedItem().toString(),
                                         vrijeInvoer.getText().toString(),
                                         spinnerCat.getSelectedItem().toString(),
-                                        beschrijvingSchade.getText().toString(),
-                                        imageThumbnail);
+                                        beschrijvingSchade.getText().toString());
                 meldingController = new MeldingController();
-                meldingController.nieuweMelding(melding, v.getContext());
+                meldingController.nieuweMelding(melding, imageThumbnail, v.getContext());
 
                 showDialogInfoToActivity(NieuweMeldingActivity.this, HomeActivity.class,
                         getString(R.string.geslaagd),
