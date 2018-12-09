@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -13,24 +14,31 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.controllers.ArchiveController;
+import ap.edu.schademeldingap.controllers.MeldingController;
+import ap.edu.schademeldingap.models.Archive;
+import ap.edu.schademeldingap.models.Melding;
 
 public class DetailActivity extends AbstractActivity {
 
+    private FirebaseAuth mAuth;
     private String id;
     private TextView textLokaal;
     private TextView textLokaalExtra;
     private TextView textCategorie;
     private TextView textDatum;
     private TextView textBeschrijving2;
-    private TextView textGerepareerd;
     private ImageView imageView;
     private Switch switchArchive;
+    private ArchiveController archiveController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +54,54 @@ public class DetailActivity extends AbstractActivity {
         imageView = findViewById(R.id.imageSchade);
         switchArchive = findViewById(R.id.switchArchive);
 
-        switchArchive.setTextOff("nee");
-        switchArchive.setTextOn("Ja");
 
-        final Boolean switchState = switchArchive.isChecked();
+
+
+
+
+
+
+
+        switchArchive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+                boolean check = switchArchive.isChecked();
+
+                if (check){
+                    getDbReference().child(getString(R.string.key_meldingen)).child(id).child(getString(R.string.key_gerepareerd)).setValue(true);
+
+
+
+                    getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String archiveTextLokaal = dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString();
+                            String archiveTextLokaalExtra = dataSnapshot.child(getString(R.string.key_lokaal_vrije_invoer)).getValue().toString();
+                            String archiveTextCategorie = dataSnapshot.child(getString(R.string.key_categorie)).getValue().toString();
+                            String archiveTextBeschrijving2 = dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString();
+
+                            Archive archive = new Archive(id,archiveTextLokaal,archiveTextLokaalExtra, archiveTextCategorie,archiveTextBeschrijving2);
+                            archiveController = new ArchiveController();
+                            archiveController.newArchive(archive,v.getContext());
+                            getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+                }
+
+                }
+
+        });
+
 
 
         getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,15 +113,6 @@ public class DetailActivity extends AbstractActivity {
                 textDatum.setText(getString(R.string.datum_dubbelpunt) + dataSnapshot.child(getString(R.string.key_datum)).getValue().toString());
                 textBeschrijving2.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
 
-               if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
-                   switchArchive.setChecked(false);
-                   if (switchState.equals(true)){
-
-                   }
-                } else {
-                    switchArchive.setChecked(true);
-                }
-
                 checkEmptyLabels();
                 displayImage(imageView);
             }
@@ -80,6 +123,7 @@ public class DetailActivity extends AbstractActivity {
             }
         });
     }
+
 
     /**
      *  Check for empty labels and hide them

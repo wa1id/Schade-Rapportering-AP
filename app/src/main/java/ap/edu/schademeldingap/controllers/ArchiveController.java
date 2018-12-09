@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.models.Archive;
-import ap.edu.schademeldingap.models.Melding;
 
 public class ArchiveController {
     public void newArchive(Archive a, Context c) { //need context to use getString()

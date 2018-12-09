@@ -19,7 +19,7 @@ public class Archive {
     private boolean gerepareerd;
     private ImageView image;
 
-    public Archive(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade, ImageView image){
+    public Archive(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade){
         this.user = user;
         this.lokaal = lokaal;
         this.vrijeInvoerLokaal = vrijeInvoerLokaal;
@@ -28,8 +28,7 @@ public class Archive {
         this.beschrijvingSchade = beschrijvingSchade;
         this.datum = new Date();
         this.modifiedDate = new SimpleDateFormat("dd/MM/yyyy").format(datum);
-        this.gerepareerd = false;
-        this.image = image;
+        this.gerepareerd = true;
     }
 
     public String getUser() {
@@ -64,7 +63,4 @@ public class Archive {
         return gerepareerd;
     }
 
-    public ImageView getImage() {
-        return image;
-    }
 }
