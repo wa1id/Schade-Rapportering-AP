@@ -64,7 +64,7 @@ public class DetailActivity extends AbstractActivity {
                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
                    switchArchive.setChecked(false);
                    if (switchState.equals(true)){
-                        
+
                    }
                 } else {
                     switchArchive.setChecked(true);
