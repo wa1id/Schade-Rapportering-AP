@@ -46,8 +46,10 @@ public class DetailActivity extends AbstractActivity {
         imageView = findViewById(R.id.imageSchade);
         switchArchive = findViewById(R.id.switchArchive);
 
+        switchArchive.setTextOff("nee");
+        switchArchive.setTextOn("Ja");
 
-
+        final Boolean switchState = switchArchive.isChecked();
 
 
         getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,6 +63,9 @@ public class DetailActivity extends AbstractActivity {
 
                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
                    switchArchive.setChecked(false);
+                   if (switchState.equals(true)){
+                        
+                   }
                 } else {
                     switchArchive.setChecked(true);
                 }
