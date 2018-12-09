@@ -302,5 +302,6 @@
     <string name="zoeken">Zoeken</string>
     <string name="key_user">user</string>
     <string name="melder">Melder:</string>
+    <string name="separator">---</string>
 
 </resources>
