@@ -28,47 +28,56 @@ import ap.edu.schademeldingap.models.Melding;
 
 public class HuidigeSchadesActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private ArrayList<String> alleMeldingen;
-    private ArrayList<String> alleIds;
-    private ChildEventListener mListener;
-    private ArrayAdapter<String> adapterAlleMeldingen;
     private Database db;
-    private ArrayList<String> tempList;
+
+    private ListView mListView;
+    private EditText mEditSearch;
+    private Spinner mSpinnerCategory;
+
+    private ArrayList<String> mAlleMeldingen;
+    private ArrayList<String> mMeldingIds;
+    private ArrayList<String> mTempList;
+    private ArrayAdapter<String> mAdapterAlleMeldingen;
+    private ArrayAdapter<String> mAdapterTempList;
+
+    private ChildEventListener mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huidigeschades);
 
-        listView = findViewById(R.id.listView);
-        alleIds = new ArrayList<>();
-        alleMeldingen = new ArrayList<>();
-        tempList = new ArrayList<>();
-        adapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
-        EditText editSearch = findViewById(R.id.editSearch);
+        mListView = findViewById(R.id.listView);
+        mEditSearch = findViewById(R.id.editSearch);
+        mSpinnerCategory = findViewById(R.id.spinnerCategorie);
 
-        listView.setAdapter(adapterAlleMeldingen);
+        mMeldingIds = new ArrayList<>();
+        mAlleMeldingen = new ArrayList<>();
+        mTempList = new ArrayList<>();
+        mAdapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAlleMeldingen);
+        mAdapterTempList = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mTempList);
+
+        mListView.setAdapter(mAdapterAlleMeldingen);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); //makes sure the listview doesnt move when keyboard pops up.
 
-        editSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+        mEditSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")) {
-                    listView.setAdapter(adapterAlleMeldingen);
+                if (s.toString().equals("") && mSpinnerCategory.getSelectedItemPosition() == 0) {
+                    mListView.setAdapter(mAdapterAlleMeldingen);
                 } else {
                     searchItem(s.toString());
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //unused
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+                //unused
             }
         });
 
@@ -77,12 +86,12 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Melding melding = dataSnapshot.getValue(Melding.class);
 
-                alleIds.add(dataSnapshot.getKey());
+                mMeldingIds.add(dataSnapshot.getKey());
 
-                alleMeldingen.add(melding.getVerdieping() + "." + melding.getLokaal()
+                mAlleMeldingen.add(melding.getVerdieping() + "." + melding.getLokaal()
                         + "   ---   "
                         + melding.getCategorie());
-                adapterAlleMeldingen.notifyDataSetChanged();
+                mAdapterAlleMeldingen.notifyDataSetChanged();
             }
 
             @Override
@@ -105,14 +114,43 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
                 //unused
             }
         };
+
+        mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                mTempList.clear();
+
+                if (position == 0) { //position 0 = Alles. Reset adapter and recheck searchbar
+                    mListView.setAdapter(mAdapterAlleMeldingen);
+                    recheckSearch();
+                }
+
+                if (position != 0) { //check what category is selected and filter accordingly
+                    mListView.setAdapter(mAdapterTempList);
+                    for (int i = 0; i < mAlleMeldingen.size(); i++) {
+                        if (mAlleMeldingen.get(i).contains(adapterView.getSelectedItem().toString())) {
+                            mTempList.add(mAlleMeldingen.get(i));
+                        }
+                    }
+                    recheckSearch();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //unused
+            }
+        });
+
         db = new Database();
         db.getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailIntent = new Intent(HuidigeSchadesActivity.this, DetailActivity.class);
-                detailIntent.putExtra("id", alleIds.get(position));
+                detailIntent.putExtra("id", mMeldingIds.get(position));
                 startActivity(detailIntent);
             }
         });
@@ -125,16 +163,26 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
     }
 
     private void searchItem(String textToSearch) {
-        tempList.clear();
+        mTempList.clear();
 
-        for (int i = 0; i < alleMeldingen.size(); i++) {
-            if (alleMeldingen.get(i).toLowerCase().contains(textToSearch.toLowerCase())) {
-                tempList.add(alleMeldingen.get(i));
+        mListView.setAdapter(mAdapterTempList);
+
+        for (int i = 0; i < mAlleMeldingen.size(); i++) {
+            if (mAlleMeldingen.get(i).toLowerCase().contains(textToSearch.toLowerCase())) {
+                if (mSpinnerCategory.getSelectedItemPosition() != 0) {
+                    if (mAlleMeldingen.get(i).contains(mSpinnerCategory.getSelectedItem().toString())) {
+                        mTempList.add(mAlleMeldingen.get(i));
+                    }
+                } else {
+                    mTempList.add(mAlleMeldingen.get(i));
+                }
             }
         }
+        mAdapterTempList.notifyDataSetChanged();
+    }
 
-        ArrayAdapter<String> adapterTempList = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tempList);
-        listView.setAdapter(adapterTempList);
-        adapterTempList.notifyDataSetChanged();
+    private void recheckSearch() {
+        if (!mEditSearch.getText().toString().isEmpty())
+            searchItem(mEditSearch.getText().toString());
     }
 }
