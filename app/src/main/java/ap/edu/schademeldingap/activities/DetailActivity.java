@@ -36,6 +36,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textCategorie;
     private TextView textDatum;
     private TextView textBeschrijving2;
+    private TextView textGerepareerd;
     private ImageView imageView;
     private Switch switchArchive;
     private ArchiveController archiveController;
@@ -45,17 +46,19 @@ public class DetailActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
         id = getIntent().getStringExtra("id");
         textLokaal = findViewById(R.id.textLokaal);
         textLokaalExtra = findViewById(R.id.textLokaalExtra);
         textCategorie = findViewById(R.id.textCategorie);
         textDatum = findViewById(R.id.textDatum);
         textBeschrijving2 = findViewById(R.id.textBeschrijving2);
+        textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
         switchArchive = findViewById(R.id.switchArchive);
 
-
-
+        //check if current user is reparateur
+        reparateurVisibility();
 
 
 
@@ -76,12 +79,16 @@ public class DetailActivity extends AbstractActivity {
                     getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            mAuth = FirebaseAuth.getInstance();
+
                             String archiveTextLokaal = dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString();
                             String archiveTextLokaalExtra = dataSnapshot.child(getString(R.string.key_lokaal_vrije_invoer)).getValue().toString();
                             String archiveTextCategorie = dataSnapshot.child(getString(R.string.key_categorie)).getValue().toString();
                             String archiveTextBeschrijving2 = dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString();
 
-                            Archive archive = new Archive(id,archiveTextLokaal,archiveTextLokaalExtra, archiveTextCategorie,archiveTextBeschrijving2);
+                            String currentUser = mAuth.getCurrentUser().getUid();
+
+                            Archive archive = new Archive(currentUser,archiveTextLokaal,archiveTextLokaalExtra, archiveTextCategorie,archiveTextBeschrijving2);
                             archiveController = new ArchiveController();
                             archiveController.newArchive(archive,v.getContext());
                             getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
@@ -124,6 +131,25 @@ public class DetailActivity extends AbstractActivity {
         });
     }
 
+    private void reparateurVisibility(){
+
+        mAuth = FirebaseAuth.getInstance();
+
+        getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
+                    textGerepareerd.setVisibility(View.VISIBLE);
+                    switchArchive.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     /**
      *  Check for empty labels and hide them
