@@ -83,7 +83,7 @@ public class HomeActivity extends AbstractActivity {
         getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("reparateur").getValue().equals(true)){
+                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
                     buttonArchive.setVisibility(View.VISIBLE);
                 }
             }
@@ -97,7 +97,7 @@ public class HomeActivity extends AbstractActivity {
 
     private void setNaam(FirebaseUser user, final TextView textView) {
 
-        getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        getDbReference().child(getString(R.string.key_users)).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());

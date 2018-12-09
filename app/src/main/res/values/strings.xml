@@ -3,7 +3,7 @@
     <string name="registreer">Registreer</string>
     <string name="email">Email</string>
     <string name="wachtwoord">Wachtwoord</string>
-    <string name="naam">Naam</string>
+    <string name="naam">name</string>
     <string name="check_reparateur">Ik ben reparateur</string>
     <string name="schade_melden">Schade melden</string>
     <string name="lokaal_plaats">Lokaal/Plaats:</string>
@@ -282,15 +282,15 @@
     <string name="key_lokaal">lokaal</string>
     <string name="key_categorie">categorie</string>
     <string name="key_datum">datum</string>
-    <string name="key_lokaal_vrije_invoer">lokaal vrije invoor</string>
-    <string name="key_beschrijving_schade">beschrijving schade</string>
+    <string name="key_lokaal_vrije_invoer">vrijeInvoerLokaal</string>
+    <string name="key_beschrijving_schade">beschrijvingSchade</string>
     <string name="datum_dubbelpunt">Datum:</string>
     <string name="key_gerepareerd">gerepareerd</string>
     <string name="foto_dubbelpunt">Foto:</string>
     <string name="key_meldingen">meldingen</string>
     <string name="path_images">images/</string>
     <string name="kan_naam_niet_ophalen">Kan naam niet ophalen.</string>
-    <string name="key_naam">naam</string>
+    <string name="key_naam">name</string>
     <string name="key_users">users</string>
     <string name="key_reparateur">reparateur</string>
     <string name="key_campus">campus</string>

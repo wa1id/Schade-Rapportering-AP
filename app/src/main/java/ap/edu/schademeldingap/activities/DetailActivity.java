@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textBeschrijving2;
     private TextView textGerepareerd;
     private ImageView imageView;
+    private Switch switchArchive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,12 @@ public class DetailActivity extends AbstractActivity {
         textCategorie = findViewById(R.id.textCategorie);
         textDatum = findViewById(R.id.textDatum);
         textBeschrijving2 = findViewById(R.id.textBeschrijving2);
-        textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
+        switchArchive = findViewById(R.id.switchArchive);
+
+
+
+
 
         getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,10 +59,10 @@ public class DetailActivity extends AbstractActivity {
                 textDatum.setText(getString(R.string.datum_dubbelpunt) + dataSnapshot.child(getString(R.string.key_datum)).getValue().toString());
                 textBeschrijving2.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
 
-                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
-                    textGerepareerd.setText(getString(R.string.gerepareerd_nee));
+               if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
+                   switchArchive.setChecked(false);
                 } else {
-                    textGerepareerd.setText(getString(R.string.gerepareerd_ja));
+                    switchArchive.setChecked(true);
                 }
 
                 checkEmptyLabels();
