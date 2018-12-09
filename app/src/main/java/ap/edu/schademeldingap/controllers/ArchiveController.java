@@ -12,7 +12,7 @@ import ap.edu.schademeldingap.models.Melding;
 public class ArchiveController {
     public void newArchive(Archive a, Context c) { //need context to use getString()
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child(c.getString(R.string.key_meldingen)).push();
+        DatabaseReference ref = database.getReference().child(c.getString(R.string.key_archives)).push();
 
         ref.child(c.getString(R.string.key_user)).setValue(a.getUser());
         ref.child(c.getString(R.string.key_lokaal)).setValue(a.getLokaal());
