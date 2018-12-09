@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.models.Melding;
 
 public class HuidigeSchadesActivity extends AppCompatActivity {
 
@@ -32,6 +34,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
     private ChildEventListener mListener;
     private ArrayAdapter<String> adapterAlleMeldingen;
     private Database db;
+    private ArrayList<String> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +42,13 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_huidigeschades);
 
         listView = findViewById(R.id.listView);
-
         alleIds = new ArrayList<>();
         alleMeldingen = new ArrayList<>();
+        tempList = new ArrayList<>();
         adapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
-        listView.setAdapter(adapterAlleMeldingen);
         EditText editSearch = findViewById(R.id.editSearch);
 
+        listView.setAdapter(adapterAlleMeldingen);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); //makes sure the listview doesnt move when keyboard pops up.
 
         editSearch.addTextChangedListener(new TextWatcher() {
@@ -56,7 +59,11 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapterAlleMeldingen.getFilter().filter(s);
+                if (s.toString().equals("")) {
+                    listView.setAdapter(adapterAlleMeldingen);
+                } else {
+                    searchItem(s.toString());
+                }
             }
 
             @Override
@@ -68,8 +75,13 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         mListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                alleMeldingen.add(dataSnapshot.child(getString(R.string.key_lokaal)).getValue() + " --- " + dataSnapshot.child(getString(R.string.key_categorie)).getValue());
+                Melding melding = dataSnapshot.getValue(Melding.class);
+
                 alleIds.add(dataSnapshot.getKey());
+
+                alleMeldingen.add(melding.getVerdieping() + "." + melding.getLokaal()
+                        + "   ---   "
+                        + melding.getCategorie());
                 adapterAlleMeldingen.notifyDataSetChanged();
             }
 
@@ -109,7 +121,20 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         db.getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
-
         super.onStop();
+    }
+
+    private void searchItem(String textToSearch) {
+        tempList.clear();
+
+        for (int i = 0; i < alleMeldingen.size(); i++) {
+            if (alleMeldingen.get(i).toLowerCase().contains(textToSearch.toLowerCase())) {
+                tempList.add(alleMeldingen.get(i));
+            }
+        }
+
+        ArrayAdapter<String> adapterTempList = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tempList);
+        listView.setAdapter(adapterTempList);
+        adapterTempList.notifyDataSetChanged();
     }
 }

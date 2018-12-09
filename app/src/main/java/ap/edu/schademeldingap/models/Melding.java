@@ -11,7 +11,7 @@ public class Melding {
     private String verdieping;
     private String lokaal;
     private String vrijeInvoerLokaal;
-    private Campus campus;
+    private String campus;
     private String categorie;
     private String beschrijvingSchade;
     private String datum;
@@ -26,7 +26,7 @@ public class Melding {
         this.verdieping = verdieping;
         this.lokaal = lokaal;
         this.vrijeInvoerLokaal = vrijeInvoerLokaal;
-        this.campus = Campus.ELL;
+        this.campus = Campus.ELL.name();
         this.categorie = categorie;
         this.beschrijvingSchade = beschrijvingSchade;
         Date date = new Date();
@@ -64,5 +64,9 @@ public class Melding {
 
     public String getVerdieping() {
         return verdieping;
+    }
+
+    public String getCampus() {
+        return campus;
     }
 }
