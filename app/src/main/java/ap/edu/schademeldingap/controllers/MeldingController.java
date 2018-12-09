@@ -6,11 +6,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -18,26 +22,29 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.activities.HomeActivity;
+import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
+import ap.edu.schademeldingap.models.User;
 
 public class MeldingController {
 
-    public void nieuweMelding(Melding m, Context c) { //need context to use getString()
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child(c.getString(R.string.key_meldingen)).push();
+    /**
+     * make new Melding in Firebase Database
+     */
+    public void nieuweMelding(Melding melding, ImageView image, Context c) { //need context to use getString()
+        Database db = new Database();
+        DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_meldingen)).push();
 
-        ref.child(c.getString(R.string.key_user)).setValue(m.getUser());
-        ref.child(c.getString(R.string.key_lokaal)).setValue(m.getLokaal());
-        ref.child(c.getString(R.string.key_lokaal_vrije_invoer)).setValue(m.getVrijeInvoerLokaal());
-        ref.child(c.getString(R.string.key_campus)).setValue(m.getCampus());
-        ref.child(c.getString(R.string.key_categorie)).setValue(m.getCategorie());
-        ref.child(c.getString(R.string.key_beschrijving_schade)).setValue(m.getBeschrijvingSchade());
-        ref.child(c.getString(R.string.key_datum)).setValue(m.getModifiedDate());
-        ref.child(c.getString(R.string.key_gerepareerd)).setValue(m.isGerepareerd());
-        uploadFotoToFirebase(m.getImage(), ref.getKey(), c);
+        ref.setValue(melding);
+        uploadFotoToFirebase(image, ref.getKey(), c);
     }
 
-    public void uploadFotoToFirebase(ImageView image, String name, Context c) {
+    /**
+     * Uploads photo to Storage
+     */
+    private void uploadFotoToFirebase(ImageView image, String name, Context c) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
@@ -61,4 +68,6 @@ public class MeldingController {
             }
         });
     }
+
+
 }

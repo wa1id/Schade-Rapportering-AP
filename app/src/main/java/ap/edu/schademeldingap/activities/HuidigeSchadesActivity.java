@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
 import android.view.WindowManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,53 +23,75 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.models.Melding;
 
-public class HuidigeSchadesActivity extends AbstractActivity {
+public class HuidigeSchadesActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private ArrayList<String> alleMeldingen;
-    private ArrayList<String> alleIds;
+    private Database db;
+
+    private ListView mListView;
+    private EditText mEditSearch;
+    private Spinner mSpinnerCategory;
+
+    private ArrayList<String> mAlleMeldingen;
+    private ArrayList<String> mMeldingIds;
+    private ArrayList<String> mTempList;
+    private ArrayAdapter<String> mAdapterAlleMeldingen;
+    private ArrayAdapter<String> mAdapterTempList;
+
     private ChildEventListener mListener;
-    private ArrayAdapter<String> adapterAlleMeldingen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lijstschades);
+        setContentView(R.layout.activity_huidigeschades);
 
-        listView = findViewById(R.id.listView);
+        mListView = findViewById(R.id.listView);
+        mEditSearch = findViewById(R.id.editSearch);
+        mSpinnerCategory = findViewById(R.id.spinnerCategorie);
 
-        alleIds = new ArrayList<>();
-        alleMeldingen = new ArrayList<>();
-        adapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alleMeldingen);
-        listView.setAdapter(adapterAlleMeldingen);
-        EditText theFilter = findViewById(R.id.searchFilter);
+        mMeldingIds = new ArrayList<>();
+        mAlleMeldingen = new ArrayList<>();
+        mTempList = new ArrayList<>();
+        mAdapterAlleMeldingen = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mAlleMeldingen);
+        mAdapterTempList = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mTempList);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        mListView.setAdapter(mAdapterAlleMeldingen);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); //makes sure the listview doesnt move when keyboard pops up.
 
-        theFilter.addTextChangedListener(new TextWatcher() {
+        mEditSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().equals("") && mSpinnerCategory.getSelectedItemPosition() == 0) {
+                    mListView.setAdapter(mAdapterAlleMeldingen);
+                } else {
+                    searchItem(s.toString());
+                }
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapterAlleMeldingen.getFilter().filter(s);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //unused
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //unused
             }
         });
 
         mListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                alleMeldingen.add(dataSnapshot.child(getString(R.string.key_lokaal)).getValue() + " --- " + dataSnapshot.child(getString(R.string.key_categorie)).getValue());
-                alleIds.add(dataSnapshot.getKey());
-                adapterAlleMeldingen.notifyDataSetChanged();
+                Melding melding = dataSnapshot.getValue(Melding.class);
+
+                mMeldingIds.add(dataSnapshot.getKey());
+
+                mAlleMeldingen.add(melding.getVerdieping() + "." + melding.getLokaal()
+                        + "   ---   "
+                        + melding.getCategorie());
+                mAdapterAlleMeldingen.notifyDataSetChanged();
             }
 
             @Override
@@ -92,13 +114,43 @@ public class HuidigeSchadesActivity extends AbstractActivity {
                 //unused
             }
         };
-        getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                mTempList.clear();
+
+                if (position == 0) { //position 0 = Alles. Reset adapter and recheck searchbar
+                    mListView.setAdapter(mAdapterAlleMeldingen);
+                    recheckSearch();
+                }
+
+                if (position != 0) { //check what category is selected and filter accordingly
+                    mListView.setAdapter(mAdapterTempList);
+                    for (int i = 0; i < mAlleMeldingen.size(); i++) {
+                        if (mAlleMeldingen.get(i).contains(adapterView.getSelectedItem().toString())) {
+                            mTempList.add(mAlleMeldingen.get(i));
+                        }
+                    }
+                    recheckSearch();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //unused
+            }
+        });
+
+        db = new Database();
+        db.getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailIntent = new Intent(HuidigeSchadesActivity.this, DetailActivity.class);
-                detailIntent.putExtra("id", alleIds.get(position));
+                detailIntent.putExtra("id", mMeldingIds.get(position));
                 startActivity(detailIntent);
             }
         });
@@ -106,8 +158,31 @@ public class HuidigeSchadesActivity extends AbstractActivity {
 
     @Override
     protected void onStop() {
-        getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
-
+        db.getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
         super.onStop();
+    }
+
+    private void searchItem(String textToSearch) {
+        mTempList.clear();
+
+        mListView.setAdapter(mAdapterTempList);
+
+        for (int i = 0; i < mAlleMeldingen.size(); i++) {
+            if (mAlleMeldingen.get(i).toLowerCase().contains(textToSearch.toLowerCase())) {
+                if (mSpinnerCategory.getSelectedItemPosition() != 0) {
+                    if (mAlleMeldingen.get(i).contains(mSpinnerCategory.getSelectedItem().toString())) {
+                        mTempList.add(mAlleMeldingen.get(i));
+                    }
+                } else {
+                    mTempList.add(mAlleMeldingen.get(i));
+                }
+            }
+        }
+        mAdapterTempList.notifyDataSetChanged();
+    }
+
+    private void recheckSearch() {
+        if (!mEditSearch.getText().toString().isEmpty())
+            searchItem(mEditSearch.getText().toString());
     }
 }

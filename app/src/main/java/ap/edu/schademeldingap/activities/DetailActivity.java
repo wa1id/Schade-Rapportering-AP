@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,8 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.data.Storage;
+import ap.edu.schademeldingap.models.Melding;
 
-public class DetailActivity extends AbstractActivity {
+public class DetailActivity extends AppCompatActivity {
 
     private String id;
     private TextView textLokaal;
@@ -36,6 +40,7 @@ public class DetailActivity extends AbstractActivity {
         setContentView(R.layout.activity_detail);
 
         id = getIntent().getStringExtra("id");
+        final TextView textUser = findViewById(R.id.textUser);
         textLokaal = findViewById(R.id.textLokaal);
         textLokaalExtra = findViewById(R.id.textLokaalExtra);
         textCategorie = findViewById(R.id.textCategorie);
@@ -44,19 +49,24 @@ public class DetailActivity extends AbstractActivity {
         textGerepareerd = findViewById(R.id.textGerepareerd);
         imageView = findViewById(R.id.imageSchade);
 
-        getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        Database db = new Database();
+
+        db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textLokaal.setText(getString(R.string.lokaal_dubbelpunt) + dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString());
-                textLokaalExtra.setText(dataSnapshot.child(getString(R.string.key_lokaal_vrije_invoer)).getValue().toString());
-                textCategorie.setText(getString(R.string.categorie_dubbelpunt) + dataSnapshot.child(getString(R.string.key_categorie)).getValue().toString());
-                textDatum.setText(getString(R.string.datum_dubbelpunt) + dataSnapshot.child(getString(R.string.key_datum)).getValue().toString());
-                textBeschrijving2.setText(dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString());
+                Melding m = dataSnapshot.getValue(Melding.class);
 
-                if (dataSnapshot.child(getString(R.string.key_gerepareerd)).getValue().equals(false)) {
-                    textGerepareerd.setText(getString(R.string.gerepareerd_nee));
-                } else {
+                textUser.setText(m.getName());
+                textLokaal.setText(m.getVerdieping() + "." + m.getLokaal());
+                textLokaalExtra.setText(m.getVrijeInvoerLokaal());
+                textCategorie.setText(m.getCategorie());
+                textDatum.setText(m.getDatum());
+                textBeschrijving2.setText(m.getBeschrijvingSchade());
+
+                if (m.isGerepareerd()) {
                     textGerepareerd.setText(getString(R.string.gerepareerd_ja));
+                } else {
+                    textGerepareerd.setText(getString(R.string.gerepareerd_nee));
                 }
 
                 checkEmptyLabels();
@@ -90,7 +100,8 @@ public class DetailActivity extends AbstractActivity {
      * Displays image in imageView
      */
     private void displayImage(final ImageView image) {
-        StorageReference imageRef = getStorageReference().child(getString(R.string.path_images) + id);
+        Storage storage = new Storage();
+        StorageReference imageRef = storage.getStorageReference().child(getString(R.string.path_images) + id);
 
         final ProgressBar progressFoto = findViewById(R.id.progressFoto);
         final TextView textFotoLaden = findViewById(R.id.textFotoLaden);

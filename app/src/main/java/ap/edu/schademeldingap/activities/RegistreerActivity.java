@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.models.User;
 
 public class RegistreerActivity extends AbstractActivity {
 
@@ -54,6 +56,12 @@ public class RegistreerActivity extends AbstractActivity {
         });
     }
 
+    private void writeNewUser(String userId, String name, boolean reparateur) {
+        User user = new User(name, reparateur);
+        Database db = new Database();
+        db.getDbReference().child("users").child(userId).setValue(user);
+    }
+
     private void createAccount(String email, String password) {
         if (!validateForm()) {
             return;
@@ -68,10 +76,7 @@ public class RegistreerActivity extends AbstractActivity {
 
                     FirebaseUser user = mAuth.getCurrentUser();
 
-                    //Extra user informatie die opgeslagen moet worden
-                    DatabaseReference myRefUser = getDbReference().child(getString(R.string.key_users)).child(user.getUid());
-                    myRefUser.child(getString(R.string.key_naam)).setValue(editName.getText().toString());
-                    myRefUser.child(getString(R.string.key_reparateur)).setValue(checkReparateur.isChecked());
+                    writeNewUser(user.getUid(), editName.getText().toString(), checkReparateur.isChecked());
 
                     //Show popup after success
                     showDialogInfoToActivity(RegistreerActivity.this, MainActivity.class,

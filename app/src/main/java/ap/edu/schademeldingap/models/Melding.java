@@ -1,7 +1,5 @@
 package ap.edu.schademeldingap.models;
 
-import android.widget.ImageView;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,32 +7,35 @@ public class Melding {
 
     private enum Campus {ELL, MEISTRAAT, NOORDERPLAATS}
 
-    private String user;
+    private String name;
+    private String verdieping;
     private String lokaal;
     private String vrijeInvoerLokaal;
-    private Campus campus;
+    private String campus;
     private String categorie;
     private String beschrijvingSchade;
-    private Date datum;
-    private String modifiedDate;
+    private String datum;
     private boolean gerepareerd;
-    private ImageView image;
 
-    public Melding(String user, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade, ImageView image) {
-        this.user = user;
-        this.lokaal = lokaal;
-        this.vrijeInvoerLokaal = vrijeInvoerLokaal;
-        this.campus = Campus.ELL;
-        this.categorie = categorie;
-        this.beschrijvingSchade = beschrijvingSchade;
-        this.datum = new Date();
-        this.modifiedDate = new SimpleDateFormat("dd/MM/yyyy").format(datum);
-        this.gerepareerd = false;
-        this.image = image;
+    public Melding() {
+        // Default constructor required for calls to DataSnapshot.getValue(Melding.class)
     }
 
-    public String getUser() {
-        return user;
+    public Melding(String name, String verdieping, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade) {
+        this.name = name;
+        this.verdieping = verdieping;
+        this.lokaal = lokaal;
+        this.vrijeInvoerLokaal = vrijeInvoerLokaal;
+        this.campus = Campus.ELL.name();
+        this.categorie = categorie;
+        this.beschrijvingSchade = beschrijvingSchade;
+        Date date = new Date();
+        this.datum = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        this.gerepareerd = false;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getLokaal() {
@@ -45,10 +46,6 @@ public class Melding {
         return vrijeInvoerLokaal;
     }
 
-    public Campus getCampus() {
-        return campus;
-    }
-
     public String getCategorie() {
         return categorie;
     }
@@ -57,15 +54,19 @@ public class Melding {
         return beschrijvingSchade;
     }
 
-    public String getModifiedDate() {
-        return modifiedDate;
+    public String getDatum() {
+        return datum;
     }
 
     public boolean isGerepareerd() {
         return gerepareerd;
     }
 
-    public ImageView getImage() {
-        return image;
+    public String getVerdieping() {
+        return verdieping;
+    }
+
+    public String getCampus() {
+        return campus;
     }
 }

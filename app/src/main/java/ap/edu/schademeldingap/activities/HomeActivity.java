@@ -3,6 +3,7 @@ package ap.edu.schademeldingap.activities;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,8 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.models.User;
 
-public class HomeActivity extends AbstractActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
@@ -53,7 +56,9 @@ public class HomeActivity extends AbstractActivity {
         buttonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, NieuweMeldingActivity.class));
+                Intent homeToMelden = new Intent(HomeActivity.this, NieuweMeldingActivity.class);
+                homeToMelden.putExtra(getString(R.string.key_naam), textWelkom.getText().toString().substring(7));
+                startActivity(homeToMelden);
             }
         });
 
@@ -66,11 +71,12 @@ public class HomeActivity extends AbstractActivity {
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
-
-        getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Database db = new Database();
+        db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());
+                User user = dataSnapshot.getValue(User.class);
+                textView.setText(textView.getText() + " " + user.getName());
             }
 
             @Override
