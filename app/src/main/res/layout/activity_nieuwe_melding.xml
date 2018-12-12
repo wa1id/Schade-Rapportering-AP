@@ -35,12 +35,10 @@
 
     <TextView
         android:id="@+id/textVerdieping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/verdieping"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
@@ -58,24 +56,21 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/categorie"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textVrijeInvoer" />
 
     <TextView
         android:id="@+id/textBeschrijving2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/beschrijving"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,23 +130,19 @@
 
     <TextView
         android:id="@+id/textLokaal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/lokaal"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textVerdieping" />
 
     <TextView
         android:id="@+id/textVrijeInvoer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="@string/vrije_invoer"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLokaal" />
 

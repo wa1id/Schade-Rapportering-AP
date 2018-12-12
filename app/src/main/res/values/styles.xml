@@ -19,6 +19,13 @@
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
-    
+
+
+    <style name="textViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
 
 </resources>
