@@ -37,6 +37,8 @@ public class RegistreerActivity extends AbstractActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registreer);
+        setTitle("Registreer");
+
 
         mAuth = FirebaseAuth.getInstance();
 

@@ -46,6 +46,8 @@ public class DetailActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("DETAIL");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 

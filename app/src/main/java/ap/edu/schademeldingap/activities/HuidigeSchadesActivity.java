@@ -44,6 +44,8 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("HUIDIGE SCHADES");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huidigeschades);
 

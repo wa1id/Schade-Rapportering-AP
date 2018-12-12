@@ -42,6 +42,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_melding);
+        setTitle("SCHADE MELDEN");
 
         //Permissions
         if (Build.VERSION.SDK_INT >= 23) {

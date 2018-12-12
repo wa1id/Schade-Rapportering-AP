@@ -17,6 +17,8 @@ public class WachtwoordVergetenActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Wachtwoord herstellen");
+
         setContentView(R.layout.activity_wachtwoordvergeten);
 
         final FirebaseAuth auth = FirebaseAuth.getInstance();
