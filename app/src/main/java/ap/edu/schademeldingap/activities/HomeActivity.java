@@ -32,6 +32,7 @@ public class HomeActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("Schade Melding AP - Home");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
