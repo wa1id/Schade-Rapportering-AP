@@ -7,7 +7,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.models.Archive;
-import ap.edu.schademeldingap.models.Melding;
 
 //TODO: Ook overbodig, beter bij MeldingController + deze methode wordt nergens gebruikt?
 public class ArchiveController {
