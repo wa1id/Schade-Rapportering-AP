@@ -53,6 +53,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
                         //unused
                     }
                 })
+                //TODO: negative button
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }

@@ -37,8 +37,34 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
         Database db = new Database();
         DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_meldingen)).push();
 
+        melding.setId(ref.getKey());
         ref.setValue(melding);
         uploadFotoToFirebase(image, ref.getKey(), c);
+    }
+
+    /**
+     * Move Melding to Archive
+     */
+    public void archiveerMelding(Melding melding, Context c) {
+        Database db = new Database();
+        DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_archives));
+
+        melding.setGerepareerd(true);
+        ref.child(getKeyOfMelding(melding)).setValue(melding);
+    }
+
+    /**
+     * Delete melding
+     */
+    public void deleteMelding(Melding melding) {
+        //TODO: implement
+    }
+
+    /**
+     * Get the key of a Melding
+     */
+    private String getKeyOfMelding(Melding melding) {
+        return melding.getId();
     }
 
     /**

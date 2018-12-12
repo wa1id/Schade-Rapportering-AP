@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.controllers.ArchiveController;
+import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Archive;
@@ -76,37 +77,23 @@ public class DetailActivity extends AbstractActivity {
                 if (check){
                     showDialogInfo(DetailActivity.this, getString(R.string.bent_u_zeker), getString(R.string.bent_u_zeker_message));
 
-                    //db.getDbReference().child(getString(R.string.key_meldingen)).child(id).child(getString(R.string.key_gerepareerd)).setValue(true);
-
                     db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             Melding m = dataSnapshot.getValue(Melding.class);
 
-                            mAuth = FirebaseAuth.getInstance();
+                            MeldingController mc = new MeldingController();
+                            mc.archiveerMelding(m, DetailActivity.this);
 
-                            String archiveTextLokaal = dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString();
-                            String archiveTextLokaalExtra = dataSnapshot.child(getString(R.string.key_lokaal_vrije_invoer)).getValue().toString();
-                            String archiveTextCategorie = dataSnapshot.child(getString(R.string.key_categorie)).getValue().toString();
-                            String archiveTextBeschrijving2 = dataSnapshot.child(getString(R.string.key_beschrijving_schade)).getValue().toString();
-
-                            String currentUser = mAuth.getCurrentUser().getUid();
-
-                            Archive archive = new Archive(currentUser,archiveTextLokaal,archiveTextLokaalExtra, archiveTextCategorie,archiveTextBeschrijving2);
-                            archiveController = new ArchiveController();
-                            archiveController.newArchive(archive,v.getContext());
-                            db.getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
+                            //db.getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
 
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            //unused
                         }
                     });
-
-
-
                 }
 
             }
