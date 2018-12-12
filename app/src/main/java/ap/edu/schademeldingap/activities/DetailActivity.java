@@ -1,9 +1,11 @@
 package ap.edu.schademeldingap.activities;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -39,7 +41,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textGerepareerd; //TODO: kan als lokale variabel gezet worden?
     private ImageView imageView;
     private Switch switchArchive;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,32 +66,14 @@ public class DetailActivity extends AbstractActivity {
         switchArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-
-                boolean check = switchArchive.isChecked();
-
-                if (check){
-                    showDialogInfo(DetailActivity.this, getString(R.string.bent_u_zeker), getString(R.string.bent_u_zeker_message));
-
-                    db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Melding m = dataSnapshot.getValue(Melding.class);
-
-                            MeldingController mc = new MeldingController();
-                            mc.archiveerMelding(m, DetailActivity.this);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            //unused
-                        }
-                    });
+                if (switchArchive.isChecked()) {
+                    confirmArchive();
                 }
-
             }
 
         });
 
+        //TODO: Logic in controller
         db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -108,9 +92,9 @@ public class DetailActivity extends AbstractActivity {
                     textGerepareerd.setText(getString(R.string.gerepareerd_nee));
                 }
 
-                    checkEmptyLabels();
-                    displayImage(imageView);
-                }
+                checkEmptyLabels();
+                displayImage(imageView);
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -119,19 +103,61 @@ public class DetailActivity extends AbstractActivity {
         });
     }
 
+    //TODO: logic in controller
+    private void archiveer() {
+        db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Melding m = dataSnapshot.getValue(Melding.class);
+
+                MeldingController mc = new MeldingController();
+                mc.archiveerMelding(m, DetailActivity.this);
+                mc.deleteMelding(m, DetailActivity.this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(DetailActivity.this, R.string.data_ophalen_mislukt, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void confirmArchive() {
+        AlertDialog.Builder builder;
+
+        builder = new AlertDialog.Builder(DetailActivity.this);
+
+        builder.setTitle(getString(R.string.bent_u_zeker))
+                .setMessage(getString(R.string.bent_u_zeker_message))
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        archiveer();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switchArchive.setChecked(false);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
     /**
-     *  Check if current user is reparateur and show button if true
+     * Check if current user is reparateur and show button if true
      */
-    private void reparateurVisibility(){
+    private void reparateurVisibility() {
         mAuth = FirebaseAuth.getInstance();
         db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
+                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)) {
                     textGerepareerd.setVisibility(View.VISIBLE);
                     switchArchive.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -139,7 +165,7 @@ public class DetailActivity extends AbstractActivity {
     }
 
     /**
-     *  Check for empty labels and hide them
+     * Check for empty labels and hide them
      */
     private void checkEmptyLabels() {
         TextView textBeschrijving = findViewById(R.id.textBeschrijving);

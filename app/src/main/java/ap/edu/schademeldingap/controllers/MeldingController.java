@@ -44,22 +44,20 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
     }
 
     /**
-     * Move Melding to Archive
+     * Move Melding to Archive and delete the Melding
      */
     public void archiveerMelding(Melding melding, Context c) {
         DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_archives));
 
         melding.setGerepareerd(true);
         ref.child(getKeyOfMelding(melding)).setValue(melding);
-        deleteMelding(melding);
     }
 
     /**
      * Delete melding
      */
-    private void deleteMelding(Melding melding) {
-        //db.getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
-        db.getDbReference().child("meldingen").child(melding.getId()).removeValue();
+    public void deleteMelding(Melding melding, Context c) {
+        db.getDbReference().child(c.getString(R.string.key_meldingen)).child(melding.getId()).removeValue();
     }
 
     /**

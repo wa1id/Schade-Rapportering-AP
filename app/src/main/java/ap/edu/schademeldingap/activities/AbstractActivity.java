@@ -36,29 +36,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
     }
 
     /**
-     * Show dialog with info icon and OK button.
-     * @param context Context of dialog
-     * @param title Title of dialog
-     * @param message Message of dialog
-     */
-    public void showDialogInfo(Context context, String title, String message){
-        AlertDialog.Builder builder;
-
-        builder = new AlertDialog.Builder(context);
-
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //unused
-                    }
-                })
-                //TODO: negative button
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
-
-    /**
      * Show dialog with info icon and OK button that goes to another activity
      * @param context Context of dialog
      * @param nextActivity What activity to go to
