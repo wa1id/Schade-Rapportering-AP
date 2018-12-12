@@ -1,9 +1,12 @@
 package ap.edu.schademeldingap.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +30,7 @@ import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Archive;
 import ap.edu.schademeldingap.models.Melding;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AbstractActivity {
 
     private FirebaseAuth mAuth;
     private Database db;
@@ -71,13 +74,15 @@ public class DetailActivity extends AppCompatActivity {
                 boolean check = switchArchive.isChecked();
 
                 if (check){
-                    db.getDbReference().child(getString(R.string.key_meldingen)).child(id).child(getString(R.string.key_gerepareerd)).setValue(true);
+                    showDialogInfo(DetailActivity.this, getString(R.string.bent_u_zeker), getString(R.string.bent_u_zeker_message));
 
-
+                    //db.getDbReference().child(getString(R.string.key_meldingen)).child(id).child(getString(R.string.key_gerepareerd)).setValue(true);
 
                     db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Melding m = dataSnapshot.getValue(Melding.class);
+
                             mAuth = FirebaseAuth.getInstance();
 
                             String archiveTextLokaal = dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString();
@@ -137,6 +142,9 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Check if current user is reparateur and show button if true
+     */
     private void reparateurVisibility(){
         mAuth = FirebaseAuth.getInstance();
         db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
