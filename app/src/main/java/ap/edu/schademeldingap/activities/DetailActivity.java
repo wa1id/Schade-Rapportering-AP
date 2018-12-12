@@ -24,12 +24,15 @@ import com.google.firebase.storage.StorageReference;
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.controllers.ArchiveController;
 import ap.edu.schademeldingap.controllers.MeldingController;
+import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Archive;
 import ap.edu.schademeldingap.models.Melding;
 
 public class DetailActivity extends AbstractActivity {
 
     private FirebaseAuth mAuth;
+    private Database db;
     private String id;
     private TextView textLokaal;
     private TextView textLokaalExtra;
@@ -72,11 +75,11 @@ public class DetailActivity extends AbstractActivity {
                 boolean check = switchArchive.isChecked();
 
                 if (check){
-                    getDbReference().child(getString(R.string.key_meldingen)).child(id).child(getString(R.string.key_gerepareerd)).setValue(true);
+                    db.getDbReference().child(getString(R.string.key_meldingen)).child(id).child(getString(R.string.key_gerepareerd)).setValue(true);
 
 
 
-                    getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                    db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             mAuth = FirebaseAuth.getInstance();
@@ -91,7 +94,7 @@ public class DetailActivity extends AbstractActivity {
                             Archive archive = new Archive(currentUser,archiveTextLokaal,archiveTextLokaalExtra, archiveTextCategorie,archiveTextBeschrijving2);
                             archiveController = new ArchiveController();
                             archiveController.newArchive(archive,v.getContext());
-                            getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
+                            db.getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
 
                         }
 
@@ -111,7 +114,7 @@ public class DetailActivity extends AbstractActivity {
 
 
 
-        getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textLokaal.setText(getString(R.string.lokaal_dubbelpunt) + dataSnapshot.child(getString(R.string.key_lokaal)).getValue().toString());
@@ -135,7 +138,7 @@ public class DetailActivity extends AbstractActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
@@ -171,7 +174,8 @@ public class DetailActivity extends AbstractActivity {
      * Displays image in imageView
      */
     private void displayImage(final ImageView image) {
-        StorageReference imageRef = getStorageReference().child(getString(R.string.path_images) + id);
+        Storage storage = new Storage();
+        StorageReference imageRef = storage.getStorageReference().child(getString(R.string.path_images) + id);
 
         final ProgressBar progressFoto = findViewById(R.id.progressFoto);
         final TextView textFotoLaden = findViewById(R.id.textFotoLaden);

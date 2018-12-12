@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.data.Database;
 
 public class HomeActivity extends AbstractActivity {
 
@@ -82,7 +83,8 @@ public class HomeActivity extends AbstractActivity {
 
 
     private void archiveVisibility(){
-        getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        Database db = new Database();
+        db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
@@ -98,8 +100,9 @@ public class HomeActivity extends AbstractActivity {
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
+        Database db = new Database();
 
-        getDbReference().child(getString(R.string.key_users)).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.getDbReference().child(getString(R.string.key_users)).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());

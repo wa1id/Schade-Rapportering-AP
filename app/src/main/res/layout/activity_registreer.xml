@@ -84,11 +84,7 @@
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/buttonStyle"
         android:text="@string/registreer"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
