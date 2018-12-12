@@ -30,11 +30,12 @@ import ap.edu.schademeldingap.models.User;
 
 public class MeldingController { //TODO: Mss naam verandere naar DataController want die gaat ook archief behandelen
 
+    private Database db = new Database();
+
     /**
      * make new Melding in Firebase Database
      */
     public void nieuweMelding(Melding melding, ImageView image, Context c) { //need context to use getString()
-        Database db = new Database();
         DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_meldingen)).push();
 
         melding.setId(ref.getKey());
@@ -46,18 +47,19 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
      * Move Melding to Archive
      */
     public void archiveerMelding(Melding melding, Context c) {
-        Database db = new Database();
         DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_archives));
 
         melding.setGerepareerd(true);
         ref.child(getKeyOfMelding(melding)).setValue(melding);
+        deleteMelding(melding);
     }
 
     /**
      * Delete melding
      */
-    public void deleteMelding(Melding melding) {
-        //TODO: implement
+    private void deleteMelding(Melding melding) {
+        //db.getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
+        db.getDbReference().child("meldingen").child(melding.getId()).removeValue();
     }
 
     /**

@@ -1,13 +1,9 @@
 package ap.edu.schademeldingap.activities;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,11 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import ap.edu.schademeldingap.R;
-import ap.edu.schademeldingap.controllers.ArchiveController;
 import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
-import ap.edu.schademeldingap.models.Archive;
 import ap.edu.schademeldingap.models.Melding;
 
 public class DetailActivity extends AbstractActivity {
@@ -45,8 +39,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textGerepareerd; //TODO: kan als lokale variabel gezet worden?
     private ImageView imageView;
     private Switch switchArchive;
-    private ArchiveController archiveController;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,9 +77,6 @@ public class DetailActivity extends AbstractActivity {
 
                             MeldingController mc = new MeldingController();
                             mc.archiveerMelding(m, DetailActivity.this);
-
-                            //db.getDbReference().child(getString(R.string.key_meldingen)).child(id).removeValue();
-
                         }
 
                         @Override
