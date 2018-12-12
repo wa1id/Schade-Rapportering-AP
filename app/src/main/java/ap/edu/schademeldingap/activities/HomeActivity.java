@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.models.User;
 
 public class HomeActivity extends AbstractActivity {
 
@@ -35,6 +36,7 @@ public class HomeActivity extends AbstractActivity {
         setTitle("HOME");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -69,20 +71,15 @@ public class HomeActivity extends AbstractActivity {
             }
         });
 
-       buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
-           }
-       });
-
-
-
-
-
+        buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
+            }
+        });
     }
 
-
+    //TODO: misschien samen met setNaam checken of die reparateur is
     private void archiveVisibility(){
         Database db = new Database();
         db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,18 +92,19 @@ public class HomeActivity extends AbstractActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                //TODO: Toast tonen dat data ophalen niet is gelukt, zie setNaam
             }
         });
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
         Database db = new Database();
+        db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
 
-        db.getDbReference().child(getString(R.string.key_users)).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textView.setText(textView.getText() + " " + dataSnapshot.child(getString(R.string.key_naam)).getValue().toString());
+                User user = dataSnapshot.getValue(User.class);
+                textView.setText(textView.getText() + " " + user.getName());
             }
 
             @Override

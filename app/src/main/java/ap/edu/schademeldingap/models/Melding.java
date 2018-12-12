@@ -15,6 +15,7 @@ public class Melding {
     private String categorie;
     private String beschrijvingSchade;
     private String datum;
+    private String id;
     private boolean gerepareerd;
 
     public Melding() {
@@ -32,6 +33,7 @@ public class Melding {
         Date date = new Date();
         this.datum = new SimpleDateFormat("dd/MM/yyyy").format(date);
         this.gerepareerd = false;
+        this.id = "";
     }
 
     public String getName() {
@@ -68,5 +70,17 @@ public class Melding {
 
     public String getCampus() {
         return campus;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setGerepareerd(boolean gerepareerd) {
+        this.gerepareerd = gerepareerd;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

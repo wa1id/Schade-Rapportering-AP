@@ -100,7 +100,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
                 dispatchTakePictureIntent();
             }
         });
-      
+
         buttonMeldenSchade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,11 +111,11 @@ public class NieuweMeldingActivity extends AbstractActivity {
 
                 String name = getIntent().getStringExtra(getString(R.string.key_naam));
                 Melding melding = new Melding(name,
-                                        spinnerVerdieping.getSelectedItem().toString(),
-                                        spinnerLokaal.getSelectedItem().toString(),
-                                        vrijeInvoer.getText().toString(),
-                                        spinnerCat.getSelectedItem().toString(),
-                                        beschrijvingSchade.getText().toString());
+                        spinnerVerdieping.getSelectedItem().toString(),
+                        spinnerLokaal.getSelectedItem().toString(),
+                        vrijeInvoer.getText().toString(),
+                        spinnerCat.getSelectedItem().toString(),
+                        beschrijvingSchade.getText().toString());
                 meldingController = new MeldingController();
                 meldingController.nieuweMelding(melding, imageThumbnail, v.getContext());
 
