@@ -28,7 +28,7 @@ import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
 import ap.edu.schademeldingap.models.User;
 
-public class MeldingController {
+public class MeldingController { //TODO: Mss naam verandere naar DataController want die gaat ook archief behandelen
 
     /**
      * make new Melding in Firebase Database

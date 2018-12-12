@@ -43,6 +43,9 @@ public class HomeActivity extends AppCompatActivity {
         buttonArchive = findViewById(R.id.buttonArchive);
         textWelkom = findViewById(R.id.textWelkom);
 
+        //tonen of verbergen van de archive button
+        archiveVisibility();
+
         //Titel van view veranderen naar naam van huidige user
         setNaam(mAuth.getCurrentUser(), textWelkom);
 
@@ -73,9 +76,28 @@ public class HomeActivity extends AppCompatActivity {
        });
     }
 
+    //TODO: misschien samen met setNaam checken of die reparateur is
+    private void archiveVisibility(){
+        Database db = new Database();
+        db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
+                    buttonArchive.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //TODO: Toast tonen dat data ophalen niet is gelukt, zie setNaam
+            }
+        });
+    }
+
     private void setNaam(FirebaseUser user, final TextView textView) {
         Database db = new Database();
         db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -88,4 +110,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
