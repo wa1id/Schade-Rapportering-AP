@@ -1,16 +1,13 @@
 package ap.edu.schademeldingap.activities;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,15 +17,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.models.Melding;
 import ap.edu.schademeldingap.R;
 
 public class NieuweMeldingActivity extends AbstractActivity {
 
-    private MeldingController meldingController;
+    private MeldingController mc;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText vrijeInvoer;
@@ -111,13 +106,13 @@ public class NieuweMeldingActivity extends AbstractActivity {
 
                 String name = getIntent().getStringExtra(getString(R.string.key_naam));
                 Melding melding = new Melding(name,
-                        spinnerVerdieping.getSelectedItem().toString(),
-                        spinnerLokaal.getSelectedItem().toString(),
-                        vrijeInvoer.getText().toString(),
-                        spinnerCat.getSelectedItem().toString(),
-                        beschrijvingSchade.getText().toString());
-                meldingController = new MeldingController();
-                meldingController.nieuweMelding(melding, imageThumbnail, v.getContext());
+                                        spinnerVerdieping.getSelectedItem().toString(),
+                                        spinnerLokaal.getSelectedItem().toString(),
+                                        vrijeInvoer.getText().toString(),
+                                        spinnerCat.getSelectedItem().toString(),
+                                        beschrijvingSchade.getText().toString());
+                mc = new MeldingController();
+                mc.nieuweMelding(melding, imageThumbnail, v.getContext());
 
                 showDialogInfoToActivity(NieuweMeldingActivity.this, HomeActivity.class,
                         getString(R.string.geslaagd),

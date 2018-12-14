@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import ap.edu.schademeldingap.R;
-import ap.edu.schademeldingap.controllers.ArchiveController;
 import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
@@ -32,6 +31,7 @@ public class DetailActivity extends AbstractActivity {
 
     private FirebaseAuth mAuth;
     private Database db;
+
     private String id;
     private TextView textLokaal;
     private TextView textLokaalExtra;
@@ -41,7 +41,6 @@ public class DetailActivity extends AbstractActivity {
     private TextView textGerepareerd;
     private ImageView imageView;
     private Switch switchArchive;
-    private ArchiveController archiveController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,6 @@ public class DetailActivity extends AbstractActivity {
 
         });
 
-        //TODO: Logic in controller
         db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -106,7 +104,6 @@ public class DetailActivity extends AbstractActivity {
         });
     }
 
-    //TODO: logic in controller
     private void archiveer() {
         db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -164,12 +161,13 @@ public class DetailActivity extends AbstractActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                //unused
             }
         });
     }
 
     /**
-     * Check for empty labels and hide them
+     *  Check for empty labels and hide them
      */
     private void checkEmptyLabels() {
         TextView textBeschrijving = findViewById(R.id.textBeschrijving);
