@@ -39,7 +39,6 @@
         <activity
             android:name=".activities.DetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.ArchiveActivity"></activity>
     </application>
 
 </manifest>
