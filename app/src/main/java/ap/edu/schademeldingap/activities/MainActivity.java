@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonAanmelden = findViewById(R.id.buttonAanmelden);
         Button buttonRegistreren = findViewById(R.id.buttonNietGeregistreerd);
+        Button buttonWachtwoordVergeten = findViewById(R.id.buttonWachtwoordVergeten);
         editEmail = findViewById(R.id.editEmail);
         editWachtwoord = findViewById(R.id.editWachtwoord);
         progressLogin = findViewById(R.id.progressLogin);
@@ -52,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RegistreerActivity.class));
                 finish();
+            }
+        });
+
+        buttonWachtwoordVergeten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, WachtwoordVergetenActivity.class));
             }
         });
     }
