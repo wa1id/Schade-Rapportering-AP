@@ -38,7 +38,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textCategorie;
     private TextView textDatum;
     private TextView textBeschrijving2;
-    private TextView textGerepareerd; //TODO: kan als lokale variabel gezet worden?
+    private TextView textGerepareerd;
     private ImageView imageView;
     private Switch switchArchive;
 
@@ -73,7 +73,6 @@ public class DetailActivity extends AbstractActivity {
 
         });
 
-        //TODO: Logic in controller
         db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,7 +102,6 @@ public class DetailActivity extends AbstractActivity {
         });
     }
 
-    //TODO: logic in controller
     private void archiveer() {
         db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
