@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
-            finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
         }
     }
 
