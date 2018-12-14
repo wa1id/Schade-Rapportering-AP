@@ -23,22 +23,26 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private Button buttonSignOut;
-    private Button buttonSchadeMelden;
-    private Button buttonSchadeZoeken;
+    private Button buttonArchive;
     private TextView textWelkom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("HOME");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         mAuth = FirebaseAuth.getInstance();
 
-        buttonSignOut = findViewById(R.id.buttonSignOut);
-        buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
-        buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
+        Button buttonSignOut = findViewById(R.id.buttonSignOut);
+        Button buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
+        Button buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
+        buttonArchive = findViewById(R.id.buttonArchive);
         textWelkom = findViewById(R.id.textWelkom);
+
+        //tonen of verbergen van de archive button
+        archiveVisibility();
 
         //Titel van view veranderen naar naam van huidige user
         setNaam(mAuth.getCurrentUser(), textWelkom);
@@ -62,17 +66,56 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-       buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
-           }
-       });
+        buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeToSearchIntent(getString(R.string.key_meldingen));
+            }
+        });
+
+        buttonArchive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeToSearchIntent(getString(R.string.key_archives));
+            }
+        });
+    }
+
+    /**
+     * Method to make a new intent for either Archive or Melding
+     *
+     * @param key database key we want to use in DetailActivity (meldingen/archives)
+     */
+    private void homeToSearchIntent(String key) {
+        Intent homeToSearch = new Intent(HomeActivity.this, HuidigeSchadesActivity.class);
+        homeToSearch.putExtra("detail", key);
+        startActivity(homeToSearch);
+    }
+
+    /**
+     * Check if the current user is 'reparateur' and show button if true
+     */
+    private void archiveVisibility() {
+        Database db = new Database();
+        db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)) {
+                    buttonArchive.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(HomeActivity.this, getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setNaam(FirebaseUser user, final TextView textView) {
         Database db = new Database();
         db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);

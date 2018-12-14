@@ -8,62 +8,52 @@
 
     <TextView
         android:id="@+id/textLokaal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/lokaal_dubbelpunt"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/textUser"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUser" />
 
     <TextView
         android:id="@+id/textCategorie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/categorie"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLokaalExtra" />
 
     <TextView
         android:id="@+id/textDatum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/datum"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCategorie" />
 
     <TextView
         android:id="@+id/textGerepareerd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/gerepareerd"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textBeschrijving2" />
 
     <TextView
         android:id="@+id/textBeschrijving"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/beschrijving"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textDatum" />
 
     <TextView
         android:id="@+id/textBeschrijving2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +61,7 @@
 
     <TextView
         android:id="@+id/textLokaalExtra"
-        android:layout_width="wrap_content"
+        style="@style/textViewStyle"
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -80,12 +70,10 @@
 
     <TextView
         android:id="@+id/textFoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/foto_dubbelpunt"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textGerepareerd" />
 
@@ -119,8 +107,7 @@
 
     <TextView
         android:id="@+id/textFotoLaden"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -129,14 +116,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressFoto" />
 
-    <TextView
-        android:id="@+id/textUser"
+    <Switch
+        android:id="@+id/switchArchive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textGerepareerd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textGerepareerd" />
+
+    <TextView
+        android:id="@+id/textUser"
+        style="@style/textViewStyle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/melder"
-        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
