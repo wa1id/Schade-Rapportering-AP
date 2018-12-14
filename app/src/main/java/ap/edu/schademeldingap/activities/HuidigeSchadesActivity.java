@@ -60,6 +60,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         mListView.setAdapter(mAdapterAlleMeldingen);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN); //makes sure the listview doesnt move when keyboard pops up.
 
+        //Search EditText
         mEditSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -81,6 +82,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
             }
         });
 
+        //Getting data
         mListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -115,6 +117,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
             }
         };
 
+        //Search Spinner
         mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -144,7 +147,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         });
 
         db = new Database();
-        db.getDbReference().child(getString(R.string.key_meldingen)).addChildEventListener(mListener);
+        db.getDbReference().child(getIntent().getStringExtra("detail")).addChildEventListener(mListener);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

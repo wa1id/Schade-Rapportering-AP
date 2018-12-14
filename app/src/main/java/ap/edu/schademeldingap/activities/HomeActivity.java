@@ -23,9 +23,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private Button buttonSignOut;
-    private Button buttonSchadeMelden;
-    private Button buttonSchadeZoeken;
     private Button buttonArchive;
     private TextView textWelkom;
 
@@ -37,9 +34,9 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        buttonSignOut = findViewById(R.id.buttonSignOut);
-        buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
-        buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
+        Button buttonSignOut = findViewById(R.id.buttonSignOut);
+        Button buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
+        Button buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
         buttonArchive = findViewById(R.id.buttonArchive);
         textWelkom = findViewById(R.id.textWelkom);
 
@@ -68,28 +65,48 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-       buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(HomeActivity.this, HuidigeSchadesActivity.class));
-           }
-       });
+        buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeToSearchIntent(getString(R.string.key_meldingen));
+            }
+        });
+
+        buttonArchive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeToSearchIntent(getString(R.string.key_archives));
+            }
+        });
     }
 
-    //TODO: misschien samen met setNaam checken of die reparateur is
-    private void archiveVisibility(){
+    /**
+     * Method to make a new intent for either Archive or Melding
+     *
+     * @param key database key we want to use in DetailActivity (meldingen/archives)
+     */
+    private void homeToSearchIntent(String key) {
+        Intent homeToSearch = new Intent(HomeActivity.this, HuidigeSchadesActivity.class);
+        homeToSearch.putExtra("detail", key);
+        startActivity(homeToSearch);
+    }
+
+    /**
+     * Check if the current user is 'reparateur' and show button if true
+     */
+    private void archiveVisibility() {
         Database db = new Database();
         db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)){
+                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)) {
                     buttonArchive.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //TODO: Toast tonen dat data ophalen niet is gelukt, zie setNaam
+                Toast.makeText(HomeActivity.this, getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -110,7 +127,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }
