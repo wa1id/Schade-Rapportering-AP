@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.models.Melding;
@@ -36,6 +37,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_melding);
+        setTitle("SCHADE MELDEN");
 
         //Permissions
         if (Build.VERSION.SDK_INT >= 23) {
@@ -93,7 +95,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
                 dispatchTakePictureIntent();
             }
         });
-      
+
         buttonMeldenSchade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

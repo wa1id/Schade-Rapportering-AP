@@ -44,6 +44,8 @@ public class DetailActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("DETAIL");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
@@ -159,12 +161,13 @@ public class DetailActivity extends AbstractActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                //unused
             }
         });
     }
 
     /**
-     * Check for empty labels and hide them
+     *  Check for empty labels and hide them
      */
     private void checkEmptyLabels() {
         TextView textBeschrijving = findViewById(R.id.textBeschrijving);

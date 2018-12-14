@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("HOME");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -127,6 +128,4 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

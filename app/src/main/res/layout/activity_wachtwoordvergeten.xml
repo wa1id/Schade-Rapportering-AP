@@ -6,25 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.WachtwoordVergetenActivity">
 
-    <TextView
-        android:id="@+id/WachtwoordVergetenView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/wachtwoord_herstellen"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/editEmailHerstellen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:autofillHints="email"
         android:ems="10"
@@ -34,19 +21,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/WachtwoordVergetenView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonWachtwoordHestellen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
+        style="@style/buttonStyle"
+        android:layout_marginBottom="8dp"
         android:text="@string/sturen"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textInfoPasswordReset"
+        android:layout_width="277dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Gelieve uw email in te geven zodat we uw wachtwoord kunnen herstellen."
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonWachtwoordHestellen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEmailHerstellen" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmailHerstellen"
+        app:layout_constraintVertical_bias="0.096" />
 
 </android.support.constraint.ConstraintLayout>

@@ -94,6 +94,4 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
             }
         });
     }
-
-
 }
