@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,32 +21,50 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 import ap.edu.schademeldingap.R;
-import ap.edu.schademeldingap.activities.HomeActivity;
 import ap.edu.schademeldingap.data.Database;
-import ap.edu.schademeldingap.data.Storage;
+import ap.edu.schademeldingap.interfaces.IMeldingCallback;
 import ap.edu.schademeldingap.models.Melding;
-import ap.edu.schademeldingap.models.User;
 
-public class MeldingController { //TODO: Mss naam verandere naar DataController want die gaat ook archief behandelen
+public class MeldingController {
 
     private Database db = new Database();
 
     /**
+     * Get Melding data by id
+     */
+    public void getMelding(String rootKey, String id, final Context context, final IMeldingCallback callback) {
+        db.getDbReference().child(rootKey).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Melding melding = dataSnapshot.getValue(Melding.class);
+                callback.onMeldingCallback(melding);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(context, context.getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
+    /**
      * make new Melding in Firebase Database
      */
-    public void nieuweMelding(Melding melding, ImageView image, Context c) { //need context to use getString()
-        DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_meldingen)).push();
+    public void nieuweMelding(Melding melding, ImageView image, Context context) { //need context to use getString()
+        DatabaseReference ref = db.getDbReference().child(context.getString(R.string.key_meldingen)).push();
 
         melding.setId(ref.getKey());
         ref.setValue(melding);
-        uploadFotoToFirebase(image, ref.getKey(), c);
+        uploadFotoToFirebase(image, ref.getKey(), context);
     }
 
     /**
      * Move Melding to Archive and delete the Melding
      */
-    public void archiveerMelding(Melding melding, Context c) {
-        DatabaseReference ref = db.getDbReference().child(c.getString(R.string.key_archives));
+    public void archiveerMelding(Melding melding, Context context) {
+        DatabaseReference ref = db.getDbReference().child(context.getString(R.string.key_archives));
 
         melding.setGerepareerd(true);
         ref.child(getKeyOfMelding(melding)).setValue(melding);
@@ -56,8 +73,8 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
     /**
      * Delete melding
      */
-    public void deleteMelding(Melding melding, Context c) {
-        db.getDbReference().child(c.getString(R.string.key_meldingen)).child(melding.getId()).removeValue();
+    public void deleteMelding(Melding melding, Context context) {
+        db.getDbReference().child(context.getString(R.string.key_meldingen)).child(melding.getId()).removeValue();
     }
 
     /**
@@ -70,7 +87,7 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
     /**
      * Uploads photo to Storage
      */
-    private void uploadFotoToFirebase(ImageView image, String name, Context c) {
+    private void uploadFotoToFirebase(ImageView image, String name, Context context) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
@@ -81,7 +98,7 @@ public class MeldingController { //TODO: Mss naam verandere naar DataController 
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = storageRef.child(c.getString(R.string.path_images) + name).putBytes(data);
+        UploadTask uploadTask = storageRef.child(context.getString(R.string.path_images) + name).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {

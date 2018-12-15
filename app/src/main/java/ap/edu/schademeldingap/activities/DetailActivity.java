@@ -11,35 +11,24 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
-import ap.edu.schademeldingap.interfaces.MyCallback;
+import ap.edu.schademeldingap.interfaces.IMeldingCallback;
+import ap.edu.schademeldingap.interfaces.IUserCallback;
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.controllers.UserController;
-import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
 import ap.edu.schademeldingap.models.User;
 
 public class DetailActivity extends AbstractActivity {
 
-    private FirebaseAuth mAuth;
-    private Database db;
-
     private String id;
-    private TextView textLokaal;
     private TextView textLokaalExtra;
-    private TextView textCategorie;
-    private TextView textDatum;
     private TextView textBeschrijving2;
     private TextView textGerepareerd;
     private ImageView imageView;
@@ -52,20 +41,15 @@ public class DetailActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        db = new Database();
-
         id = getIntent().getStringExtra("id");
-        final TextView textUser = findViewById(R.id.textUser);
-        textLokaal = findViewById(R.id.textLokaal);
+
         textLokaalExtra = findViewById(R.id.textLokaalExtra);
-        textCategorie = findViewById(R.id.textCategorie);
-        textDatum = findViewById(R.id.textDatum);
         textBeschrijving2 = findViewById(R.id.textBeschrijving2);
         imageView = findViewById(R.id.imageSchade);
         textGerepareerd = findViewById(R.id.textGerepareerd);
         switchArchive = findViewById(R.id.switchArchive);
 
-        //check if current user is reparateur
+        setupInterface();
         reparateurVisibility();
 
         switchArchive.setOnClickListener(new View.OnClickListener() {
@@ -77,20 +61,27 @@ public class DetailActivity extends AbstractActivity {
             }
 
         });
+    }
 
-        db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setupInterface() {
+        MeldingController mc = new MeldingController();
+
+        final TextView textUser = findViewById(R.id.textUser);
+        final TextView textLokaal = findViewById(R.id.textLokaal);
+        final TextView textCategorie = findViewById(R.id.textCategorie);
+        final TextView textDatum = findViewById(R.id.textDatum);
+
+        mc.getMelding(getIntent().getStringExtra("detail"), id, DetailActivity.this, new IMeldingCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Melding m = dataSnapshot.getValue(Melding.class);
+            public void onMeldingCallback(Melding melding) {
+                textUser.setText(melding.getName());
+                textLokaal.setText(melding.getVerdieping() + "." + melding.getLokaal());
+                textLokaalExtra.setText(melding.getVrijeInvoerLokaal());
+                textCategorie.setText(melding.getCategorie());
+                textDatum.setText(melding.getDatum());
+                textBeschrijving2.setText(melding.getBeschrijvingSchade());
 
-                textUser.setText(m.getName());
-                textLokaal.setText(m.getVerdieping() + "." + m.getLokaal());
-                textLokaalExtra.setText(m.getVrijeInvoerLokaal());
-                textCategorie.setText(m.getCategorie());
-                textDatum.setText(m.getDatum());
-                textBeschrijving2.setText(m.getBeschrijvingSchade());
-
-                if (m.isGerepareerd()) {
+                if (melding.isGerepareerd()) {
                     textGerepareerd.setText(getString(R.string.gerepareerd_ja));
                 } else {
                     textGerepareerd.setText(getString(R.string.gerepareerd_nee));
@@ -99,32 +90,27 @@ public class DetailActivity extends AbstractActivity {
                 checkEmptyLabels();
                 displayImage(imageView);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(DetailActivity.this, getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
+    /**
+     * archive & delete Melding
+     */
     private void archiveer() {
-        db.getDbReference().child(getString(R.string.key_meldingen)).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Melding m = dataSnapshot.getValue(Melding.class);
+        final MeldingController mc = new MeldingController();
 
-                MeldingController mc = new MeldingController();
-                mc.archiveerMelding(m, DetailActivity.this);
-                mc.deleteMelding(m, DetailActivity.this);
-            }
-
+        mc.getMelding(getIntent().getStringExtra("detail"), id, DetailActivity.this, new IMeldingCallback() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(DetailActivity.this, R.string.data_ophalen_mislukt, Toast.LENGTH_SHORT).show();
+            public void onMeldingCallback(Melding melding) {
+                mc.archiveerMelding(melding, DetailActivity.this);
+                mc.deleteMelding(melding, DetailActivity.this);
             }
         });
     }
 
+    /**
+     * Show popup alerting the user he is about to archive a Melding
+     */
     private void confirmArchive() {
         AlertDialog.Builder builder;
 
@@ -154,7 +140,7 @@ public class DetailActivity extends AbstractActivity {
     private void reparateurVisibility() {
         UserController uc = new UserController();
 
-        uc.getUserData(new MyCallback() {
+        uc.getUserData(DetailActivity.this, new IUserCallback() {
             @Override
             public void onUserCallback(User user) {
                 if (user.getReparateur()) {
@@ -162,7 +148,7 @@ public class DetailActivity extends AbstractActivity {
                     switchArchive.setVisibility(View.VISIBLE);
                 }
             }
-        }, DetailActivity.this);
+        });
     }
 
     /**

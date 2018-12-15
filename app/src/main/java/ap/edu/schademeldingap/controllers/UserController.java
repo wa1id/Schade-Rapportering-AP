@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
-import ap.edu.schademeldingap.interfaces.MyCallback;
+import ap.edu.schademeldingap.interfaces.IUserCallback;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.models.User;
 
@@ -29,14 +29,14 @@ public class UserController {
     /**
      * Get Current User data
      */
-    public void getUserData(final MyCallback myCallback, final Context context) {
+    public void getUserData(final Context context, final IUserCallback callback) {
         Database db = new Database();
 
         db.getDbReference().child("users").child(getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                myCallback.onUserCallback(user);
+                callback.onUserCallback(user);
             }
 
             @Override

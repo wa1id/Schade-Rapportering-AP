@@ -154,6 +154,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailIntent = new Intent(HuidigeSchadesActivity.this, DetailActivity.class);
                 detailIntent.putExtra("id", mMeldingIds.get(position));
+                detailIntent.putExtra("detail", getIntent().getStringExtra("detail"));
                 startActivity(detailIntent);
             }
         });

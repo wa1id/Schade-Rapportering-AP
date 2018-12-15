@@ -1,24 +1,17 @@
 package ap.edu.schademeldingap.activities;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.controllers.UserController;
-import ap.edu.schademeldingap.data.Database;
-import ap.edu.schademeldingap.interfaces.MyCallback;
+import ap.edu.schademeldingap.interfaces.IUserCallback;
 import ap.edu.schademeldingap.models.User;
 
 public class HomeActivity extends AppCompatActivity {
@@ -94,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void setupHome() {
         UserController uc = new UserController();
-        uc.getUserData(new MyCallback() {
+        uc.getUserData(HomeActivity.this, new IUserCallback() {
             @Override
             public void onUserCallback(User user) {
                 mTextWelkom.append(" " + user.getName());
@@ -103,6 +96,6 @@ public class HomeActivity extends AppCompatActivity {
                     buttonArchive.setVisibility(View.VISIBLE);
                 }
             }
-        }, HomeActivity.this);
+        });
     }
 }
