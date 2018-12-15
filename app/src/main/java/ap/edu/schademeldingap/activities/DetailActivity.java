@@ -21,11 +21,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import ap.edu.schademeldingap.interfaces.MyCallback;
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.controllers.MeldingController;
+import ap.edu.schademeldingap.controllers.UserController;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.data.Storage;
 import ap.edu.schademeldingap.models.Melding;
+import ap.edu.schademeldingap.models.User;
 
 public class DetailActivity extends AbstractActivity {
 
@@ -149,21 +152,17 @@ public class DetailActivity extends AbstractActivity {
      * Check if current user is reparateur and show button if true
      */
     private void reparateurVisibility() {
-        mAuth = FirebaseAuth.getInstance();
-        db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        UserController uc = new UserController();
+
+        uc.getUserData(new MyCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)) {
+            public void onUserCallback(User user) {
+                if (user.getReparateur()) {
                     textGerepareerd.setVisibility(View.VISIBLE);
                     switchArchive.setVisibility(View.VISIBLE);
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //unused
-            }
-        });
+        }, DetailActivity.this);
     }
 
     /**

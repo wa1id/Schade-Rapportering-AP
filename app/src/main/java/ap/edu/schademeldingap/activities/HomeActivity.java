@@ -16,7 +16,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.controllers.UserController;
 import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.interfaces.MyCallback;
 import ap.edu.schademeldingap.models.User;
 
 public class HomeActivity extends AppCompatActivity {
@@ -24,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private Button buttonArchive;
-    private TextView textWelkom;
+    private TextView mTextWelkom;
 
 
     @Override
@@ -39,13 +41,9 @@ public class HomeActivity extends AppCompatActivity {
         Button buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
         Button buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
         buttonArchive = findViewById(R.id.buttonArchive);
-        textWelkom = findViewById(R.id.textWelkom);
+        mTextWelkom = findViewById(R.id.textWelkom);
 
-        //tonen of verbergen van de archive button
-        archiveVisibility();
-
-        //Titel van view veranderen naar naam van huidige user
-        setNaam(mAuth.getCurrentUser(), textWelkom);
+        setupHome();
 
         //Tijdelijke sign out knop, moet ergens anders gezet worden
         buttonSignOut.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent homeToMelden = new Intent(HomeActivity.this, NieuweMeldingActivity.class);
-                homeToMelden.putExtra(getString(R.string.key_naam), textWelkom.getText().toString().substring(7));
+                homeToMelden.putExtra(getString(R.string.key_naam), mTextWelkom.getText().toString().substring(7));
                 startActivity(homeToMelden);
             }
         });
@@ -83,7 +81,6 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * Method to make a new intent for either Archive or Melding
-     *
      * @param key database key we want to use in DetailActivity (meldingen/archives)
      */
     private void homeToSearchIntent(String key) {
@@ -93,39 +90,19 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     /**
-     * Check if the current user is 'reparateur' and show button if true
+     * setup the homepage for the current user. Get the name and check if reparateur
      */
-    private void archiveVisibility() {
-        Database db = new Database();
-        db.getDbReference().child("users").child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void setupHome() {
+        UserController uc = new UserController();
+        uc.getUserData(new MyCallback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(getString(R.string.key_reparateur)).getValue().equals(true)) {
+            public void onUserCallback(User user) {
+                mTextWelkom.append(" " + user.getName());
+
+                if (user.getReparateur()) {
                     buttonArchive.setVisibility(View.VISIBLE);
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(HomeActivity.this, getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void setNaam(FirebaseUser user, final TextView textView) {
-        Database db = new Database();
-        db.getDbReference().child(getString(R.string.key_users)).child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                textView.setText(textView.getText() + " " + user.getName());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(HomeActivity.this, getString(R.string.kan_naam_niet_ophalen), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }, HomeActivity.this);
     }
 }
