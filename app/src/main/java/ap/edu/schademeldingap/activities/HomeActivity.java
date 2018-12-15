@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +19,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private Button buttonArchive;
+    private Button mButtonArchive;
+    private Button mButtonSignOut;
+    private Button mButtonSchadeMelden;
+    private Button mButtonSchadeZoeken;
     private TextView mTextWelkom;
 
 
@@ -30,16 +34,16 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button buttonSignOut = findViewById(R.id.buttonSignOut);
-        Button buttonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
-        Button buttonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
-        buttonArchive = findViewById(R.id.buttonArchive);
+        mButtonSignOut = findViewById(R.id.buttonSignOut);
+        mButtonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
+        mButtonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
+        mButtonArchive = findViewById(R.id.buttonArchive);
         mTextWelkom = findViewById(R.id.textWelkom);
 
         setupHome();
 
         //Tijdelijke sign out knop, moet ergens anders gezet worden
-        buttonSignOut.setOnClickListener(new View.OnClickListener() {
+        mButtonSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
@@ -48,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        buttonSchadeMelden.setOnClickListener(new View.OnClickListener() {
+        mButtonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent homeToMelden = new Intent(HomeActivity.this, NieuweMeldingActivity.class);
@@ -57,14 +61,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        buttonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
+        mButtonSchadeZoeken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 homeToSearchIntent(getString(R.string.key_meldingen));
             }
         });
 
-        buttonArchive.setOnClickListener(new View.OnClickListener() {
+        mButtonArchive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 homeToSearchIntent(getString(R.string.key_archives));
@@ -93,9 +97,24 @@ public class HomeActivity extends AppCompatActivity {
                 mTextWelkom.append(" " + user.getName());
 
                 if (user.getReparateur()) {
-                    buttonArchive.setVisibility(View.VISIBLE);
+                    mButtonArchive.setVisibility(View.VISIBLE);
                 }
+
+                showInterface();
             }
         });
+    }
+
+    /**
+     * Show buttons/textviews & hide progressbar after setupHome()
+     */
+    private void showInterface() {
+        ProgressBar progressLoading = findViewById(R.id.progressLoading);
+
+        progressLoading.setVisibility(View.GONE);
+        mButtonSchadeMelden.setVisibility(View.VISIBLE);
+        mButtonSignOut.setVisibility(View.VISIBLE);
+        mButtonSchadeZoeken.setVisibility(View.VISIBLE);
+        mTextWelkom.setVisibility(View.VISIBLE);
     }
 }

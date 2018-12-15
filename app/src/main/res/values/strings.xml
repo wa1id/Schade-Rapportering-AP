@@ -306,5 +306,6 @@
     <string name="separator">---</string>
     <string name="bent_u_zeker">Bent u zeker?</string>
     <string name="bent_u_zeker_message">Status van de melding op \'Gerepareerd\' zetten en verplaatsen naar archief?</string>
+    <string name="laden">Laden...</string>
 
 </resources>
