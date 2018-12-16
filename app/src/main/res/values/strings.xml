@@ -307,5 +307,6 @@
     <string name="bent_u_zeker">Bent u zeker?</string>
     <string name="bent_u_zeker_message">Status van de melding op \'Gerepareerd\' zetten en verplaatsen naar archief?</string>
     <string name="laden">Laden...</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
 </resources>
