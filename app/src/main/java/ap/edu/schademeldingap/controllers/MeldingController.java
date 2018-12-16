@@ -37,9 +37,9 @@ import retrofit2.Response;
 public class MeldingController {
 
     private Database db = new Database();
-    private static String baseUrl = "https://fcm.googleapis.com/";
 
-    public static ApiService getFCMClient() {
+    private static ApiService getFCMClient() {
+        String baseUrl = "https://fcm.googleapis.com/";
         return RetrofitClient.getClient(baseUrl).create(ApiService.class);
     }
 
@@ -84,15 +84,16 @@ public class MeldingController {
         getFCMClient().sendNotification(sender)
                 .enqueue(new Callback<NotificationResponse>() {
                     @Override
-                    public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                    public void onResponse(@NonNull Call<NotificationResponse> call, @NonNull Response<NotificationResponse> response) {
+                        assert response.body() != null;
                         if (response.body().getSuccess() == 1) {
-                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                            Log.d("push", "Success");
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<NotificationResponse> call, Throwable t) {
-                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                    public void onFailure(@NonNull Call<NotificationResponse> call, @NonNull Throwable t) {
+                        Log.d("push", "Failed:" + t.getMessage());
                     }
                 });
 
