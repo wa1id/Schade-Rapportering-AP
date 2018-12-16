@@ -8,12 +8,17 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -28,6 +33,7 @@ import ap.edu.schademeldingap.models.Melding;
 public class MeldingController {
 
     private Database db = new Database();
+    private String mToken;
 
     /**
      * Get Melding data by id
@@ -56,6 +62,7 @@ public class MeldingController {
         DatabaseReference ref = db.getDbReference().child(context.getString(R.string.key_meldingen)).push();
 
         melding.setId(ref.getKey());
+        melding.setToken(FirebaseInstanceId.getInstance().getToken());
         ref.setValue(melding);
         uploadFotoToFirebase(image, ref.getKey(), context);
     }

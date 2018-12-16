@@ -2,19 +2,13 @@ package ap.edu.schademeldingap.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import ap.edu.schademeldingap.R;
 import ap.edu.schademeldingap.controllers.UserController;
@@ -47,20 +41,6 @@ public class HomeActivity extends AppCompatActivity {
         mTextWelkom = findViewById(R.id.textWelkom);
 
         setupHome();
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    Log.w("push", "getInstanceId failed", task.getException());
-                    return;
-                }
-
-                // Get new Instance ID token
-                String token = task.getResult().getToken();
-                Log.d("push", token);
-            }
-        });
 
         //Tijdelijke sign out knop, moet ergens anders gezet worden
         mButtonSignOut.setOnClickListener(new View.OnClickListener() {
