@@ -8,17 +8,13 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -26,14 +22,26 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.RetrofitClient;
 import ap.edu.schademeldingap.data.Database;
+import ap.edu.schademeldingap.interfaces.ApiService;
 import ap.edu.schademeldingap.interfaces.IMeldingCallback;
 import ap.edu.schademeldingap.models.Melding;
+import ap.edu.schademeldingap.models.notifications.NotificationFCM;
+import ap.edu.schademeldingap.models.notifications.NotificationResponse;
+import ap.edu.schademeldingap.models.notifications.Sender;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MeldingController {
 
     private Database db = new Database();
-    private String mToken;
+    private static String baseUrl = "https://fcm.googleapis.com/";
+
+    public static ApiService getFCMClient() {
+        return RetrofitClient.getClient(baseUrl).create(ApiService.class);
+    }
 
     /**
      * Get Melding data by id
@@ -49,11 +57,9 @@ public class MeldingController {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(context, context.getString(R.string.data_ophalen_mislukt), Toast.LENGTH_SHORT).show();
-
             }
         });
     }
-
 
     /**
      * make new Melding in Firebase Database
@@ -70,8 +76,25 @@ public class MeldingController {
     /**
      * Move Melding to Archive and delete the Melding
      */
-    public void archiveerMelding(Melding melding, Context context) {
+    public void archiveerMelding(Melding melding, final Context context) {
         DatabaseReference ref = db.getDbReference().child(context.getString(R.string.key_archives));
+
+        NotificationFCM notification = new NotificationFCM("Uw melding op " + melding.getDatum() + " van lokaal " + melding.getVerdieping() + "." + melding.getLokaal() + " werd gerepareerd.", "Goed nieuws!");
+        Sender sender = new Sender(melding.getToken(), notification);
+        getFCMClient().sendNotification(sender)
+                .enqueue(new Callback<NotificationResponse>() {
+                    @Override
+                    public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                        if (response.body().getSuccess() == 1) {
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<NotificationResponse> call, Throwable t) {
+                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         melding.setGerepareerd(true);
         ref.child(getKeyOfMelding(melding)).setValue(melding);
