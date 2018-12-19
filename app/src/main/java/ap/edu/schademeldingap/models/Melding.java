@@ -16,6 +16,7 @@ public class Melding {
     private String beschrijvingSchade;
     private String datum;
     private String id;
+    private String token; //used for notifications
     private boolean gerepareerd;
 
     public Melding() {
@@ -34,6 +35,7 @@ public class Melding {
         this.datum = new SimpleDateFormat("dd/MM/yyyy").format(date);
         this.gerepareerd = false;
         this.id = "";
+        this.token = "";
     }
 
     public String getName() {
@@ -82,5 +84,13 @@ public class Melding {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
