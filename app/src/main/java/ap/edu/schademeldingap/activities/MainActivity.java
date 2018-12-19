@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (!task.isSuccessful()) {
+                            hideLoginProgress();
                             Toast.makeText(MainActivity.this, getString(R.string.login_error),
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -123,6 +124,15 @@ public class MainActivity extends AppCompatActivity {
         progressLogin.setVisibility(View.VISIBLE);
         editEmail.setVisibility(View.INVISIBLE);
         editWachtwoord.setVisibility(View.INVISIBLE);
+    }
+
+    /**
+     * Show progressbar and hide EditText's while user is signing in
+     */
+    private void hideLoginProgress() {
+        progressLogin.setVisibility(View.INVISIBLE);
+        editEmail.setVisibility(View.VISIBLE);
+        editWachtwoord.setVisibility(View.VISIBLE);
     }
 
     @Override
