@@ -307,5 +307,7 @@
     <string name="bent_u_zeker">Bent u zeker?</string>
     <string name="bent_u_zeker_message">Status van de melding op \'Gerepareerd\' zetten en verplaatsen naar archief?</string>
     <string name="laden">Laden...</string>
+    <string name="gelieve_uw_email_in_te_geven_zodat_we_uw_wachtwoord_kunnen_herstellen">Gelieve uw email in te geven zodat we uw wachtwoord kunnen herstellen.</string>
+    <string name="ongeldige_email">Ongeldige email</string>
 
 </resources>
