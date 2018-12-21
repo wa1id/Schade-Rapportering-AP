@@ -23,6 +23,7 @@
     <TextView
         android:id="@+id/textVerdieping"
         style="@style/textViewStyle"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/verdieping"
         app:layout_constraintStart_toStartOf="parent"
