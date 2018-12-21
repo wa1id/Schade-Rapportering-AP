@@ -32,7 +32,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textBeschrijving2;
     private TextView textGerepareerd;
     private ImageView imageView;
-    private Switch switchArchive;
+    private Switch mSwitchArchive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +47,22 @@ public class DetailActivity extends AbstractActivity {
         textBeschrijving2 = findViewById(R.id.textBeschrijving2);
         imageView = findViewById(R.id.imageSchade);
         textGerepareerd = findViewById(R.id.textGerepareerd);
-        switchArchive = findViewById(R.id.switchArchive);
+        mSwitchArchive = findViewById(R.id.switchArchive);
 
         setupInterface();
-        reparateurVisibility();
 
-        switchArchive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if (switchArchive.isChecked()) {
-                    confirmArchive();
+        if (mSwitchArchive.getVisibility() == View.VISIBLE) {
+            mSwitchArchive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    if (mSwitchArchive.isChecked()) {
+                        confirmArchive();
+                    }
                 }
-            }
 
-        });
+            });
+        }
+
     }
 
     private void setupInterface() {
@@ -91,6 +93,7 @@ public class DetailActivity extends AbstractActivity {
                 displayImage(imageView);
             }
         });
+        reparateurVisibility();
     }
 
     /**
@@ -127,7 +130,7 @@ public class DetailActivity extends AbstractActivity {
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switchArchive.setChecked(false);
+                        mSwitchArchive.setChecked(false);
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -135,7 +138,7 @@ public class DetailActivity extends AbstractActivity {
     }
 
     /**
-     * Check if current user is reparateur and show button if true
+     * Check if current user is reparateur and show switch if true
      */
     private void reparateurVisibility() {
         UserController uc = new UserController();
@@ -144,8 +147,7 @@ public class DetailActivity extends AbstractActivity {
             @Override
             public void onUserCallback(User user) {
                 if (user.getReparateur()) {
-                    textGerepareerd.setVisibility(View.VISIBLE);
-                    switchArchive.setVisibility(View.VISIBLE);
+                    mSwitchArchive.setVisibility(View.VISIBLE);
                 }
             }
         });
