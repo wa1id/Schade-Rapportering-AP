@@ -51,18 +51,14 @@ public class DetailActivity extends AbstractActivity {
 
         setupInterface();
 
-        if (mSwitchArchive.getVisibility() == View.VISIBLE) {
-            mSwitchArchive.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(final View v) {
-                    if (mSwitchArchive.isChecked()) {
-                        confirmArchive();
-                    }
+        mSwitchArchive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (mSwitchArchive.isChecked()) {
+                    confirmArchive();
                 }
-
-            });
-        }
-
+            }
+        });
     }
 
     private void setupInterface() {
@@ -154,7 +150,7 @@ public class DetailActivity extends AbstractActivity {
     }
 
     /**
-     *  Check for empty labels and hide them
+     * Check for empty labels and hide them
      */
     private void checkEmptyLabels() {
         TextView textBeschrijving = findViewById(R.id.textBeschrijving);
