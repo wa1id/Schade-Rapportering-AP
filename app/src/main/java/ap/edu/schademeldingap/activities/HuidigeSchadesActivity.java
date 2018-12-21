@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,6 +35,8 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
     private ListView mListView;
     private EditText mEditSearch;
     private Spinner mSpinnerCategory;
+    private TextView mTextNoMeldingen;
+    private ProgressBar mProgressLoadMeldingen;
 
     private ArrayList<String> mAlleMeldingen;
     private ArrayList<String> mMeldingIds;
@@ -51,6 +54,8 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         mListView = findViewById(R.id.listView);
         mEditSearch = findViewById(R.id.editSearch);
         mSpinnerCategory = findViewById(R.id.spinnerCategorie);
+        mTextNoMeldingen = findViewById(R.id.textNoMeldingen);
+        mProgressLoadMeldingen = findViewById(R.id.progressLoadMeldingen);
 
         mMeldingIds = new ArrayList<>();
         mAlleMeldingen = new ArrayList<>();
@@ -95,9 +100,9 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
                         + "   ---   "
                         + melding.getCategorie());
 
-                TextView textNoMeldingen = findViewById(R.id.textNoMeldingen);
-                textNoMeldingen.setVisibility(View.GONE);
-                
+                mTextNoMeldingen.setVisibility(View.GONE);
+                mProgressLoadMeldingen.setVisibility(View.GONE);
+
                 mAdapterAlleMeldingen.notifyDataSetChanged();
             }
 
@@ -163,6 +168,15 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mAlleMeldingen.isEmpty()) {
+            mTextNoMeldingen.setText(getString(R.string.er_zijn_geen_meldingen));
+            mProgressLoadMeldingen.setVisibility(View.GONE);
+        }
     }
 
     @Override
