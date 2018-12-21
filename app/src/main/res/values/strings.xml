@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Schade Melding AP</string>
+    <string name="home">Home</string>
     <string name="registreer">Registreer</string>
     <string name="email">Email</string>
     <string name="wachtwoord">Wachtwoord</string>
@@ -254,7 +255,6 @@
     <string name="melding_succes">Uw melding werd succesvol verzonden.</string>
     <string name="verplicht">Verplicht.</string>
     <string name="schade_zoeken">Schade zoeken</string>
-    <string name="uitloggen">Uitloggen</string>
     <string name="inloggen">Inloggen</string>
     <string name="niet_geregistreerd">Niet geregistreerd?</string>
     <string name="wachtwoord_vergeten">Wachtwoord vergeten</string>
@@ -308,5 +308,6 @@
     <string name="bent_u_zeker_message">Status van de melding op \'Gerepareerd\' zetten en verplaatsen naar archief?</string>
     <string name="laden">Laden...</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="uitloggen">Uitloggen</string>
 
 </resources>

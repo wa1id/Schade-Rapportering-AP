@@ -2,7 +2,10 @@ package ap.edu.schademeldingap.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -42,15 +45,6 @@ public class HomeActivity extends AppCompatActivity {
 
         setupHome();
 
-        //Tijdelijke sign out knop, moet ergens anders gezet worden
-        mButtonSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                finish();
-            }
-        });
 
         mButtonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +107,26 @@ public class HomeActivity extends AppCompatActivity {
 
         progressLoading.setVisibility(View.GONE);
         mButtonSchadeMelden.setVisibility(View.VISIBLE);
-        mButtonSignOut.setVisibility(View.VISIBLE);
         mButtonSchadeZoeken.setVisibility(View.VISIBLE);
         mTextWelkom.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.uitloggen:
+                mAuth.signOut();
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                finish();
+        }
+        return true;
     }
 }
