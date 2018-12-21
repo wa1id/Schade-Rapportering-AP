@@ -7,6 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".activities.HuidigeSchadesActivity">
 
+    <TextView
+        android:id="@+id/textNoMeldingen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/er_zijn_geen_meldingen"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/listView"
+        app:layout_constraintEnd_toEndOf="@+id/listView"
+        app:layout_constraintStart_toStartOf="@+id/listView"
+        app:layout_constraintTop_toTopOf="@+id/listView" />
+
     <EditText
         android:id="@+id/editSearch"
         android:layout_width="0dp"
@@ -26,10 +41,11 @@
         android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

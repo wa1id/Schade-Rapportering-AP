@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -93,6 +94,10 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
                 mAlleMeldingen.add(melding.getVerdieping() + "." + melding.getLokaal()
                         + "   ---   "
                         + melding.getCategorie());
+
+                TextView textNoMeldingen = findViewById(R.id.textNoMeldingen);
+                textNoMeldingen.setVisibility(View.GONE);
+                
                 mAdapterAlleMeldingen.notifyDataSetChanged();
             }
 
