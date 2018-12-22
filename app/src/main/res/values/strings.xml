@@ -309,5 +309,6 @@
     <string name="laden">Laden...</string>
     <string name="gelieve_uw_email_in_te_geven_zodat_we_uw_wachtwoord_kunnen_herstellen">Gelieve uw email in te geven zodat we uw wachtwoord kunnen herstellen.</string>
     <string name="ongeldige_email">Ongeldige email</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
 </resources>
