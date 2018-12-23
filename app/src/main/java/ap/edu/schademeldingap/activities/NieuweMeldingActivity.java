@@ -84,7 +84,7 @@ public class NieuweMeldingActivity extends AbstractActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                //unused
             }
         });
 
