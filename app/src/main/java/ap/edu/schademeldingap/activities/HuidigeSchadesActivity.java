@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -158,6 +159,20 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
 
         db = new Database();
         db.getDbReference().child(getIntent().getStringExtra("detail")).addChildEventListener(mListener);
+        db.getDbReference().child(getIntent().getStringExtra("detail")).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (mAlleMeldingen.isEmpty()) {
+                    mTextNoMeldingen.setText(getString(R.string.er_zijn_geen_meldingen));
+                    mProgressLoadMeldingen.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //unused
+            }
+        });
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -168,15 +183,6 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mAlleMeldingen.isEmpty()) {
-            mTextNoMeldingen.setText(getString(R.string.er_zijn_geen_meldingen));
-            mProgressLoadMeldingen.setVisibility(View.GONE);
-        }
     }
 
     @Override
