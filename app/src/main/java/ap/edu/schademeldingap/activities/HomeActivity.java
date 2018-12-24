@@ -37,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mButtonSignOut = findViewById(R.id.buttonSignOut);
         mButtonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
         mButtonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
         mButtonArchive = findViewById(R.id.buttonArchive);

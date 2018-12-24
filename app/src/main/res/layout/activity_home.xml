@@ -27,10 +27,11 @@
     <Button
         android:id="@+id/buttonSignOut"
         style="@style/buttonStyle"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="72dp"
         android:text="@string/uitloggen"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textWelkom" />
 
@@ -52,7 +53,7 @@
     <Button
         android:id="@+id/buttonArchive"
         style="@style/buttonStyle"
-        android:text="Archive"
+        android:text="@string/archive"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

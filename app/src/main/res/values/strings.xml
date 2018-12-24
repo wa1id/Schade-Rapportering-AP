@@ -309,5 +309,6 @@
     <string name="laden">Laden...</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="uitloggen">Uitloggen</string>
+    <string name="archive">archive</string>
 
 </resources>
