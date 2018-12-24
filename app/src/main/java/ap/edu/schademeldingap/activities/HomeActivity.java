@@ -38,11 +38,20 @@ public class HomeActivity extends AppCompatActivity {
         mButtonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
         mButtonArchive = findViewById(R.id.buttonArchive);
         mTextWelkom = findViewById(R.id.textWelkom);
+        mButtonSignOut = findViewById(R.id.buttonSignOut);
+        mButtonSignOut = findViewById(R.id.buttonSignOut);
 
         setupHome();
 
-     
 
+        mButtonSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                finish();
+            }
+        });
         mButtonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,8 +112,8 @@ public class HomeActivity extends AppCompatActivity {
         ProgressBar progressLoading = findViewById(R.id.progressLoading);
 
         progressLoading.setVisibility(View.GONE);
-        mButtonSchadeMelden.setVisibility(View.VISIBLE);
         mButtonSignOut.setVisibility(View.VISIBLE);
+        mButtonSchadeMelden.setVisibility(View.VISIBLE);
         mButtonSchadeZoeken.setVisibility(View.VISIBLE);
         mTextWelkom.setVisibility(View.VISIBLE);
     }
