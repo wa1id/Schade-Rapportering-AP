@@ -306,9 +306,16 @@
     <string name="separator">---</string>
     <string name="bent_u_zeker">Bent u zeker?</string>
     <string name="bent_u_zeker_message">Status van de melding op \'Gerepareerd\' zetten en verplaatsen naar archief?</string>
-    <string name="laden">Laden...</string>
+    <string name="laden">Laden…</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="uitloggen">Uitloggen</string>
     <string name="archive">archive</string>
+    <string name="aantal_meldingen">Aantal meldingen:</string>
+    <string name="totaal_gerepareerd">Totaal gerepareerd:</string>
+    <string name="key_melding_total">meldingTotal</string>
+    <string name="key_stats">stats</string>
+    <string name="key_archief_total">archiefTotal</string>
+    <string name="key_melding_current">meldingCurrent</string>
+    <string name="laatste_meldingen">Laatste 3 meldingen:</string>
 
 </resources>
