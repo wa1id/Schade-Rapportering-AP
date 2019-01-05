@@ -112,7 +112,6 @@ public class HomeActivity extends AppCompatActivity {
         ProgressBar progressLoading = findViewById(R.id.progressLoading);
 
         progressLoading.setVisibility(View.GONE);
-        mButtonSignOut.setVisibility(View.VISIBLE);
         mButtonSchadeMelden.setVisibility(View.VISIBLE);
         mButtonSchadeZoeken.setVisibility(View.VISIBLE);
         mTextWelkom.setVisibility(View.VISIBLE);
