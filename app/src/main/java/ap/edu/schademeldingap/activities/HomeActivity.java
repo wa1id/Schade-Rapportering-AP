@@ -34,24 +34,17 @@ public class HomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mButtonSignOut = findViewById(R.id.buttonSignOut);
         mButtonSchadeMelden = findViewById(R.id.buttonSchadeMelden);
         mButtonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
         mButtonArchive = findViewById(R.id.buttonArchive);
         mTextWelkom = findViewById(R.id.textWelkom);
+        mButtonSignOut = findViewById(R.id.buttonSignOut);
+        mButtonSignOut = findViewById(R.id.buttonSignOut);
 
         setupHome();
 
-        //Tijdelijke sign out knop, moet ergens anders gezet worden
-        mButtonSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                finish();
-            }
-        });
 
+      
         mButtonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +106,6 @@ public class HomeActivity extends AppCompatActivity {
 
         progressLoading.setVisibility(View.GONE);
         mButtonSchadeMelden.setVisibility(View.VISIBLE);
-        mButtonSignOut.setVisibility(View.VISIBLE);
         mButtonSchadeZoeken.setVisibility(View.VISIBLE);
         mTextWelkom.setVisibility(View.VISIBLE);
     }
