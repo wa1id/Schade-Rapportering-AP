@@ -44,14 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         setupHome();
 
 
-        mButtonSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                finish();
-            }
-        });
+      
         mButtonSchadeMelden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
