@@ -158,26 +158,27 @@
         <item>T07 Traphal 07 Vluchttrap Oost</item>
     </string-array>
     <string-array name="lokaalVerdiep2">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52</item>
-        <item>60</item>
-        <item>G01</item>
-        <item>L01</item>
-        <item>T02</item>
-        <item>L03</item>
-        <item>T06</item>
+        <item>01 Auditorium</item>
+        <item>02 Sas Aula 02.03</item>
+        <item>03 Auditorium</item>
+        <item>04 Sas Aula 02.05</item>
+        <item>05 Auditorium</item>
+        <item>06 Berging ICT</item>
+        <item>07 Serverroom</item>
+        <item>08 Kantoor ICT Helpdesk</item>
+        <item>09 Kantoor studiebegeleiding</item>
+        <item>10 Open Leercentrum</item>
+        <item>11 Berging poets</item>
+        <item>50 Sas Toilet</item>
+        <item>51 Toilet Heren</item>
+        <item>52 Toilet Dames</item>
+        <item>60 Technische ruimte</item>
+        <item>G01 Gang</item>
+        <item>L01 Sas lift</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zui</item>
+        <item>T03 Traphal 03</item>
+        <item>T06 Traphal 06 daktuin</item>
     </string-array>
     <string-array name="lokaalVerdiep3">
         <item>01</item>
