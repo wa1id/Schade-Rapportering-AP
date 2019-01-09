@@ -72,11 +72,11 @@ public class DetailActivity extends AbstractActivity {
         mc.getMelding(getIntent().getStringExtra("detail"), id, DetailActivity.this, new IMeldingCallback() {
             @Override
             public void onMeldingCallback(Melding melding) {
-                textUser.setText(melding.getName());
-                textLokaal.setText(melding.getVerdieping() + "." + melding.getLokaal());
+                textUser.append(" "+ melding.getName());
+                textLokaal.append(" " + melding.getVerdieping() + "." + melding.getLokaal());
                 textLokaalExtra.setText(melding.getVrijeInvoerLokaal());
-                textCategorie.setText(melding.getCategorie());
-                textDatum.setText(melding.getDatum());
+                textCategorie.append(" " + melding.getCategorie());
+                textDatum.append(" " + melding.getDatum());
                 textBeschrijving2.setText(melding.getBeschrijvingSchade());
 
                 if (melding.isGerepareerd()) {

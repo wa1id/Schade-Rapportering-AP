@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +39,7 @@ import retrofit2.Response;
 public class MeldingController {
 
     private Database db = new Database();
+    private StatsController sc = new StatsController();
 
     private static ApiService getFCMClient() {
         String baseUrl = "https://fcm.googleapis.com/";
@@ -62,6 +65,39 @@ public class MeldingController {
     }
 
     /**
+     * Get preview (3 most recent) Meldingen
+     */
+    public void getPreviewMelding(final Context context, final IMeldingCallback callback) {
+        db.getDbReference().child(context.getString(R.string.key_meldingen)).orderByKey().limitToLast(3).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Melding melding = dataSnapshot.getValue(Melding.class);
+                callback.onMeldingCallback(melding);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //unused
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                //unused
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //unused
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //unused
+            }
+        });
+    }
+
+    /**
      * make new Melding in Firebase Database
      */
     public void nieuweMelding(Melding melding, ImageView image, Context context) { //need context to use getString()
@@ -71,6 +107,10 @@ public class MeldingController {
         melding.setToken(FirebaseInstanceId.getInstance().getToken());
         ref.setValue(melding);
         uploadFotoToFirebase(image, ref.getKey(), context);
+
+        //update stats
+        sc.addOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_melding_total)));
+        sc.addOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_melding_current)));
     }
 
     /**
@@ -79,6 +119,7 @@ public class MeldingController {
     public void archiveerMelding(Melding melding, final Context context) {
         DatabaseReference ref = db.getDbReference().child(context.getString(R.string.key_archives));
 
+        //START of notification
         NotificationFCM notification = new NotificationFCM("Uw melding op " + melding.getDatum() + " van lokaal " + melding.getVerdieping() + "." + melding.getLokaal() + " werd gerepareerd.", "Goed nieuws!");
         Sender sender = new Sender(melding.getToken(), notification);
         getFCMClient().sendNotification(sender)
@@ -96,9 +137,13 @@ public class MeldingController {
                         Log.d("push", "Failed:" + t.getMessage());
                     }
                 });
+        //END of notification
 
         melding.setGerepareerd(true);
         ref.child(getKeyOfMelding(melding)).setValue(melding);
+
+        //update stats
+        sc.addOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_archief_total)));
     }
 
     /**
@@ -106,6 +151,9 @@ public class MeldingController {
      */
     public void deleteMelding(Melding melding, Context context) {
         db.getDbReference().child(context.getString(R.string.key_meldingen)).child(melding.getId()).removeValue();
+
+        //update stats
+        sc.deleteOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_melding_current)));
     }
 
     /**

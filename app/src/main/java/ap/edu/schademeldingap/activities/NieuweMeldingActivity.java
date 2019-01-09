@@ -2,9 +2,10 @@ package ap.edu.schademeldingap.activities;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.models.Melding;
@@ -38,11 +38,6 @@ public class NieuweMeldingActivity extends AbstractActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_melding);
         setTitle("SCHADE MELDEN");
-
-        //Permissions
-        if (Build.VERSION.SDK_INT >= 23) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, 2);
-        }
 
         //variabelen linken aan de UI
         Button buttonMeldenSchade = findViewById(R.id.buttonMeldenSchade);
@@ -92,7 +87,11 @@ public class NieuweMeldingActivity extends AbstractActivity {
         buttonFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 2);
+                } else {
+                    dispatchTakePictureIntent();
+                }
             }
         });
 
@@ -106,11 +105,11 @@ public class NieuweMeldingActivity extends AbstractActivity {
 
                 String name = getIntent().getStringExtra(getString(R.string.key_naam));
                 Melding melding = new Melding(name,
-                                        spinnerVerdieping.getSelectedItem().toString(),
-                                        spinnerLokaal.getSelectedItem().toString(),
-                                        vrijeInvoer.getText().toString(),
-                                        spinnerCat.getSelectedItem().toString(),
-                                        beschrijvingSchade.getText().toString());
+                        spinnerVerdieping.getSelectedItem().toString(),
+                        spinnerLokaal.getSelectedItem().toString(),
+                        vrijeInvoer.getText().toString(),
+                        spinnerCat.getSelectedItem().toString(),
+                        beschrijvingSchade.getText().toString());
                 mc = new MeldingController();
                 mc.nieuweMelding(melding, imageThumbnail, v.getContext());
 
@@ -119,6 +118,27 @@ public class NieuweMeldingActivity extends AbstractActivity {
                         getString(R.string.melding_succes));
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                // Should we show an explanation?
+                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                    //Show permission explanation dialog...
+                    Log.d("perm", "show permission explanation dialog");
+                } else {
+                    //Never ask again selected, or device policy prohibits the app from having that permission.
+                    //So, disable that feature, or fall back to another situation...
+                    Log.d("perm", "Never ask again selected or...");
+                }
+            }
+        }
     }
 
     @Override
