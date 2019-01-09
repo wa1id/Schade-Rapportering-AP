@@ -100,6 +100,13 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMeldingen.clear();
+        getPreviewMeldingen();
+    }
+
     /**
      * Method to make a new intent for either Archive or Melding
      * @param key database key we want to use in DetailActivity (meldingen/archives)
@@ -115,8 +122,6 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void setupHome() {
         StatsController sc = new StatsController();
-
-        getPreviewMeldingen();
 
         //Setting up stats
         sc.getStats(HomeActivity.this, new IStatsCallback() {

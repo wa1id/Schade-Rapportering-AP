@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.View;
 import android.widget.AdapterView;
@@ -103,7 +104,8 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                //unused
+                mAlleMeldingen.remove(mMeldingIds.indexOf(dataSnapshot.getKey()));
+                mAdapterAlleMeldingen.notifyDataSetChanged();
             }
 
             @Override
@@ -162,7 +164,7 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        db.getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
+        //db.getDbReference().child(getString(R.string.key_meldingen)).removeEventListener(mListener);
         super.onStop();
     }
 
