@@ -81,6 +81,8 @@ public class DetailActivity extends AbstractActivity {
                 textCategorie.setText(melding.getCategorie());
                 textDatum.setText(melding.getDatum());
                 textBeschrijving2.setText(melding.getBeschrijvingSchade());
+                textLokaalBeschrijving.setText(melding.getBeschrijvingLokaal());
+
 
                 if (melding.isGerepareerd()) {
                     textGerepareerd.setText(getString(R.string.gerepareerd_ja));

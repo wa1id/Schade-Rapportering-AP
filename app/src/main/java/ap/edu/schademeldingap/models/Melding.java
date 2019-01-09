@@ -14,6 +14,7 @@ public class Melding {
     private String campus;
     private String categorie;
     private String beschrijvingSchade;
+    private String beschrijvingLokaal;
     private String datum;
     private String id;
     private String token; //used for notifications
@@ -23,7 +24,7 @@ public class Melding {
         // Default constructor required for calls to DataSnapshot.getValue(Melding.class)
     }
 
-    public Melding(String name, String verdieping, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade) {
+    public Melding(String name, String verdieping, String lokaal, String vrijeInvoerLokaal, String categorie, String beschrijvingSchade, String beschrijvingLokaal) {
         this.name = name;
         this.verdieping = verdieping;
         this.lokaal = lokaal;
@@ -36,7 +37,12 @@ public class Melding {
         this.gerepareerd = false;
         this.id = "";
         this.token = "";
+        this.beschrijvingLokaal = beschrijvingLokaal;
     }
+
+    public String getBeschrijvingLokaal(){return beschrijvingLokaal;}
+    public void setBeschrijvingLokaal(String beschrijvingLokaal){this.beschrijvingLokaal = beschrijvingLokaal;}
+
 
     public String getName() {
         return name;
