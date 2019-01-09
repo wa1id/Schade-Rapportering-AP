@@ -181,27 +181,27 @@
         <item>T06 Traphal 06 daktuin</item>
     </string-array>
     <string-array name="lokaalVerdiep3">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52A</item>
-        <item>52B</item>
-        <item>01</item>
-        <item>T02</item>
-        <item>T03</item>
+        <item>01 Labo Integrale veiligheid</item>
+        <item>02 Leslokaal</item>
+        <item>03 Leslokaal</item>
+        <item>04 Leslokaal</item>
+        <item>05 Leslokaal</item>
+        <item>06 Leslokaal</item>
+        <item>07 Leslokaal</item>
+        <item>08 Leslokaal</item>
+        <item>09 Leslokaal</item>
+        <item>10 Leslokaal</item>
+        <item>11 Leslokaal</item>
+        <item>12 Leslokaal</item>
+        <item>13 Leslokaal</item>
+        <item>14 Berging poets</item>
+        <item>50 Sas Toilet dames</item>
+        <item>51 Toilet Dames</item>
+        <item>52A Sas Toilet Heren</item>
+        <item>52B Toilet Heren</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zuid</item>
+        <item>T03 Traphal 03</item>
     </string-array>
     <string-array name="lokaalVerdiep4">
         <item>01</item>
