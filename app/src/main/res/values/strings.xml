@@ -43,17 +43,17 @@
         <item>4</item>
     </string-array>
     <string-array name="lokaalVerdiepMin1">
-        <item>67</item>
-        <item>68</item>
-        <item>68A</item>
-        <item>69</item>
-        <item>71</item>
-        <item>72A</item>
-        <item>72B</item>
-        <item>72C</item>
-        <item>G01</item>
-        <item>L02</item>
-        <item>T05</item>
+        <item>67 Technische ruimte</item>
+        <item>68 Fotostudio</item>
+        <item>68A Berging</item>
+        <item>69 Berging - Archief</item>
+        <item>71 Practicum - leslokaal</item>
+        <item>72A Practicum EM werkbanken</item>
+        <item>72B Practicum EM draaien &amp; lassen</item>
+        <item>72C Practicum OT</item>
+        <item>G01 Gang kelder</item>
+        <item>L02 Sas lift</item>
+        <item>T05 Trap kelder - GLV</item>
     </string-array>
     <string-array name="lokaalVerdiepGelijkVloer">
         <item>01</item>
