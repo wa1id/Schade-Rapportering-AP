@@ -311,5 +311,6 @@
     <string name="ongeldige_email">Ongeldige email</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="er_zijn_geen_meldingen">Er zijn geen meldingen.</string>
+    <string name="omschrijving">omschrijving</string>
 
 </resources>

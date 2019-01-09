@@ -31,8 +31,10 @@ public class DetailActivity extends AbstractActivity {
     private TextView textLokaalExtra;
     private TextView textBeschrijving2;
     private TextView textGerepareerd;
+    private TextView textLokaalBeschrijving;
     private ImageView imageView;
     private Switch mSwitchArchive;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class DetailActivity extends AbstractActivity {
         id = getIntent().getStringExtra("id");
 
         textLokaalExtra = findViewById(R.id.textLokaalExtra);
+        textLokaalBeschrijving = findViewById(R.id.textLokaalOmschrijving);
         textBeschrijving2 = findViewById(R.id.textBeschrijving2);
         imageView = findViewById(R.id.imageSchade);
         textGerepareerd = findViewById(R.id.textGerepareerd);
