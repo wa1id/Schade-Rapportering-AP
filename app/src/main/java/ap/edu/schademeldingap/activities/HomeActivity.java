@@ -20,7 +20,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private Button mButtonArchive;
-    private Button mButtonSignOut;
     private Button mButtonSchadeMelden;
     private Button mButtonSchadeZoeken;
     private TextView mTextWelkom;
@@ -38,8 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         mButtonSchadeZoeken = findViewById(R.id.buttonSchadezoeken);
         mButtonArchive = findViewById(R.id.buttonArchive);
         mTextWelkom = findViewById(R.id.textWelkom);
-        mButtonSignOut = findViewById(R.id.buttonSignOut);
-        mButtonSignOut = findViewById(R.id.buttonSignOut);
+
 
         setupHome();
 
