@@ -105,12 +105,14 @@ public class NieuweMeldingActivity extends AbstractActivity {
                 }
 
                 String name = getIntent().getStringExtra(getString(R.string.key_naam));
+                String lokaal = spinnerLokaal.getSelectedItem().toString();
                 Melding melding = new Melding(name,
                                         spinnerVerdieping.getSelectedItem().toString(),
-                                        spinnerLokaal.getSelectedItem().toString(),
+                                        lokaal.substring(0,2),
                                         vrijeInvoer.getText().toString(),
                                         spinnerCat.getSelectedItem().toString(),
-                                        beschrijvingSchade.getText().toString());
+                                        beschrijvingSchade.getText().toString(),
+                                        lokaal.substring(3,lokaal.length()));
                 mc = new MeldingController();
                 mc.nieuweMelding(melding, imageThumbnail, v.getContext());
 
