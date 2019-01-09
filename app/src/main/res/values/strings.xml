@@ -56,57 +56,57 @@
         <item>T05 Trap kelder - GLV</item>
     </string-array>
     <string-array name="lokaalVerdiepGelijkVloer">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>40</item>
-        <item>42</item>
-        <item>43</item>
-        <item>44</item>
-        <item>45</item>
-        <item>46</item>
-        <item>47</item>
-        <item>48</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52A</item>
-        <item>52B</item>
-        <item>53</item>
-        <item>54</item>
-        <item>55</item>
-        <item>56</item>
-        <item>57</item>
-        <item>60</item>
-        <item>60A</item>
-        <item>61</item>
-        <item>62</item>
-        <item>63</item>
-        <item>64</item>
-        <item>G01</item>
-        <item>G02</item>
-        <item>G03</item>
-        <item>T01</item>
-        <item>T02</item>
-        <item>T03</item>
-        <item>T04</item>
-        <item>T05</item>
-        <item>T06</item>
-        <item>T07</item>
+        <item>01 Onthaal - studentenAdministratie</item>
+        <item>02 Projectruimte</item>
+        <item>03 Projectruimte</item>
+        <item>04 Labo Topo</item>
+        <item>05 Berging labo Topo</item>
+        <item>06 VIP Vergaderruimte</item>
+        <item>07 Refter studenten</item>
+        <item>08 Ontspanningsruimte</item>
+        <item>09 Projectlokaal</item>
+        <item>10 Projectlokaal</item>
+        <item>11 Projectlokaal</item>
+        <item>12 Projectlokaal</item>
+        <item>13 Projectlokaal</item>
+        <item>14 Projectlokaal</item>
+        <item>15 Projectlokaal</item>
+        <item>16 EHBO lokaal</item>
+        <item>17 Spreekcel</item>
+        <item>18 Spreekcel</item>
+        <item>40 Keuken</item>
+        <item>42 Afwas keuken</item>
+        <item>43 Koel &amp; Vriesruimte</item>
+        <item>44 Berging keuken</item>
+        <item>45 Gang keuken</item>
+        <item>46 Berging studentenclub</item>
+        <item>47 Afval containers</item>
+        <item>48 Kleedkamers keuken</item>
+        <item>50 Sas toilet personeel</item>
+        <item>51 Toilet personeel dames</item>
+        <item>52A Toilet personeel heren urinoirs</item>
+        <item>52B Toilet Personeel heren</item>
+        <item>53 Sas WC - Fietsenstalling</item>
+        <item>54 WC - Dames</item>
+        <item>55 WC - Heren</item>
+        <item>56 Douches Heren</item>
+        <item>57 Douches Dames</item>
+        <item>60 Fietsenstalling - studenten</item>
+        <item>60A Fietsenstalling - personeel</item>
+        <item>61 Berging</item>
+        <item>62 Gas opslag</item>
+        <item>63 Data (patchlokaal)</item>
+        <item>64 Berging Schoonmaak</item>
+        <item>G01 Inkomhal-zuid</item>
+        <item>G02 Lounge</item>
+        <item>G03 Inkomhal-Noord</item>
+        <item>T01 Traphal 01 GLV - Oost</item>
+        <item>T02 Traphal 02 GLV - Zuid</item>
+        <item>T03 Traphal 03 GLV - Aula 01.08</item>
+        <item>T04 Traphal 04 GLV Vluchttrap West</item>
+        <item>T05 Traphal 05 GLV-Kelder</item>
+        <item>T06 Traphal 06 GLV-Noord</item>
+        <item>T07 Traphal 07 GLV Vluchttrap Oost</item>
     </string-array>
     <string-array name="lokaalVerdiep1">
         <item>01</item>
