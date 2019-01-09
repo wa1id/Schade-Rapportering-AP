@@ -109,54 +109,53 @@
         <item>T07 Traphal 07 GLV Vluchttrap Oost</item>
     </string-array>
     <string-array name="lokaalVerdiep1">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08/1</item>
-        <item>08/2</item>
-        <item>08/3</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52</item>
-        <item>60</item>
-        <item>61</item>
-        <item>62</item>
-        <item>63</item>
-        <item>64</item>
-        <item>65</item>
-        <item>66</item>
-        <item>G01</item>
-        <item>G02</item>
-        <item>G03</item>
-        <item>G04</item>
-        <item>G05</item>
-        <item>L01</item>
-        <item>T01</item>
-        <item>T02</item>
-        <item>T03</item>
-        <item>T04</item>
-        <item>T05</item>
-        <item>TO6</item>
-        <item>T07</item>
+        <item>01 Labo Electriciteit</item>
+        <item>02 Labo GDM 2</item>
+        <item>03 Labo Netwerken</item>
+        <item>04 Labo Mechatronica</item>
+        <item>05 Labo elektrische Machines</item>
+        <item>06 Labo Aandrijftechnieken</item>
+        <item>07 Labo Elektronica</item>
+        <item>08/1 Auditorium 01.08 noord</item>
+        <item>08/2 Auditorium 01.08 centraal</item>
+        <item>08/3 Auditorium 01.08 zuid</item>
+        <item>09 Labo Klimatisatie</item>
+        <item>10 Practicum onderhoud</item>
+        <item>11 Labo Onderhoudsmetingen EM</item>
+        <item>12 Pompinstallatie EM</item>
+        <item>13 Labo Automatisatie 2</item>
+        <item>14 Labo Automatisatie 2</item>
+        <item>15 Labo Proces 1</item>
+        <item>16 Labo Energie 1</item>
+        <item>17 Labo KNX</item>
+        <item>18 Leslokaal - Atelier GDM 1</item>
+        <item>19 Lockerruimte</item>
+        <item>20 Leslokaal - Atelier GDM 2</item>
+        <item>21 Leslokaal - Labo GDM 1</item>
+        <item>22 Leslokaal - Atelier GDM 3</item>
+        <item>23 Berging GDM</item>
+        <item>50 Sas Toilet</item>
+        <item>51 Toilet Dames</item>
+        <item>52 Toilet Heren</item>
+        <item>60 Technische ruimte Zuid</item>
+        <item>61 Technische ruimte West</item>
+        <item>62 Technische ruimte west</item>
+        <item>63 Sas Klima lokaal</item>
+        <item>64 Sas Stooklokaal</item>
+        <item>65 Sas Stooklokaal</item>
+        <item>66 Stooklokaal</item>
+        <item>G01 Gang Oost</item>
+        <item>G02 Gang Zuid</item>
+        <item>G03 Gang West - voorkant aula</item>
+        <item>G04 Gang West - klimalokaal</item>
+        <item>G05 Gang Noord</item>
+        <item>L01 Sas lift</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zuid</item>
+        <item>T03 Traphal 03 Aula 01.08</item>
+        <item>T04 Traphal 04 Vluchttrap West</item>
+        <item>TO6 Traphal 06 Noord</item>
+        <item>T07 Traphal 07 Vluchttrap Oost</item>
     </string-array>
     <string-array name="lokaalVerdiep2">
         <item>01</item>
