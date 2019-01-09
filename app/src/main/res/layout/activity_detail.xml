@@ -22,7 +22,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/categorie"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLokaalExtra" />
+        app:layout_constraintTop_toBottomOf="@+id/textLokaalOmschrijving" />
 
     <TextView
         android:id="@+id/textDatum"
@@ -65,6 +65,7 @@
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:text="Vrije invoer:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLokaal" />
 
@@ -135,4 +136,15 @@
         android:text="@string/melder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textLokaalOmschrijving"
+        style="@style/textViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/omschrijving"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLokaalExtra" />
 </android.support.constraint.ConstraintLayout>
