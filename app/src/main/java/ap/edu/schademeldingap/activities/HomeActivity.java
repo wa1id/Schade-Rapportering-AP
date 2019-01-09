@@ -44,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
     private Button mButtonSchadeZoeken;
     private TextView mTextWelkom;
     private TextView mTextMeldingenCount;
-    private boolean mReparateur;
 
     private ListView mListLastMeldingen;
     private ArrayList<String> mMeldingen;
@@ -115,19 +114,9 @@ public class HomeActivity extends AppCompatActivity {
      * setup the homepage for the current user. Get the name and check if reparateur
      */
     private void setupHome() {
-        UserController uc = new UserController();
         StatsController sc = new StatsController();
 
         getPreviewMeldingen();
-
-        //Setting up user data
-        uc.getUserData(HomeActivity.this, new IUserCallback() {
-            @Override
-            public void onUserCallback(User user) {
-                mTextWelkom.append(" " + user.getName());
-                mReparateur = user.getReparateur();
-            }
-        });
 
         //Setting up stats
         sc.getStats(HomeActivity.this, new IStatsCallback() {
@@ -175,12 +164,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.mymenu,menu);
 
-        if (!mReparateur) {
-            menu.getItem(0).setVisible(false);
-        }
+        UserController uc = new UserController();
+
+        //Setting up user data
+        uc.getUserData(HomeActivity.this, new IUserCallback() {
+            @Override
+            public void onUserCallback(User user) {
+                mTextWelkom.append(" " + user.getName());
+
+                if (!user.getReparateur()) {
+                    menu.getItem(0).setVisible(false);
+                }
+            }
+        });
+
         return true;
     }
 
