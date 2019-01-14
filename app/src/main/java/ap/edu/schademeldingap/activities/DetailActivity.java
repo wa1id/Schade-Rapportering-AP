@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -51,10 +52,10 @@ public class DetailActivity extends AbstractActivity {
 
         setupInterface();
 
-        mSwitchArchive.setOnClickListener(new View.OnClickListener() {
+        mSwitchArchive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(final View v) {
-                if (mSwitchArchive.isChecked()) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
                     confirmArchive();
                 }
             }
