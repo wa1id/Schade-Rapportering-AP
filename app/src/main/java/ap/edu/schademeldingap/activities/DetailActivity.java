@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.Menu;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -60,6 +61,27 @@ public class DetailActivity extends AbstractActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+
+        UserController uc = new UserController();
+
+        //Only show menu when user isReparateur
+        uc.getUserData(DetailActivity.this, new IUserCallback() {
+            @Override
+            public void onUserCallback(User user) {
+
+                if (!user.getReparateur()) {
+                    menu.getItem(0).setVisible(false);
+                }
+
+            }
+        });
+
+        return true;
     }
 
     private void setupInterface() {
