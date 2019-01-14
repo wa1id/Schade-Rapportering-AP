@@ -105,6 +105,14 @@ public class MeldingController {
 
         melding.setId(ref.getKey());
         melding.setToken(FirebaseInstanceId.getInstance().getToken());
+
+        //variables used for editting existing melding
+        melding.setReparatieDatum("");
+        melding.setExtraNotities("");
+        melding.setReparatieUitvoerder("");
+        melding.setNaamReparatieUitvoerder("");
+
+
         ref.setValue(melding);
         uploadFotoToFirebase(image, ref.getKey(), context);
 
@@ -112,6 +120,14 @@ public class MeldingController {
         sc.addOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_melding_total)));
         sc.addOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_melding_current)));
     }
+
+    public void editMelding(final DatabaseReference ref, Context context, final String date, final String uitvoerder, final String naamUitvoerder, final String extraNotes) {
+        ref.child(context.getString(R.string.key_reparatie_datum)).setValue(date);
+        ref.child(context.getString(R.string.key_reparatie_uitvoerder)).setValue(uitvoerder);
+        ref.child(context.getString(R.string.key_naam_reparatie_uitvoerder)).setValue(naamUitvoerder);
+        ref.child(context.getString(R.string.key_extra_notities)).setValue(extraNotes);
+    }
+
 
     /**
      * Move Melding to Archive and delete the Melding
