@@ -153,6 +153,13 @@ public class MeldingController {
         sc.addOne(db.getDbReference().child(context.getString(R.string.key_stats)).child(context.getString(R.string.key_archief_total)));
     }
 
+    public void editMelding(final DatabaseReference ref, Context context, final String date, final String uitvoerder, final String naamUitvoerder, final String extraNotes) {
+        ref.child(context.getString(R.string.key_reparatie_datum)).setValue(date);
+        ref.child(context.getString(R.string.key_reparatie_uitvoerder)).setValue(uitvoerder);
+        ref.child(context.getString(R.string.key_naam_reparatie_uitvoerder)).setValue(naamUitvoerder);
+        ref.child(context.getString(R.string.key_extra_notities)).setValue(extraNotes);
+    }
+
     /**
      * Delete melding
      */

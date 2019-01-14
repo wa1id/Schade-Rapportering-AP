@@ -59,4 +59,20 @@ public abstract class AbstractActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void showDialogInfoAndFinish(final Context context, String title, String message){
+        AlertDialog.Builder builder;
+
+        builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish(); //zorgt ervoor dat de gebruiker niet terug kan door back button
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
 }
