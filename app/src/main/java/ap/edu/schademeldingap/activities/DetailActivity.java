@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -90,7 +91,7 @@ public class DetailActivity extends AbstractActivity {
 
         switch (id){
             case R.id.menuEdit:
-
+                startActivity(new Intent(DetailActivity.this, EditActivity.class));
                 break;
         }
         return true;
