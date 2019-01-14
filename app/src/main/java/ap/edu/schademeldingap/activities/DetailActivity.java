@@ -1,17 +1,12 @@
 package ap.edu.schademeldingap.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -56,50 +51,15 @@ public class DetailActivity extends AbstractActivity {
 
         setupInterface();
 
-        mSwitchArchive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mSwitchArchive.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(final View v) {
+                if (mSwitchArchive.isChecked()) {
                     confirmArchive();
                 }
             }
         });
     }
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-
-        UserController uc = new UserController();
-
-        //Only show menu when user isReparateur
-        uc.getUserData(DetailActivity.this, new IUserCallback() {
-            @Override
-            public void onUserCallback(User user) {
-
-                if (!user.getReparateur()) {
-                    menu.getItem(0).setVisible(false);
-                }
-
-            }
-        });
-
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.menuEdit:
-                Intent editIntent = new Intent(DetailActivity.this, EditActivity.class);
-                editIntent.putExtra("id", this.id);
-                startActivity(editIntent);
-                break;
-        }
-        return true;
-    }
-
-
 
     private void setupInterface() {
         MeldingController mc = new MeldingController();
