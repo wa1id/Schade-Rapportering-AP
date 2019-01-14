@@ -11,6 +11,11 @@
     <string name="categorie">Categorie</string>
     <string name="beschrijving">Beschrijving schade:</string>
     <string name="beschrijf_hier_de_schade">Beschrijf hier de schade</string>
+    <string-array name="repair_ap_provincie">
+        <item>Selecteer uitvoerder</item>
+        <item>AP</item>
+        <item>Provincie</item>
+    </string-array>
     <string-array name="categorien">
         <item>Deur</item>
         <item>Verlichting</item>
@@ -328,5 +333,7 @@
     <string name="notities">notities</string>
     <string name="opslaan">opslaan</string>
     <string name="selecteer_datum">selecteer_datum</string>
+    <string name="ap">AP</string>
+    <string name="provincie">Provincie</string>
 
 </resources>

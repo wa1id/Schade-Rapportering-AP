@@ -91,7 +91,9 @@ public class DetailActivity extends AbstractActivity {
 
         switch (id){
             case R.id.menuEdit:
-                startActivity(new Intent(DetailActivity.this, EditActivity.class));
+                Intent editIntent = new Intent(DetailActivity.this, EditActivity.class);
+                editIntent.putExtra("id", this.id);
+                startActivity(editIntent);
                 break;
         }
         return true;
