@@ -3,19 +3,23 @@ package ap.edu.schademeldingap.activities;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import ap.edu.schademeldingap.R;
+import ap.edu.schademeldingap.controllers.MeldingController;
 import ap.edu.schademeldingap.data.Database;
 import ap.edu.schademeldingap.models.Melding;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AbstractActivity {
     public Database db;
 
     private String id;
@@ -32,14 +36,50 @@ public class EditActivity extends AppCompatActivity {
 
         setTitle("AANPASSEN");
 
+        db = new Database();
+
         id = getIntent().getStringExtra("id");
         mTextDatePicker = findViewById(R.id.textDatePicker);
         mSpinnerWhoRepairs = findViewById(R.id.spinnerWhoRepairs);
         mEditNameRepair = findViewById(R.id.editNameRepair);
         mEditExtraNotes = findViewById(R.id.editExtraNotes);
 
+        Button buttonSave = findViewById(R.id.buttonSave);
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MeldingController mc = new MeldingController();
+
+                DatabaseReference ref = db.getDbReference().child(getString(R.string.key_meldingen)).child(id);
+                String date = mTextDatePicker.getText().toString();
+                String naamUitvoerder = mEditNameRepair.getText().toString();
+                String extraNotes = mEditExtraNotes.getText().toString();
+                String uitvoerder = "";
+
+                switch (mSpinnerWhoRepairs.getSelectedItemPosition()) {
+                    case 0: //empty
+                        break;
+                    case 1: //AP
+                        uitvoerder = mSpinnerWhoRepairs.getItemAtPosition(1).toString();
+                        break;
+                    case 2: //Provincie
+                        uitvoerder = mSpinnerWhoRepairs.getItemAtPosition(2).toString();
+                        break;
+                }
+
+                mc.editMelding(ref, EditActivity.this, date, uitvoerder, naamUitvoerder, extraNotes);
+
+                showDialogInfoAndFinish(EditActivity.this, getString(R.string.opgeslagen), getString(R.string.uw_wijzigingen_zijn_correct_opgeslagen));
+            }
+
+        });
+
         loadData();
     }
+
+
+
 
 
 

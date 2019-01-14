@@ -335,5 +335,11 @@
     <string name="selecteer_datum">selecteer_datum</string>
     <string name="ap">AP</string>
     <string name="provincie">Provincie</string>
+    <string name="uw_wijzigingen_zijn_correct_opgeslagen">Uw wijzigingen zijn correct opgeslagen.</string>
+    <string name="opgeslagen">Opgeslagen!</string>
+    <string name="key_reparatie_datum">reparatieDatum</string>
+    <string name="key_reparatie_uitvoerder">reparatieUitvoerder</string>
+    <string name="key_naam_reparatie_uitvoerder">naamReparatieUitvoerder</string>
+    <string name="key_extra_notities">extraNotities</string>
 
 </resources>
