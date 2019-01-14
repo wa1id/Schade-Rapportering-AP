@@ -105,6 +105,13 @@ public class MeldingController {
 
         melding.setId(ref.getKey());
         melding.setToken(FirebaseInstanceId.getInstance().getToken());
+
+        //variables used for editting existing melding
+        melding.setReparatieDatum("");
+        melding.setExtraNotities("");
+        melding.setReparatieUitvoerder("");
+        melding.setNaamReparatieUitvoerder("");
+
         ref.setValue(melding);
         uploadFotoToFirebase(image, ref.getKey(), context);
 

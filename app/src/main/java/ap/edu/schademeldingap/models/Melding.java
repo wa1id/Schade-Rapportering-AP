@@ -17,6 +17,10 @@ public class Melding {
     private String datum;
     private String id;
     private String token; //used for notifications
+    private String reparatieDatum;
+    private String reparatieUitvoerder;
+    private String extraNotities;
+    private String naamReparatieUitvoerder;
     private boolean gerepareerd;
 
     public Melding() {
@@ -34,8 +38,38 @@ public class Melding {
         Date date = new Date();
         this.datum = new SimpleDateFormat("dd/MM/yyyy").format(date);
         this.gerepareerd = false;
-        this.id = "";
-        this.token = "";
+    }
+
+    public String getReparatieDatum() {
+        return reparatieDatum;
+    }
+
+    public void setReparatieDatum(String reparatieDatum) {
+        this.reparatieDatum = reparatieDatum;
+    }
+
+    public String getReparatieUitvoerder() {
+        return reparatieUitvoerder;
+    }
+
+    public void setReparatieUitvoerder(String reparatieUitvoerder) {
+        this.reparatieUitvoerder = reparatieUitvoerder;
+    }
+
+    public String getExtraNotities() {
+        return extraNotities;
+    }
+
+    public void setExtraNotities(String extraNotities) {
+        this.extraNotities = extraNotities;
+    }
+
+    public String getNaamReparatieUitvoerder() {
+        return naamReparatieUitvoerder;
+    }
+
+    public void setNaamReparatieUitvoerder(String naamReparatieUitvoerder) {
+        this.naamReparatieUitvoerder = naamReparatieUitvoerder;
     }
 
     public String getName() {
