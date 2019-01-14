@@ -11,6 +11,11 @@
     <string name="categorie">Categorie</string>
     <string name="beschrijving">Beschrijving schade:</string>
     <string name="beschrijf_hier_de_schade">Beschrijf hier de schade</string>
+    <string-array name="repair_ap_provincie">
+        <item>Selecteer uitvoerder</item>
+        <item>AP</item>
+        <item>Provincie</item>
+    </string-array>
     <string-array name="categorien">
         <item>Deur</item>
         <item>Verlichting</item>
@@ -271,7 +276,7 @@
     <string name="welkom">Welkom</string>
     <string name="huidige_schades">Huidige Schades</string>
     <string name="search">search</string>
-    <string name="datum">Datum:</string>
+    <string name="datum">Datum</string>
     <string name="gerepareerd">Gerepareerd:</string>
     <string name="foto_downloaden_mislukt">Foto downloaden mislukt.</string>
     <string name="data_ophalen_mislukt">Data ophalen mislukt.</string>
@@ -320,5 +325,20 @@
     <string name="gelieve_uw_email_in_te_geven_zodat_we_uw_wachtwoord_kunnen_herstellen">Gelieve uw email in te geven zodat we uw wachtwoord kunnen herstellen.</string>
     <string name="ongeldige_email">Ongeldige email</string>
     <string name="er_zijn_geen_meldingen">Er zijn geen meldingen.</string>
-
+    <string name="aanpassen">Aanpassen</string>
+    <string name="reparatie_datum">Reparatiedatum:</string>
+    <string name="reparatie_uitvoerder">Reparatie uitvoerder:</string>
+    <string name="naam_van_reparateur">Naam van reparateur:</string>
+    <string name="extra_notities">Extra notities:</string>
+    <string name="notities">Notities</string>
+    <string name="opslaan">Opslaan</string>
+    <string name="selecteer_datum">Selecteer datum</string>
+    <string name="ap">AP</string>
+    <string name="provincie">Provincie</string>
+    <string name="uw_wijzigingen_zijn_correct_opgeslagen">Uw wijzigingen zijn correct opgeslagen.</string>
+    <string name="opgeslagen">Opgeslagen!</string>
+    <string name="key_reparatie_datum">reparatieDatum</string>
+    <string name="key_reparatie_uitvoerder">reparatieUitvoerder</string>
+    <string name="key_naam_reparatie_uitvoerder">naamReparatieUitvoerder</string>
+    <string name="key_extra_notities">extraNotities</string>
 </resources>

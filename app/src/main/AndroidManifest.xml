@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -57,6 +56,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditActivity"
             android:screenOrientation="portrait" />
     </application>
 
