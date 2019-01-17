@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -37,6 +38,7 @@ public class DetailActivity extends AbstractActivity {
     private TextView textGerepareerd;
     private ImageView imageView;
     private Switch mSwitchArchive;
+    private String mMoreInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class DetailActivity extends AbstractActivity {
         imageView = findViewById(R.id.imageSchade);
         textGerepareerd = findViewById(R.id.textGerepareerd);
         mSwitchArchive = findViewById(R.id.switchArchive);
+        Button buttonMoreInfo = findViewById(R.id.buttonMoreInfo);
 
         setupInterface();
 
@@ -63,6 +66,19 @@ public class DetailActivity extends AbstractActivity {
                 }
             }
         });
+
+        buttonMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogInfo(DetailActivity.this, getString(R.string.meer_informatie), mMoreInfo);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupInterface();
     }
 
     @Override
@@ -126,11 +142,26 @@ public class DetailActivity extends AbstractActivity {
                     textGerepareerd.setText(getString(R.string.gerepareerd_nee));
                 }
 
+                setupMoreInfoDialog(melding.getReparatieDatum(), melding.getReparatieUitvoerder(), melding.getNaamReparatieUitvoerder(), melding.getExtraNotities());
+
                 checkEmptyLabels();
                 displayImage(imageView);
             }
         });
         reparateurVisibility();
+    }
+
+    private void setupMoreInfoDialog(String datum, String uitvoerder, String reparateur, String extraNotes) {
+        if (datum.isEmpty()) datum = getString(R.string.niet_bekend);
+        if (uitvoerder.isEmpty()) uitvoerder = getString(R.string.niet_bekend);
+        if (reparateur.isEmpty()) reparateur = getString(R.string.niet_bekend);
+        if (extraNotes.isEmpty()) extraNotes = getString(R.string.geen_extra_notities);
+
+
+        mMoreInfo = getString(R.string.reparatie_datum) + " " + datum + "\n" +
+                getString(R.string.reparatie_uitvoerder) + " " + uitvoerder + "\n" +
+                getString(R.string.naam_van_reparateur) + " " + reparateur + "\n" +
+                getString(R.string.extra_notities) + " " + extraNotes;
     }
 
     /**

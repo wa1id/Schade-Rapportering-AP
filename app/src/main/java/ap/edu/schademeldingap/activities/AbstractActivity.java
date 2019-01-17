@@ -75,4 +75,20 @@ public abstract class AbstractActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void showDialogInfo(Context context, String title, String message){
+        AlertDialog.Builder builder;
+
+        builder = new AlertDialog.Builder(context);
+
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //unused
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
 }

@@ -344,4 +344,7 @@
     <string name="camera_permissie">Camera permissie</string>
     <string name="cam_toestemming">De app heeft toestemming nodig om de camera te gebruiken.</string>
     <string name="cam_toestemming_extra">De app heeft toestemming nodig om de camera te gebruiken. Ga naar je telefooninstellingen en wijzig de permissies voor deze app.</string>
+    <string name="meer_informatie">Meer informatie</string>
+    <string name="niet_bekend">Nog niet bekend</string>
+    <string name="geen_extra_notities">Geen extra notities</string>
 </resources>
