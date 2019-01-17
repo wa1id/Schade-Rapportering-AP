@@ -36,6 +36,11 @@ public class DetailActivity extends AbstractActivity {
     private TextView textLokaalExtra;
     private TextView textBeschrijving2;
     private TextView textGerepareerd;
+    private TextView textUser;
+    private TextView textLokaal;
+    private TextView textCategorie;
+    private TextView textDatum;
+    private TextView textLokaalOmschrijving;
     private ImageView imageView;
     private Switch mSwitchArchive;
     private String mMoreInfo;
@@ -53,10 +58,15 @@ public class DetailActivity extends AbstractActivity {
         textBeschrijving2 = findViewById(R.id.textBeschrijving2);
         imageView = findViewById(R.id.imageSchade);
         textGerepareerd = findViewById(R.id.textGerepareerd);
+        textUser = findViewById(R.id.textUser);
+        textLokaal = findViewById(R.id.textLokaal);
+        textCategorie = findViewById(R.id.textCategorie);
+        textDatum = findViewById(R.id.textDatum);
+        textLokaalOmschrijving = findViewById(R.id.textLokaalOmschrijving);
         mSwitchArchive = findViewById(R.id.switchArchive);
         Button buttonMoreInfo = findViewById(R.id.buttonMoreInfo);
 
-        setupInterface();
+        //setupInterface();
 
         mSwitchArchive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -73,6 +83,25 @@ public class DetailActivity extends AbstractActivity {
                 showDialogInfo(DetailActivity.this, getString(R.string.meer_informatie), mMoreInfo);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupInterface();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        resetInterface();
+    }
+
+    private void resetInterface(){
+        textUser.setText(getString(R.string.melder));
+        textLokaal.setText(getString(R.string.lokaal_dubbelpunt));
+        textCategorie.setText(getString(R.string.categorie_dubbelpunt));
+        textDatum.setText(getString(R.string.datum_dubbelpunt));
     }
 
     @Override
@@ -112,12 +141,6 @@ public class DetailActivity extends AbstractActivity {
 
     private void setupInterface() {
         MeldingController mc = new MeldingController();
-
-        final TextView textUser = findViewById(R.id.textUser);
-        final TextView textLokaal = findViewById(R.id.textLokaal);
-        final TextView textCategorie = findViewById(R.id.textCategorie);
-        final TextView textDatum = findViewById(R.id.textDatum);
-        final TextView textLokaalOmschrijving = findViewById(R.id.textLokaalOmschrijving);
 
         mc.getMelding(getIntent().getStringExtra("detail"), id, DetailActivity.this, new IMeldingCallback() {
             @Override
