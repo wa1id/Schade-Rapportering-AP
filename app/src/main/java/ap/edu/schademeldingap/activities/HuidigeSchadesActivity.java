@@ -53,6 +53,13 @@ public class HuidigeSchadesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huidigeschades);
 
+        //Set correct title
+        if (getIntent().getStringExtra("detail").equalsIgnoreCase("meldingen")) {
+            setTitle(getString(R.string.melding_zoeken));
+        } else {
+            setTitle(R.string.archief_uppercase);
+        }
+
         mListView = findViewById(R.id.listView);
         mEditSearch = findViewById(R.id.editSearch);
         mSpinnerCategory = findViewById(R.id.spinnerCategorie);
