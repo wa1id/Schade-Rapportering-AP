@@ -104,12 +104,16 @@ public class NieuweMeldingActivity extends AbstractActivity {
                 }
 
                 String name = getIntent().getStringExtra(getString(R.string.key_naam));
+                String lokaal = spinnerLokaal.getSelectedItem().toString();
+
                 Melding melding = new Melding(name,
                         spinnerVerdieping.getSelectedItem().toString(),
-                        spinnerLokaal.getSelectedItem().toString(),
+                        lokaal.substring(0,3),
                         vrijeInvoer.getText().toString(),
                         spinnerCat.getSelectedItem().toString(),
-                        beschrijvingSchade.getText().toString());
+                        beschrijvingSchade.getText().toString(),
+                        lokaal.substring(3));
+
                 mc = new MeldingController();
                 mc.nieuweMelding(melding, imageThumbnail, v.getContext());
 
@@ -131,10 +135,12 @@ public class NieuweMeldingActivity extends AbstractActivity {
                 // Should we show an explanation?
                 if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
                     //Show permission explanation dialog...
+                    showDialogAlert(NieuweMeldingActivity.this, getString(R.string.camera_permissie), getString(R.string.cam_toestemming));
                     Log.d("perm", "show permission explanation dialog");
                 } else {
                     //Never ask again selected, or device policy prohibits the app from having that permission.
                     //So, disable that feature, or fall back to another situation...
+                    showDialogAlert(NieuweMeldingActivity.this, getString(R.string.camera_permissie), getString(R.string.cam_toestemming_extra));
                     Log.d("perm", "Never ask again selected or...");
                 }
             }
