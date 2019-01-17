@@ -49,205 +49,205 @@
         <item>4</item>
     </string-array>
     <string-array name="lokaalVerdiepMin1">
-        <item>67</item>
-        <item>68</item>
-        <item>68A</item>
-        <item>69</item>
-        <item>71</item>
-        <item>72A</item>
-        <item>72B</item>
-        <item>72C</item>
-        <item>G01</item>
-        <item>L02</item>
-        <item>T05</item>
+        <item>67 Technische ruimte</item>
+        <item>68 Fotostudio</item>
+        <item>68A Berging</item>
+        <item>69 Berging - Archief</item>
+        <item>71 Practicum - leslokaal</item>
+        <item>72A Practicum EM werkbanken</item>
+        <item>72B Practicum EM draaien &amp; lassen</item>
+        <item>72C Practicum OT</item>
+        <item>G01 Gang kelder</item>
+        <item>L02 Sas lift</item>
+        <item>T05 Trap kelder - GLV</item>
     </string-array>
     <string-array name="lokaalVerdiepGelijkVloer">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>40</item>
-        <item>42</item>
-        <item>43</item>
-        <item>44</item>
-        <item>45</item>
-        <item>46</item>
-        <item>47</item>
-        <item>48</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52A</item>
-        <item>52B</item>
-        <item>53</item>
-        <item>54</item>
-        <item>55</item>
-        <item>56</item>
-        <item>57</item>
-        <item>60</item>
-        <item>60A</item>
-        <item>61</item>
-        <item>62</item>
-        <item>63</item>
-        <item>64</item>
-        <item>G01</item>
-        <item>G02</item>
-        <item>G03</item>
-        <item>T01</item>
-        <item>T02</item>
-        <item>T03</item>
-        <item>T04</item>
-        <item>T05</item>
-        <item>T06</item>
-        <item>T07</item>
+        <item>01 Onthaal - studentenAdministratie</item>
+        <item>02 Projectruimte</item>
+        <item>03 Projectruimte</item>
+        <item>04 Labo Topo</item>
+        <item>05 Berging labo Topo</item>
+        <item>06 VIP Vergaderruimte</item>
+        <item>07 Refter studenten</item>
+        <item>08 Ontspanningsruimte</item>
+        <item>09 Projectlokaal</item>
+        <item>10 Projectlokaal</item>
+        <item>11 Projectlokaal</item>
+        <item>12 Projectlokaal</item>
+        <item>13 Projectlokaal</item>
+        <item>14 Projectlokaal</item>
+        <item>15 Projectlokaal</item>
+        <item>16 EHBO lokaal</item>
+        <item>17 Spreekcel</item>
+        <item>18 Spreekcel</item>
+        <item>40 Keuken</item>
+        <item>42 Afwas keuken</item>
+        <item>43 Koel &amp; Vriesruimte</item>
+        <item>44 Berging keuken</item>
+        <item>45 Gang keuken</item>
+        <item>46 Berging studentenclub</item>
+        <item>47 Afval containers</item>
+        <item>48 Kleedkamers keuken</item>
+        <item>50 Sas toilet personeel</item>
+        <item>51 Toilet personeel dames</item>
+        <item>52A Toilet personeel heren urinoirs</item>
+        <item>52B Toilet Personeel heren</item>
+        <item>53 Sas WC - Fietsenstalling</item>
+        <item>54 WC - Dames</item>
+        <item>55 WC - Heren</item>
+        <item>56 Douches Heren</item>
+        <item>57 Douches Dames</item>
+        <item>60 Fietsenstalling - studenten</item>
+        <item>60A Fietsenstalling - personeel</item>
+        <item>61 Berging</item>
+        <item>62 Gas opslag</item>
+        <item>63 Data (patchlokaal)</item>
+        <item>64 Berging Schoonmaak</item>
+        <item>G01 Inkomhal-zuid</item>
+        <item>G02 Lounge</item>
+        <item>G03 Inkomhal-Noord</item>
+        <item>T01 Traphal 01 GLV - Oost</item>
+        <item>T02 Traphal 02 GLV - Zuid</item>
+        <item>T03 Traphal 03 GLV - Aula 01.08</item>
+        <item>T04 Traphal 04 GLV Vluchttrap West</item>
+        <item>T05 Traphal 05 GLV-Kelder</item>
+        <item>T06 Traphal 06 GLV-Noord</item>
+        <item>T07 Traphal 07 GLV Vluchttrap Oost</item>
     </string-array>
     <string-array name="lokaalVerdiep1">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08/1</item>
-        <item>08/2</item>
-        <item>08/3</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52</item>
-        <item>60</item>
-        <item>61</item>
-        <item>62</item>
-        <item>63</item>
-        <item>64</item>
-        <item>65</item>
-        <item>66</item>
-        <item>G01</item>
-        <item>G02</item>
-        <item>G03</item>
-        <item>G04</item>
-        <item>G05</item>
-        <item>L01</item>
-        <item>T01</item>
-        <item>T02</item>
-        <item>T03</item>
-        <item>T04</item>
-        <item>T05</item>
-        <item>TO6</item>
-        <item>T07</item>
+        <item>01 Labo Electriciteit</item>
+        <item>02 Labo GDM 2</item>
+        <item>03 Labo Netwerken</item>
+        <item>04 Labo Mechatronica</item>
+        <item>05 Labo elektrische Machines</item>
+        <item>06 Labo Aandrijftechnieken</item>
+        <item>07 Labo Elektronica</item>
+        <item>08/1 Auditorium 01.08 noord</item>
+        <item>08/2 Auditorium 01.08 centraal</item>
+        <item>08/3 Auditorium 01.08 zuid</item>
+        <item>09 Labo Klimatisatie</item>
+        <item>10 Practicum onderhoud</item>
+        <item>11 Labo Onderhoudsmetingen EM</item>
+        <item>12 Pompinstallatie EM</item>
+        <item>13 Labo Automatisatie 2</item>
+        <item>14 Labo Automatisatie 2</item>
+        <item>15 Labo Proces 1</item>
+        <item>16 Labo Energie 1</item>
+        <item>17 Labo KNX</item>
+        <item>18 Leslokaal - Atelier GDM 1</item>
+        <item>19 Lockerruimte</item>
+        <item>20 Leslokaal - Atelier GDM 2</item>
+        <item>21 Leslokaal - Labo GDM 1</item>
+        <item>22 Leslokaal - Atelier GDM 3</item>
+        <item>23 Berging GDM</item>
+        <item>50 Sas Toilet</item>
+        <item>51 Toilet Dames</item>
+        <item>52 Toilet Heren</item>
+        <item>60 Technische ruimte Zuid</item>
+        <item>61 Technische ruimte West</item>
+        <item>62 Technische ruimte west</item>
+        <item>63 Sas Klima lokaal</item>
+        <item>64 Sas Stooklokaal</item>
+        <item>65 Sas Stooklokaal</item>
+        <item>66 Stooklokaal</item>
+        <item>G01 Gang Oost</item>
+        <item>G02 Gang Zuid</item>
+        <item>G03 Gang West - voorkant aula</item>
+        <item>G04 Gang West - klimalokaal</item>
+        <item>G05 Gang Noord</item>
+        <item>L01 Sas lift</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zuid</item>
+        <item>T03 Traphal 03 Aula 01.08</item>
+        <item>T04 Traphal 04 Vluchttrap West</item>
+        <item>TO6 Traphal 06 Noord</item>
+        <item>T07 Traphal 07 Vluchttrap Oost</item>
     </string-array>
     <string-array name="lokaalVerdiep2">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52</item>
-        <item>60</item>
-        <item>G01</item>
-        <item>L01</item>
-        <item>T02</item>
-        <item>L03</item>
-        <item>T06</item>
+        <item>01 Auditorium</item>
+        <item>02 Sas Aula 02.03</item>
+        <item>03 Auditorium</item>
+        <item>04 Sas Aula 02.05</item>
+        <item>05 Auditorium</item>
+        <item>06 Berging ICT</item>
+        <item>07 Serverroom</item>
+        <item>08 Kantoor ICT Helpdesk</item>
+        <item>09 Kantoor studiebegeleiding</item>
+        <item>10 Open Leercentrum</item>
+        <item>11 Berging poets</item>
+        <item>50 Sas Toilet</item>
+        <item>51 Toilet Heren</item>
+        <item>52 Toilet Dames</item>
+        <item>60 Technische ruimte</item>
+        <item>G01 Gang</item>
+        <item>L01 Sas lift</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zui</item>
+        <item>T03 Traphal 03</item>
+        <item>T06 Traphal 06 daktuin</item>
     </string-array>
     <string-array name="lokaalVerdiep3">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>50</item>
-        <item>51</item>
-        <item>52A</item>
-        <item>52B</item>
-        <item>01</item>
-        <item>T02</item>
-        <item>T03</item>
+        <item>01 Labo Integrale veiligheid</item>
+        <item>02 Leslokaal</item>
+        <item>03 Leslokaal</item>
+        <item>04 Leslokaal</item>
+        <item>05 Leslokaal</item>
+        <item>06 Leslokaal</item>
+        <item>07 Leslokaal</item>
+        <item>08 Leslokaal</item>
+        <item>09 Leslokaal</item>
+        <item>10 Leslokaal</item>
+        <item>11 Leslokaal</item>
+        <item>12 Leslokaal</item>
+        <item>13 Leslokaal</item>
+        <item>14 Berging poets</item>
+        <item>50 Sas Toilet dames</item>
+        <item>51 Toilet Dames</item>
+        <item>52A Sas Toilet Heren</item>
+        <item>52B Toilet Heren</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zuid</item>
+        <item>T03 Traphal 03</item>
     </string-array>
     <string-array name="lokaalVerdiep4">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>50A</item>
-        <item>50B</item>
-        <item>50C</item>
-        <item>51A</item>
-        <item>51B</item>
-        <item>51C</item>
-        <item>52</item>
-        <item>60</item>
-        <item>61</item>
-        <item>G01</item>
-        <item>T01</item>
-        <item>T02</item>
+        <item>01 Kantoor Departementshoofd</item>
+        <item>02 Kantoor EM</item>
+        <item>03 Kantoor Diensthoofd A &amp; O</item>
+        <item>04 Vergaderzaal</item>
+        <item>05 Kantoor Beleidsmedewerkers</item>
+        <item>06 Kantoor ENE</item>
+        <item>07 Kantoor EA</item>
+        <item>08 Kantoor GDM</item>
+        <item>09 Kantoor TI</item>
+        <item>10 Kantoor IV</item>
+        <item>11 Kantoor VG</item>
+        <item>12 Kantoor Planners</item>
+        <item>13 Lectorenruimte</item>
+        <item>14 Vergaderzaal</item>
+        <item>17 Vestiaire</item>
+        <item>18 Vergaderzaal</item>
+        <item>19 Vergaderzaal</item>
+        <item>20 Lectorenruimte</item>
+        <item>21 Overlegruimte</item>
+        <item>22 Overlegruimte</item>
+        <item>23 Overlegruimte</item>
+        <item>24 Kopieerruimte</item>
+        <item>25 Overlegruimte</item>
+        <item>26 Berging refter</item>
+        <item>27 Refter personeel</item>
+        <item>28 Berging Poets</item>
+        <item>50A Sas Toilet Dames</item>
+        <item>50B Toilet Dames</item>
+        <item>50C Toilet Dames rolstoel</item>
+        <item>51A Toilet Heren urinoirs</item>
+        <item>51B Toilet Heren rolstoel</item>
+        <item>51C Toilet Heren</item>
+        <item>52 Sas Toilet Heren</item>
+        <item>60 Technische ruimte</item>
+        <item>61 Technische ruimte 04.19</item>
+        <item>G01 Gang</item>
+        <item>T01 Traphal 01 Oost</item>
+        <item>T02 Traphal 02 Zuid</item>
     </string-array>
 
     <string name="error_zwak_wachtwoord">Moet minimaal 6 tekens bevatten.</string>
