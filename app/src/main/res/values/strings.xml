@@ -5,7 +5,7 @@
     <string name="email">Email</string>
     <string name="wachtwoord">Wachtwoord</string>
     <string name="naam">Naam</string>
-    <string name="check_reparateur">Ik ben reparateur</string>
+    <string name="check_reparateur">reparateur/facultaire dienst</string>
     <string name="schade_melden">Schade melden</string>
     <string name="lokaal_plaats">Lokaal/Plaats:</string>
     <string name="categorie">Categorie</string>
@@ -315,7 +315,7 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="uitloggen">Uitloggen</string>
     <string name="archive">Archief</string>
-    <string name="aantal_meldingen">Aantal meldingen:</string>
+    <string name="aantal_meldingen">Openstaande meldingen:</string>
     <string name="totaal_gerepareerd">Totaal gerepareerd:</string>
     <string name="key_melding_total">meldingTotal</string>
     <string name="key_stats">stats</string>
