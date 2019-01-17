@@ -76,12 +76,6 @@ public class DetailActivity extends AbstractActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        setupInterface();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail, menu);
 
