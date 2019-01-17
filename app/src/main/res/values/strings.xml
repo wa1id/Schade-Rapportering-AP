@@ -5,7 +5,7 @@
     <string name="email">Email</string>
     <string name="wachtwoord">Wachtwoord</string>
     <string name="naam">Naam</string>
-    <string name="check_reparateur">Ik ben reparateur</string>
+    <string name="check_reparateur">Reparateur/facilitaire dienst</string>
     <string name="schade_melden">Schade melden</string>
     <string name="lokaal_plaats">Lokaal/Plaats:</string>
     <string name="categorie">Categorie</string>
@@ -341,4 +341,7 @@
     <string name="key_reparatie_uitvoerder">reparatieUitvoerder</string>
     <string name="key_naam_reparatie_uitvoerder">naamReparatieUitvoerder</string>
     <string name="key_extra_notities">extraNotities</string>
+    <string name="camera_permissie">Camera permissie</string>
+    <string name="cam_toestemming">De app heeft toestemming nodig om de camera te gebruiken.</string>
+    <string name="cam_toestemming_extra">De app heeft toestemming nodig om de camera te gebruiken. Ga naar je telefooninstellingen en wijzig de permissies voor deze app.</string>
 </resources>

@@ -131,10 +131,12 @@ public class NieuweMeldingActivity extends AbstractActivity {
                 // Should we show an explanation?
                 if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
                     //Show permission explanation dialog...
+                    showDialogAlert(NieuweMeldingActivity.this, getString(R.string.camera_permissie), getString(R.string.cam_toestemming));
                     Log.d("perm", "show permission explanation dialog");
                 } else {
                     //Never ask again selected, or device policy prohibits the app from having that permission.
                     //So, disable that feature, or fall back to another situation...
+                    showDialogAlert(NieuweMeldingActivity.this, getString(R.string.camera_permissie), getString(R.string.cam_toestemming_extra));
                     Log.d("perm", "Never ask again selected or...");
                 }
             }
