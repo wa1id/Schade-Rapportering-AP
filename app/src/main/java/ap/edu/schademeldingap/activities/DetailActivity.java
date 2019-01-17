@@ -107,6 +107,7 @@ public class DetailActivity extends AbstractActivity {
         final TextView textLokaal = findViewById(R.id.textLokaal);
         final TextView textCategorie = findViewById(R.id.textCategorie);
         final TextView textDatum = findViewById(R.id.textDatum);
+        final TextView textLokaalOmschrijving = findViewById(R.id.textLokaalOmschrijving);
 
         mc.getMelding(getIntent().getStringExtra("detail"), id, DetailActivity.this, new IMeldingCallback() {
             @Override
@@ -117,6 +118,7 @@ public class DetailActivity extends AbstractActivity {
                 textCategorie.append(" " + melding.getCategorie());
                 textDatum.append(" " + melding.getDatum());
                 textBeschrijving2.setText(melding.getBeschrijvingSchade());
+                textLokaalOmschrijving.setText(melding.getBeschrijvingLokaal().trim()); //use trim to delete spaces before word
 
                 if (melding.isGerepareerd()) {
                     textGerepareerd.setText(getString(R.string.gerepareerd_ja));
